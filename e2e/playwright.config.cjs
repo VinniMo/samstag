@@ -1,5 +1,8 @@
 const { defineConfig, devices } = require('@playwright/test');
 const path = require('path');
+const python = process.env.SAMSTAG_PYTHON || 'python3';
+const port = process.env.SAMSTAG_E2E_PORT || '8768';
+const output = process.env.SAMSTAG_E2E_OUTPUT || path.resolve(__dirname,'../.artifacts/playwright');
 module.exports = defineConfig({
   testDir: __dirname,
   testMatch: '**/*.spec.cjs',
@@ -7,12 +10,12 @@ module.exports = defineConfig({
   expect: { timeout: 7000 },
   workers: 2,
   retries: 0,
-  outputDir: '../validation/playwright-2026-10-19/artifacts',
-  reporter: [['list'], ['html', {outputFolder: '../validation/playwright-2026-10-19/report',open:'never'}], ['json',{outputFile:'../validation/playwright-2026-10-19/results.json'}]],
-  use: { baseURL:'http://127.0.0.1:8768', trace:'retain-on-failure', screenshot:'only-on-failure', locale:'fr-CH', timezoneId:'Europe/Zurich' },
+  outputDir: path.join(output,'artifacts'),
+  reporter: [['list'], ['html', {outputFolder:path.join(output,'report'),open:'never'}], ['json',{outputFile:path.join(output,'results.json')}]],
+  use: { baseURL:`http://127.0.0.1:${port}`, trace:'retain-on-failure', screenshot:'only-on-failure', locale:'fr-CH', timezoneId:'Europe/Zurich' },
   webServer: {
-    command: `${path.resolve(__dirname,'../.venv/bin/python')} ${path.resolve(__dirname,'server.py')}`,
-    url:'http://127.0.0.1:8768',reuseExistingServer:false,timeout:60000,
+    command: `"${python}" "${path.resolve(__dirname,'server.py')}"`,
+    url:`http://127.0.0.1:${port}`,reuseExistingServer:false,timeout:60000,
     stdout:'pipe',stderr:'pipe',
   },
   projects:[

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://samstagloz.ch/schemas/bars.schema.json",
+  "title": "Registre historique des bars Samstag",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "nom", "zone", "adresse", "canal", "preuve", "decision", "observation", "reste_a_faire", "controle", "actif", "id_inventaire"],
+    "properties": {
+      "id": {"type": "string", "pattern": "^B[0-9]{3}$"},
+      "nom": {"type": "string", "minLength": 1},
+      "zone": {"type": "string"},
+      "adresse": {"type": "string"},
+      "canal": {"anyOf": [{"const": ""}, {"type": "string", "format": "uri", "pattern": "^https?://"}]},
+      "preuve": {"type": "string", "format": "uri", "pattern": "^https?://"},
+      "decision": {"type": "string"},
+      "observation": {"type": "string"},
+      "reste_a_faire": {"type": "string"},
+      "controle": {"type": "string", "format": "date"},
+      "actif": {"type": "boolean"},
+      "id_inventaire": {"type": "string", "pattern": "^$|^[A-Z][A-Z0-9_]+$"}
+    }
+  }
+}

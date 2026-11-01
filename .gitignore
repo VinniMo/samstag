@@ -11,7 +11,6 @@ dist/
 .venv/
 .venv
 .venv-*/
-.venv/
 venv/
 env/
 ENV/
@@ -45,6 +44,8 @@ htmlcov/
 .tox/
 validation/
 reprise/
+.artifacts/
+.local/
 node_modules/
 playwright-report/
 test-results/
