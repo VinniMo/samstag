@@ -1,9 +1,8 @@
 # Samstag
 
-Samstag est l'agenda des sorties à Lausanne. Cette branche réconcilie le dépôt
-historique avec la version Flask réellement installée sur le VPS Infomaniak.
-La marque publique est **Samstag** ; les noms `Samstag` conservés dans certains
-services, chemins et variables restent provisoirement des identifiants techniques.
+Samstag est l'agenda des sorties à Lausanne. Le dépôt, l'application Flask et
+les identifiants d'exploitation du VPS Infomaniak utilisent tous le nom
+**Samstag**.
 
 État de référence au 1er novembre 2026 : application active sur Infomaniak,
 interface Samstag vérifiée et accès de travail par tunnel sur
