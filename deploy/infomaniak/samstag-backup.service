@@ -1,0 +1,15 @@
+[Unit]
+Description=Sauvegarde locale Samstag
+ConditionPathExists=/var/lib/samstag/samstag.sqlite3
+
+[Service]
+Type=oneshot
+User=samstag
+Group=samstag
+ExecStart=/opt/samstag/venv/bin/python /opt/samstag/app/deploy/infomaniak/backup.py
+UMask=0027
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/samstag

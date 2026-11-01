@@ -11,11 +11,11 @@ from run_service import runtime_settings, supervise
 
 class ServiceTest(unittest.TestCase):
     def test_runtime_requires_explicit_storage_and_overrides_demo_and_visit_collection(self):
-        for env in [{},{'LAUSANNE_DB':'relative.sqlite3'}]:
+        for env in [{},{'SAMSTAG_DB':'relative.sqlite3'}]:
             with self.assertRaises(ValueError):
                 runtime_settings(env)
         with tempfile.TemporaryDirectory() as tmp:
-            env,commands,grace=runtime_settings({'LAUSANNE_DB':tmp+'/shared.sqlite3','DEMO_ENABLED':'1','FLASK_DEBUG':'1'})
+            env,commands,grace=runtime_settings({'SAMSTAG_DB':tmp+'/shared.sqlite3','DEMO_ENABLED':'1','FLASK_DEBUG':'1'})
             self.assertEqual([env[k] for k in ['DEMO_ENABLED','FLASK_DEBUG','COLLECTION_ON_VISIT']],['0','0','0'])
             self.assertEqual(set(commands),{'web','collection'})
             self.assertIn('--interval',commands['collection'])
@@ -62,4 +62,4 @@ class ServiceTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             for field,value in [('PORT','0'),('SCRAPE_INTERVAL','0'),('WEB_WORKERS','0'),('SERVICE_STOP_GRACE','0')]:
                 with self.assertRaises(ValueError):
-                    runtime_settings({'LAUSANNE_DB':tmp+'/db.sqlite3',field:value})
+                    runtime_settings({'SAMSTAG_DB':tmp+'/db.sqlite3',field:value})

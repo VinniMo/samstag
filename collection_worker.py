@@ -1,6 +1,6 @@
 """Run scheduled collections independently of web traffic.
 
-Use the same LAUSANNE_DB as Flask. This process does not deploy anything.
+Use the same SAMSTAG_DB as Flask. This process does not deploy anything.
 SIGTERM/SIGINT allow the current bounded collection to finish, then stop.
 """
 import argparse

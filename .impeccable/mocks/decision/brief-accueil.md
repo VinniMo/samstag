@@ -19,7 +19,7 @@ Tuiles sur deux colonnes. Avec photo : heure en étiquette jaune. Sans photo : t
 
 ## 5. Identité
 - Police Archivo partout, tailles de lecture normales.
-- Barre supérieure noire, « Cultura » en rose.
+- Barre supérieure noire, « Samstag » en rose.
 - Rubriques en petites étiquettes inclinées, couleurs lisibles : rose foncé sur rose pâle, jaune sur noir, noir sur jaune.
 - « GRATUIT » en étiquette jaune, fond clair.
 - Refusé : bandeaux pleine largeur, très grands chiffres, police Anton, texte noir sur rose fluo, version sombre par défaut.
@@ -33,6 +33,6 @@ Tuiles sur deux colonnes. Avec photo : heure en étiquette jaune. Sans photo : t
 Rien ce soir (proposer Demain / Week-end) ; fiches incomplètes (« Prix n. c. », jamais de valeur inventée) ; chargement ; panne avec « Réessayer » ; recherche sans résultat avec « Effacer » ; tout masqué par Mes goûts ; événements passés retirés ; accès complet au clavier.
 
 ## 8. Points ouverts (non bloquants)
-- Nom : Lausanne Cultura ou LSN.live.
+- Nom : Lausanne Samstag ou LSN.live.
 - Périmètre : Lausanne seulement ou région (Vevey…).
 - Étiquette « petit lieu » : affichée seulement quand les données la fournissent.

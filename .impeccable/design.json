@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-10-12T20:00:00Z",
-  "title": "Design System: Lausanne Cultura",
+  "title": "Design System: Lausanne Samstag",
   "extensions": {
     "colorMeta": {
       "ground": {
@@ -96,7 +96,7 @@
       },
       "fluo": {
         "role": "primary",
-        "displayName": "Rose Cultura",
+        "displayName": "Rose Samstag",
         "canonical": "oklch(66.2% 0.244 2)",
         "tonalRamp": [
           "#350006",
@@ -240,7 +240,7 @@
       "kind": "nav",
       "refersTo": "bar",
       "description": "Barre noire pleine largeur : logo à gauche, loupe et « Mes goûts » à droite.",
-      "html": "<header class=\"ds-bar\"><a class=\"ds-logo\" href=\"#\">Lausanne <span>Cultura</span></a><div class=\"ds-bar-actions\"><button class=\"ds-icon-btn\" aria-label=\"Rechercher\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.6\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"m21 21-4.3-4.3\"/></svg></button><button class=\"ds-pill-btn\">Mes goûts</button></div></header>",
+      "html": "<header class=\"ds-bar\"><a class=\"ds-logo\" href=\"#\">Lausanne <span>Samstag</span></a><div class=\"ds-bar-actions\"><button class=\"ds-icon-btn\" aria-label=\"Rechercher\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.6\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"m21 21-4.3-4.3\"/></svg></button><button class=\"ds-pill-btn\">Mes goûts</button></div></header>",
       "css": ".ds-bar{font-family: var(--font, 'Archivo', system-ui, sans-serif);background:#151515;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px}.ds-logo{font-weight:800;font-size:20px;letter-spacing:-0.01em;color:#fff;text-decoration:none}.ds-logo span{color:#ff2e88}.ds-bar-actions{display:flex;gap:8px}.ds-icon-btn,.ds-pill-btn{font:inherit;color:#fff;background:none;cursor:pointer;height:40px;border:1.5px solid #fff}.ds-icon-btn{width:40px;border-radius:50%;display:grid;place-items:center}.ds-pill-btn{font-size:14px;font-weight:700;border-radius:999px;padding:0 12px}.ds-icon-btn:hover,.ds-pill-btn:hover{background:#fff;color:#151515}.ds-bar :focus-visible{outline:2.5px solid #ffe500;outline-offset:2px}"
     },
     {
@@ -310,7 +310,7 @@
   ],
   "narrative": {
     "northStar": "Le programme imprimé du soir",
-    "overview": "Lausanne Cultura se lit comme une feuille de programme qu'on aurait ramassée à l'entrée d'une salle : fond papier clair, encre noire, une liste horaire serrée, et quelques étiquettes de couleur collées de travers pour dire de quoi on parle. Rien n'est vitrine. La page répond à « que faire ce soir ? » par des lignes heure | titre | lieu, groupées par jour puis par rubrique, avec une densité de lecture et non d'affiche.\n\nLa couleur ne remplit jamais une surface de contenu : elle tient dans des étiquettes, un soulignement d'onglet, un mot du logo. Le noir porte la structure (barre du haut, filets de 1,5px, pastilles à bord noir), le jaune signale l'état actif ou la gratuité, le rose identifie la marque. Une seule famille, Archivo, à des tailles de lecture ; la hiérarchie vient de la graisse (400 à 800), pas de la taille.\n\nRejets confirmés par l'utilisateur : bandeaux de couleur pleine largeur dans le contenu, très grands chiffres ou titres, la police Anton, texte noir sur rose fluo, mode sombre par défaut.",
+    "overview": "Lausanne Samstag se lit comme une feuille de programme qu'on aurait ramassée à l'entrée d'une salle : fond papier clair, encre noire, une liste horaire serrée, et quelques étiquettes de couleur collées de travers pour dire de quoi on parle. Rien n'est vitrine. La page répond à « que faire ce soir ? » par des lignes heure | titre | lieu, groupées par jour puis par rubrique, avec une densité de lecture et non d'affiche.\n\nLa couleur ne remplit jamais une surface de contenu : elle tient dans des étiquettes, un soulignement d'onglet, un mot du logo. Le noir porte la structure (barre du haut, filets de 1,5px, pastilles à bord noir), le jaune signale l'état actif ou la gratuité, le rose identifie la marque. Une seule famille, Archivo, à des tailles de lecture ; la hiérarchie vient de la graisse (400 à 800), pas de la taille.\n\nRejets confirmés par l'utilisateur : bandeaux de couleur pleine largeur dans le contenu, très grands chiffres ou titres, la police Anton, texte noir sur rose fluo, mode sombre par défaut.",
     "keyCharacteristics": [
       "Fond clair #f6f4ef par défaut, encre #151515, barre noire en tête.",
       "Archivo seule, de 12px à 24px, graisses 400 à 800.",
@@ -361,7 +361,7 @@
       }
     ],
     "dos": [
-      "Do garder le fond clair #f6f4ef par défaut et la barre noire avec « Cultura » en #ff2e88.",
+      "Do garder le fond clair #f6f4ef par défaut et la barre noire avec « Samstag » en #ff2e88.",
       "Do écrire tout en Archivo, entre 12px et 24px, et hiérarchiser par la graisse (400 à 800).",
       "Do signaler chaque rubrique par une étiquette inclinée de -1.5° dans l'un des trois styles : #a3004f sur #ffd9ea, #ffe500 sur #151515, #151515 sur #ffe500.",
       "Do marquer la gratuité par l'étiquette jaune « GRATUIT », et l'absence de donnée par « n. c. » en gris.",

@@ -1,4 +1,4 @@
-# Cultura — qualification et préparation de mise en service
+# Samstag — qualification et préparation de mise en service
 
 État du 17 octobre 2026, après le premier bilan de corrections locales.
 
@@ -54,7 +54,7 @@ La proposition détaillée est dans [deploy/README.md](../deploy/README.md) : co
 
 Le code et les réglages proposés sont préparés. Le fichier `render.yaml` historique n’a pas été modifié ; aucun abonnement, push GitHub ou déploiement n’a été effectué.
 
-L’accès Render a été relié pendant la session et vérifié par des lectures réussies. Le service réel `lausanne-cultura` est sur la formule gratuite, région Oregon, une instance, relié au dépôt `VinniMo/lausanne-cultura`, branche `main`, avec déploiement automatique sur commit. La version en ligne est encore le commit `759326d0fc36dfb6e7b2208c3fff07182a785ba1` du 12 octobre. Les corrections locales ne sont pas déployées. Ne pas pousser sur `main` avant accord, puisque cela déclencherait une mise en ligne.
+L’accès Render a été relié pendant la session et vérifié par des lectures réussies. Le service réel `samstag` est sur la formule gratuite, région Oregon, une instance, relié au dépôt `VinniMo/samstag`, branche `main`, avec déploiement automatique sur commit. La version en ligne est encore le commit `759326d0fc36dfb6e7b2208c3fff07182a785ba1` du 12 octobre. Les corrections locales ne sont pas déployées. Ne pas pousser sur `main` avant accord, puisque cela déclencherait une mise en ligne.
 
 Le relevé est dans `render-inspection.json`. Les secrets et le contenu de la base distante n’ont pas été lus. L’activation payante, le stockage durable et la mise en ligne restent soumis à l’accord explicite de l’utilisateur ; aucune action Render de modification n’a été appelée.
 

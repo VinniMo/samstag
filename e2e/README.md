@@ -1,4 +1,4 @@
-# Parcours Cultura avec Playwright
+# Parcours Samstag avec Playwright
 
 La suite lance la vraie application Flask, ses modèles et ses fichiers statiques sur le port local 8768. La base est jetable et distincte du VPS. Les événements proviennent de la réponse publique enregistrée dans `e2e/fixtures/public-snapshot.json` (copie des données publiques vérifiées le 19 octobre). L’horloge produit est figée à la date de cet instantané pour que les tests ne deviennent pas caducs au fil des jours. Les sessions et les retours utilisent leurs véritables routes ; aucune collecte distante n’est déclenchée.
 

@@ -18,7 +18,7 @@ def sample():
                       collection_attention=states.get('stale',0)+states.get('error',0)+states.get('never_collected',0))
     except Exception as exc:
         result.update(web_ok=False,error=type(exc).__name__)
-    backups=sorted(Path('/var/lib/cultura/backups').glob('cultura-*.sqlite3'), key=lambda p: p.stat().st_mtime)
+    backups=sorted(Path('/var/lib/samstag/backups').glob('samstag-*.sqlite3'), key=lambda p: p.stat().st_mtime)
     result['latest_backup']=backups[-1].name if backups else None
     return result
 

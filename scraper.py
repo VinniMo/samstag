@@ -1,4 +1,4 @@
-"""Scraper for Lausanne cultural sources.
+"""Scraper for Lausanne samstagl sources.
 
 Strategy, for each configured source URL:
     1. iCalendar feed (BEGIN:VCALENDAR): read its VEVENT entries.

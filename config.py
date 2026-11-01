@@ -18,7 +18,7 @@ class Config:
     COLLECTION_HORIZON_DAYS: int = max(14, min(365, int(os.environ.get("COLLECTION_HORIZON_DAYS", "90"))))
 
     DB_PATH: str = os.environ.get(
-        "LAUSANNE_DB",
+        "SAMSTAG_DB",
         os.path.join(os.path.dirname(os.path.abspath(__file__)), "events.db"),
     )
 
@@ -26,7 +26,7 @@ class Config:
     SCRAPE_TIMEOUT_SECONDS: int = int(os.environ.get("SCRAPE_TIMEOUT", "12"))
     SCRAPE_USER_AGENT: str = os.environ.get(
         "SCRAPE_USER_AGENT",
-        "Mozilla/5.0 (compatible; LausanneCultura/1.0; +https://github.com/VinniMo/lausanne-cultura)",
+        "Mozilla/5.0 (compatible; Samstag/1.0; +https://github.com/VinniMo/samstag)",
     )
 
     # ----- Tier 1: aggregators (broad coverage, few sources) -----

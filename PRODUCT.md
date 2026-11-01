@@ -94,7 +94,7 @@ conservé ; le texte distingue les portes du début artistique. Render reste int
 
 
 ## 22 octobre 2026 — nom adopté et consignes rédactionnelles
-- Marque publique : **samstag**, en remplacement de Lausanne Cultura. Le nom des services et les clés de préférences existantes restent techniques et inchangés.
+- Marque publique : **samstag**, en remplacement de Lausanne Samstag. Le nom des services et les clés de préférences existantes restent techniques et inchangés.
 - Logo gras approuvé, dernier a en miroir bleu outremer. Le lettrage léger n'est pas retenu.
 - L'agenda conserve toutes ses périodes ; « Les sorties à Lausanne » précise son rôle.
 - Préférence utilisateur : textes pratiques et courts ; supprimer les précisions inutiles sur l'enregistrement local dans la personnalisation.

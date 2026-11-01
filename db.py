@@ -1,4 +1,4 @@
-"""SQLite persistence layer for Lausanne Cultura events."""
+"""SQLite persistence layer for Lausanne Samstag events."""
 from __future__ import annotations
 
 import json

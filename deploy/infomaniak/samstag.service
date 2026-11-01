@@ -1,15 +1,15 @@
 [Unit]
-Description=Cultura - agenda lausannois et collecte
+Description=Samstag - agenda lausannois et collecte
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=simple
-User=cultura
-Group=cultura
-WorkingDirectory=/opt/cultura/app
-EnvironmentFile=/etc/cultura/cultura.env
-ExecStart=/opt/cultura/venv/bin/python /opt/cultura/app/run_service.py
+User=samstag
+Group=samstag
+WorkingDirectory=/opt/samstag/app
+EnvironmentFile=/etc/samstag/samstag.env
+ExecStart=/opt/samstag/venv/bin/python /opt/samstag/app/run_service.py
 Restart=on-failure
 RestartSec=15
 TimeoutStopSec=150
@@ -19,7 +19,7 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectHome=true
 ProtectSystem=strict
-ReadWritePaths=/var/lib/cultura
+ReadWritePaths=/var/lib/samstag
 RestrictSUIDSGID=true
 MemoryMax=512M
 CPUQuota=50%

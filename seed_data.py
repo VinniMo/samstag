@@ -1,4 +1,4 @@
-"""Demonstration dataset for Lausanne Cultura.
+"""Demonstration dataset for Lausanne Samstag.
 
 Every event here is fictional. It is used only when live collection returns
 nothing (offline previews, sandboxes, CI) and the interface labels it as

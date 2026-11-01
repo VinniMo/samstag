@@ -1,7 +1,7 @@
 """Supervise the web process and collector on one persistent local database.
 
 Prepared entry point only: running this file does not change a hosting account.
-An explicit absolute LAUSANNE_DB is required to avoid an accidental temporary DB.
+An explicit absolute SAMSTAG_DB is required to avoid an accidental temporary DB.
 """
 import argparse
 import json
@@ -20,11 +20,11 @@ ROOT = Path(__file__).resolve().parent
 
 def runtime_settings(environ=None):
     env = dict(os.environ if environ is None else environ)
-    database = env.get('LAUSANNE_DB', '')
+    database = env.get('SAMSTAG_DB', '')
     if not database or not Path(database).is_absolute():
-        raise ValueError('LAUSANNE_DB doit désigner un fichier par un chemin absolu sur le stockage persistant')
+        raise ValueError('SAMSTAG_DB doit désigner un fichier par un chemin absolu sur le stockage persistant')
     if Path(database).is_dir():
-        raise ValueError('LAUSANNE_DB doit désigner un fichier, pas un dossier')
+        raise ValueError('SAMSTAG_DB doit désigner un fichier, pas un dossier')
     port = int(env.get('PORT', '5000'))
     host = env.get('HOST', '0.0.0.0')
     workers = int(env.get('WEB_WORKERS', '2'))
@@ -32,7 +32,7 @@ def runtime_settings(environ=None):
     grace = int(env.get('SERVICE_STOP_GRACE', '120'))
     if host not in {'0.0.0.0','127.0.0.1'} or not 1 <= port <= 65535 or not 1 <= workers <= 4 or interval < 60 or not 1 <= grace <= 600:
         raise ValueError('Port, nombre de processus, intervalle ou délai d’arrêt invalide')
-    env.update(LAUSANNE_DB=str(Path(database).resolve()), FLASK_DEBUG='0',
+    env.update(SAMSTAG_DB=str(Path(database).resolve()), FLASK_DEBUG='0',
                DEMO_ENABLED='0', COLLECTION_ON_VISIT='0', PYTHONUNBUFFERED='1')
     commands = {
         'web': [sys.executable, '-m', 'gunicorn', 'app:app', '--bind', f'{host}:{port}',
@@ -99,13 +99,13 @@ def main():
         parser.error(str(exc))
     if args.check_config:
         # No credentials or complete environment dump in the output.
-        print(json.dumps({'database':env['LAUSANNE_DB'], 'collection_interval_seconds':int(env.get('SCRAPE_INTERVAL', '3600')),
+        print(json.dumps({'database':env['SAMSTAG_DB'], 'collection_interval_seconds':int(env.get('SCRAPE_INTERVAL', '3600')),
                           'collection_on_visit':False, 'demo':False, 'debug':False,
                           'web_workers':int(env.get('WEB_WORKERS', '2')), 'stop_grace_seconds':grace}))
         return 0
     os.environ.update(env)
     import db
-    Path(env['LAUSANNE_DB']).parent.mkdir(parents=True, exist_ok=True)
+    Path(env['SAMSTAG_DB']).parent.mkdir(parents=True, exist_ok=True)
     db.init_db()
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(name)s: %(message)s')
     stop = threading.Event()

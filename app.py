@@ -95,14 +95,14 @@ def _check_auth(username: str, password: str) -> bool:
 def _auth_required_response() -> Response:
     return Response(
         "Authentification requise.\n", 401,
-        {"WWW-Authenticate": 'Basic realm="Lausanne Cultura"'},
+        {"WWW-Authenticate": 'Basic realm="Lausanne Samstag"'},
     )
 
 
 def create_app() -> Flask:
     """Application factory."""
     app = Flask(__name__)
-    app.secret_key = os.environ.get('CULTURA_SESSION_SECRET') or secrets.token_hex(32)
+    app.secret_key = os.environ.get('SAMSTAG_SESSION_SECRET') or secrets.token_hex(32)
     app.config.update(MAX_CONTENT_LENGTH=16_384, SESSION_COOKIE_HTTPONLY=True,
                       SESSION_COOKIE_SAMESITE='Lax',
                       SESSION_COOKIE_SECURE=os.environ.get('COOKIE_SECURE') == '1')

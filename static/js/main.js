@@ -1,4 +1,4 @@
-/* Lausanne Cultura : programme du moment.
+/* Lausanne Samstag : programme du moment.
    Données : /api/events (déjà trié et groupé par moment côté serveur).
    Préférences (Mes goûts, vue, filtres) : localStorage, sans compte. */
 (() => {

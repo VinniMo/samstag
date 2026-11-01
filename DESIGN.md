@@ -149,13 +149,13 @@ components:
     padding: "8px 8px 8px 16px"
 ---
 
-# Design System: Lausanne Cultura
+# Design System: Lausanne Samstag
 
 ## Overview
 
 **Creative North Star: "Le programme imprimé du soir"**
 
-Lausanne Cultura se lit comme une feuille de programme qu'on aurait ramassée à l'entrée d'une salle : fond papier clair, encre noire, une liste horaire serrée, et quelques étiquettes de couleur collées de travers pour dire de quoi on parle. Rien n'est vitrine. La page répond à « que faire ce soir ? » par des lignes heure | titre | lieu, groupées par jour puis par rubrique, avec une densité de lecture et non d'affiche.
+Lausanne Samstag se lit comme une feuille de programme qu'on aurait ramassée à l'entrée d'une salle : fond papier clair, encre noire, une liste horaire serrée, et quelques étiquettes de couleur collées de travers pour dire de quoi on parle. Rien n'est vitrine. La page répond à « que faire ce soir ? » par des lignes heure | titre | lieu, groupées par jour puis par rubrique, avec une densité de lecture et non d'affiche.
 
 La couleur ne remplit jamais une surface de contenu : elle tient dans des étiquettes, un soulignement d'onglet, un mot du logo. Le noir porte la structure (barre du haut, filets de 1,5px, pastilles à bord noir), le jaune signale l'état actif ou la gratuité, le rose identifie la marque. Une seule famille, Archivo, à des tailles de lecture ; la hiérarchie vient de la graisse (400 à 800), pas de la taille.
 
@@ -173,7 +173,7 @@ Rejets confirmés par l'utilisateur : bandeaux de couleur pleine largeur dans le
 Une palette papier-encre, réchauffée d'un gris sable, relevée par deux couleurs vives utilisées en petites surfaces seulement.
 
 ### Primary
-- **Rose Cultura** (fluo): le mot « Cultura » dans la barre noire, le soulignement de 4px de l'onglet actif, le curseur du champ de recherche, l'anneau de focus du sélecteur Liste/Affiches. Toujours sur noir ou en trait ; jamais en fond sous du texte.
+- **Rose Samstag** (fluo): le mot « Samstag » dans la barre noire, le soulignement de 4px de l'onglet actif, le curseur du champ de recherche, l'anneau de focus du sélecteur Liste/Affiches. Toujours sur noir ou en trait ; jamais en fond sous du texte.
 
 ### Secondary
 - **Jaune Affiche** (yellow): état actif des pastilles de filtre, étiquette « GRATUIT », survol des boutons secondaires, sélection de texte, heure posée sur l'image d'une affiche, anneau de focus dans la barre noire. Le jaune dit « actif » ou « gratuit », rien d'autre.
@@ -276,7 +276,7 @@ Des pilules franches à bord d'encre, lisibles au pouce.
 - **Focus:** anneau d'encre de 2.5px décalé de 1px.
 
 ### Navigation
-- **Barre:** pleine largeur, encre ; « Lausanne » blanc et « Cultura » rose, 800 à 20px ; à droite un bouton loupe circulaire de 40px et une pilule « Mes goûts », tous deux à bord blanc 1.5px, inversés en blanc au survol et à l'état ouvert.
+- **Barre:** pleine largeur, encre ; « Lausanne » blanc et « Samstag » rose, 800 à 20px ; à droite un bouton loupe circulaire de 40px et une pilule « Mes goûts », tous deux à bord blanc 1.5px, inversés en blanc au survol et à l'état ouvert.
 - **Onglets:** collants en haut, sur fond sable avec un trait d'encre dessous ; 700 à 15px, gris au repos, encre et soulignement rose de 4px quand sélectionnés ; compte en 500 à 12px. Défilement horizontal sans barre visible.
 
 ### Étiquette de rubrique (signature)
@@ -294,7 +294,7 @@ Pilule encre arrondie à 10px, texte blanc 600 à 14px, action en jaune soulign�
 ## Do's and Don'ts
 
 ### Do:
-- **Do** garder le fond clair #f6f4ef par défaut et la barre noire avec « Cultura » en #ff2e88.
+- **Do** garder le fond clair #f6f4ef par défaut et la barre noire avec « Samstag » en #ff2e88.
 - **Do** écrire tout en Archivo, entre 12px et 24px, et hiérarchiser par la graisse (400 à 800).
 - **Do** signaler chaque rubrique par une étiquette inclinée de -1.5° dans l'un des trois styles : #a3004f sur #ffd9ea, #ffe500 sur #151515, #151515 sur #ffe500.
 - **Do** marquer la gratuité par l'étiquette jaune « GRATUIT », et l'absence de donnée par « n. c. » en gris.
@@ -315,7 +315,7 @@ Pilule encre arrondie à 10px, texte blanc 600 à 14px, action en jaune soulign�
 ## 18 octobre 2026 — couleurs fixes et fin du survol rose
 - Couleurs par nom de rubrique, indépendantes de leur ordre : Concerts magenta #a3004f, Soirées & clubs noir/jaune, Scène jaune/noir, Cinéma bleu #244bc0, Expos vert #176449, Autres orange #f5a54b. Identité commune aux étiquettes et choix Mes goûts sélectionnés. Décision utilisateur : conserver l’esprit programme/affiche imprimé, couleurs franches.
 - Survol rose supprimé : sur pointeur, fond papier neutre, titre souligné et flèche noire. Le survol de fond est désactivé pour les appareils sans survol ; focus clavier conservé. Compteurs de catégories toujours supprimés, liens directs préservés.
-- Deux fichiers statiques appliqués sur VPS interne ; sauvegarde précédente /opt/cultura/ui-backup-20261018-couleurs/. Syntaxe JS contrôlée ; navigateur : Concerts magenta et Cinéma bleu confirmés, trois liens directs, aucun compteur de rubrique ni débordement dans la vue courante. Aucun changement de base ou de publication.
+- Deux fichiers statiques appliqués sur VPS interne ; sauvegarde précédente /opt/samstag/ui-backup-20261018-couleurs/. Syntaxe JS contrôlée ; navigateur : Concerts magenta et Cinéma bleu confirmés, trois liens directs, aucun compteur de rubrique ni débordement dans la vue courante. Aucun changement de base ou de publication.
 
 
 ## 21 octobre 2026 — fiche événement compacte validée
@@ -340,4 +340,4 @@ Textes de personnalisation courts et orientés action ; éviter les précisions 
 ## 22 octobre 2026 — accueil allégé
 - Accord utilisateur sur l’allègement : les six choix de rubriques et le grand cadre sont remplacés par une invitation compacte « Vos sorties, selon vos goûts », Personnaliser et Pas maintenant. Personnaliser ouvre Mes goûts ; aucun changement aux préférences existantes.
 - Contrôles locaux 320/390/1226 px réussis : hauteur 83 px mobile / 61 px ordinateur, sans débordement ni erreur JavaScript ; choix, enregistrement, refus et persistance après rechargement vérifiés.
-- Appliqué sur VPS après sauvegarde `/opt/cultura/samstag-backup-20261022T100557Z`, seul service Cultura redémarré ; HTTP 200, santé ok, deux services actifs, empreintes statiques conformes. Preuves `validation/accueil-compact-2026-10-22/`. Aucun changement moteur, DNS ou publication publique.
+- Appliqué sur VPS après sauvegarde `/opt/samstag/samstag-backup-20261022T100557Z`, seul service Samstag redémarré ; HTTP 200, santé ok, deux services actifs, empreintes statiques conformes. Preuves `validation/accueil-compact-2026-10-22/`. Aucun changement moteur, DNS ou publication publique.

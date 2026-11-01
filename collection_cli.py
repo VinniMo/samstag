@@ -1,4 +1,4 @@
-"""Local collection / review, using LAUSANNE_DB (no Render integration)."""
+"""Local collection / review, using SAMSTAG_DB (no Render integration)."""
 import argparse
 import json
 

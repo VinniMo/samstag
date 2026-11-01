@@ -1,4 +1,4 @@
-# Cultura — bilan du 17 octobre 2026
+# Samstag — bilan du 17 octobre 2026
 
 **Bilan de la première phase.** Pour l’état courant (383 événements, qualification de La Grange/Vidy/Château et préparation du lancement commun), lire [QUALIFICATION_ET_MISE_EN_SERVICE.md](QUALIFICATION_ET_MISE_EN_SERVICE.md).
 

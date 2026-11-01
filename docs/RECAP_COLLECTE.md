@@ -1,4 +1,4 @@
-# Lausanne Cultura — récapitulatif du moteur et des collecteurs
+# Lausanne Samstag — récapitulatif du moteur et des collecteurs
 
 Version locale du 16 octobre 2026. **Aucun changement sur Render ni sur GitHub.**
 
@@ -140,7 +140,7 @@ technique, mais un indicateur visuel « complet » reste à ajouter si souhaité
 ```bash
 python -m venv .venv
 .venv/bin/pip install -r requirements.txt
-export LAUSANNE_DB="$PWD/preview.db"
+export SAMSTAG_DB="$PWD/preview.db"
 .venv/bin/python collection_cli.py collect
 .venv/bin/python app.py
 ```

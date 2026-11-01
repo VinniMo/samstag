@@ -1,0 +1,18 @@
+[Unit]
+Description=Samstag - observation bornee de la beta sur 24 heures
+After=samstag.service
+
+[Service]
+Type=simple
+User=samstag
+Group=samstag
+WorkingDirectory=/opt/samstag/app
+ExecStart=/opt/samstag/venv/bin/python /opt/samstag/app/monitor_beta.py --duration 86400 --interval 900 --output /var/lib/samstag/beta-observation-20261019.jsonl
+Restart=no
+MemoryMax=64M
+CPUQuota=5%
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/samstag

@@ -3,7 +3,7 @@
 Lire `docs/PASSATION_PROJET.md` avant toute modification. Il décrit le point d’arrêt et distingue le code validé des travaux incomplets.
 
 - Ne jamais modifier ni déployer Render en production sans autorisation explicite de l’utilisateur.
-- La marque publique est **Samstag**. Les noms `Cultura` encore présents dans le
+- La marque publique est **Samstag**. Les noms `Samstag` encore présents dans le
   service, les chemins et les variables sont des identifiants techniques
   historiques à migrer séparément.
 - La production de référence est l'application Flask sur le VPS Infomaniak.

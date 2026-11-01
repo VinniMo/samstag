@@ -1,4 +1,4 @@
-/* Lausanne Cultura : programme du moment.
+/* Lausanne Samstag : programme du moment.
    Fond clair, encre noire, barre noire, rose et jaune en étiquettes. */
 
 @font-face {
@@ -473,7 +473,7 @@ button.row:focus-visible .t { text-decoration: underline; }
     .row .v .free { display: inline-block; }
 }
 
-/* Retour testeur, dans la continuité des panneaux Cultura. */
+/* Retour testeur, dans la continuité des panneaux Samstag. */
 .feedback-label { display: block; font-size: 14px; font-weight: 600; margin: 20px 0 8px; }
 #feedback-form select, #feedback-form textarea { display: block; width: 100%; min-height: 44px; font: inherit; font-size: 16px; padding: 10px 12px; border: 1.5px solid var(--ink); border-radius: 8px; color: var(--ink); background: var(--paper); caret-color: var(--fluo); }
 #feedback-form textarea { resize: vertical; }

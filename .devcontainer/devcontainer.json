@@ -1,5 +1,5 @@
 {
-  "name": "Lausanne Cultura",
+  "name": "Lausanne Samstag",
   "image": "mcr.microsoft.com/devcontainers/python:3.11",
   "postCreateCommand": "pip install --upgrade pip && pip install -r requirements.txt",
   "postAttachCommand": {
@@ -8,7 +8,7 @@
   "forwardPorts": [5000],
   "portsAttributes": {
     "5000": {
-      "label": "Lausanne Cultura",
+      "label": "Lausanne Samstag",
       "onAutoForward": "openPreview",
       "visibility": "public"
     }

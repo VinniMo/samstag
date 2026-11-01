@@ -4,9 +4,9 @@ Préparée le 17 octobre 2026, puis explicitement refusée par l’utilisateur p
 
 ## Service réellement inspecté en lecture seule
 
-- Service : `lausanne-cultura`, [tableau de bord Render](https://dashboard.render.com/web/srv-db6lb6rl550s73bf6jcg).
+- Service : `samstag`, [tableau de bord Render](https://dashboard.render.com/web/srv-db6lb6rl550s73bf6jcg).
 - Formule actuelle : **free**, une instance, région Oregon.
-- Dépôt : `https://github.com/VinniMo/lausanne-cultura`, branche `main`.
+- Dépôt : `https://github.com/VinniMo/samstag`, branche `main`.
 - Déploiement automatique activé sur les commits de cette branche. **Ne pas pousser la nouvelle version sur `main` avant accord de mise en ligne.**
 - Dernière version en ligne : `759326d0fc36dfb6e7b2208c3fff07182a785ba1`, déploiement du 12 octobre 2026. Les corrections locales v3 ne sont pas sur cette version.
 - Commande actuelle : `gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 60` ; commande proposée après accord : `python run_service.py`.
@@ -42,7 +42,7 @@ Hors taxes, conversion monétaire et dépassements éventuels. Aucun achat ni ab
 5. Configurer :
 
 ```text
-LAUSANNE_DB=/var/data/cultura.sqlite3
+SAMSTAG_DB=/var/data/samstag.sqlite3
 HOST=0.0.0.0
 WEB_WORKERS=1
 SCRAPE_INTERVAL=3600

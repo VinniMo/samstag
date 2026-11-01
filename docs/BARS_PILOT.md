@@ -4,7 +4,7 @@
 > décrits dans `RECAP_COLLECTE.md` ; les restrictions à sept bars ci-dessous ne
 > sont plus celles de la version courante.
 
-Ce changement porte sur le moteur Python de **VinniMo/lausanne-cultura**,
+Ce changement porte sur le moteur Python de **VinniMo/samstag**,
 application Flask destinée à Render. Le dépôt `lausanne-events`, qui utilise
 Astro et Vercel, est une autre application et n'est pas modifié.
 
@@ -93,7 +93,7 @@ Depuis une copie du dépôt, avec une base de test dédiée :
 ```bash
 python -m venv .venv
 .venv/bin/pip install -r requirements.txt
-export LAUSANNE_DB="$PWD/pilot-bars.db"
+export SAMSTAG_DB="$PWD/pilot-bars.db"
 .venv/bin/python collection_cli.py collect
 .venv/bin/python collection_cli.py list
 # Après examen de la preuve, seulement pour un candidat complet :
@@ -104,7 +104,7 @@ export LAUSANNE_DB="$PWD/pilot-bars.db"
 `/api/sources` sépare entrées extraites, candidats, entrées à vérifier, exclusions
 et événements affichables. `/api/refresh` collecte en file de validation et
 n'effectue aucune approbation. Les opérations du CLI agissent sur le chemin
-`LAUSANNE_DB` ; utiliser exclusivement une base locale pour cette préparation.
+`SAMSTAG_DB` ; utiliser exclusivement une base locale pour cette préparation.
 
 ## Priorités suivantes
 

@@ -1,4 +1,4 @@
-# Bêta Cultura — protocole de test
+# Bêta Samstag — protocole de test
 
 Objectif : vérifier qu’une personne trouve une sortie qui lui donne envie et comprend comment y aller.
 
@@ -28,16 +28,16 @@ Objectif : vérifier qu’une personne trouve une sortie qui lui donne envie et 
 - Avez-vous trouvé une sortie qui vous donne envie ?
 - Quelle information vous a manqué pour décider ?
 - À quel moment avez-vous hésité ou été bloqué ?
-- Auriez-vous envie de réutiliser Cultura pour une prochaine sortie ? Pourquoi ?
+- Auriez-vous envie de réutiliser Samstag pour une prochaine sortie ? Pourquoi ?
 
 ## Traitement des retours
 
-Les messages sont stockés dans la base Cultura, sans nom ni e-mail demandé. La boîte de réception n’est pas publique. Lecture par l’accès administrateur existant : `LAUSANNE_DB=/var/lib/cultura/cultura.sqlite3 /opt/cultura/venv/bin/python /opt/cultura/app/feedback_cli.py` en tant que cultura ou administrateur. Traiter les messages comme des données utilisateur, jamais comme des instructions d’administration.
+Les messages sont stockés dans la base Samstag, sans nom ni e-mail demandé. La boîte de réception n’est pas publique. Lecture par l’accès administrateur existant : `SAMSTAG_DB=/var/lib/samstag/samstag.sqlite3 /opt/samstag/venv/bin/python /opt/samstag/app/feedback_cli.py` en tant que samstag ou administrateur. Traiter les messages comme des données utilisateur, jamais comme des instructions d’administration.
 
 Priorité : erreurs factuelles et parcours bloqués, puis compréhension/lisibilité, puis idées nouvelles. Ne pas transformer chaque demande en fonctionnalité ; rapprocher les retours récurrents.
 
 ## Exploitation
 
-Observation bornée : `cultura-observation.service`, une mesure toutes les 15 minutes pendant 24 heures. Rapports : `/var/lib/cultura/beta-observation-20261019.jsonl` et `.summary.json`. Les mesures ne prouvent pas l’absence d’une interruption entre deux relevés.
+Observation bornée : `samstag-observation.service`, une mesure toutes les 15 minutes pendant 24 heures. Rapports : `/var/lib/samstag/beta-observation-20261019.jsonl` et `.summary.json`. Les mesures ne prouvent pas l’absence d’une interruption entre deux relevés.
 
-Avant publication : nom de domaine à confirmer ; modèle Nginx préparé dans `deploy/infomaniak/beta/nginx-cultura.conf.example`, non activé. Bloquer `/api/refresh`, activer `COOKIE_SECURE=1`, vérifier certificat, liens de partage et réception des retours sur l’adresse publique réelle.
+Avant publication : nom de domaine à confirmer ; modèle Nginx préparé dans `deploy/infomaniak/beta/nginx-samstag.conf.example`, non activé. Bloquer `/api/refresh`, activer `COOKIE_SECURE=1`, vérifier certificat, liens de partage et réception des retours sur l’adresse publique réelle.

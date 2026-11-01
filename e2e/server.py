@@ -9,11 +9,11 @@ from pathlib import Path
 import sys,json
 from datetime import datetime
 ROOT=Path(__file__).resolve().parents[1]
-OUT=Path(os.environ.get('CULTURA_E2E_OUTPUT', str(ROOT/'validation/playwright-2026-10-19')))
+OUT=Path(os.environ.get('SAMSTAG_E2E_OUTPUT', str(ROOT/'validation/playwright-2026-10-19')))
 OUT.mkdir(exist_ok=True)
 DB=OUT/'parcours-test.sqlite3'
 if DB.exists():DB.unlink()
-os.environ.update(LAUSANNE_DB=str(DB),COLLECTION_ON_VISIT='0',DEMO_ENABLED='0',FLASK_DEBUG='0',CULTURA_SESSION_SECRET='local-e2e-only-never-use-in-production')
+os.environ.update(SAMSTAG_DB=str(DB),COLLECTION_ON_VISIT='0',DEMO_ENABLED='0',FLASK_DEBUG='0',SAMSTAG_SESSION_SECRET='local-e2e-only-never-use-in-production')
 sys.path.insert(0,str(ROOT))
 snapshot=json.loads((ROOT/'e2e/fixtures/public-snapshot.json').read_text())
 fixed=datetime.fromisoformat(snapshot['checked_at'])

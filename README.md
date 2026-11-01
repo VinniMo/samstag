@@ -2,7 +2,7 @@
 
 Samstag est l'agenda des sorties à Lausanne. Cette branche réconcilie le dépôt
 historique avec la version Flask réellement installée sur le VPS Infomaniak.
-La marque publique est **Samstag** ; les noms `Cultura` conservés dans certains
+La marque publique est **Samstag** ; les noms `Samstag` conservés dans certains
 services, chemins et variables restent provisoirement des identifiants techniques.
 
 État de référence au 1er novembre 2026 : application active sur Infomaniak,
@@ -76,7 +76,7 @@ Les listes historiques d'institutions dans `config.py` ne sont plus utilisées.
 Le mode fictif reste disponible uniquement avec `DEMO_ENABLED=1`.
 
 ```bash
-export LAUSANNE_DB="$PWD/preview.db"
+export SAMSTAG_DB="$PWD/preview.db"
 python collection_cli.py collect
 python collection_cli.py report
 python app.py
@@ -105,7 +105,7 @@ Pas besoin d'API key GitHub CLI — tout est piloté par
 | `HOST`            | `0.0.0.0`      | Adresse d'écoute Flask            |
 | `PORT`            | `5000`         | Port HTTP                         |
 | `FLASK_DEBUG`     | `1`            | Mode debug Flask                  |
-| `LAUSANNE_DB`     | `./events.db`  | Chemin SQLite                     |
+| `SAMSTAG_DB`     | `./events.db`  | Chemin SQLite                     |
 | `SCRAPE_INTERVAL` | `3600`         | TTL du cache scraping (secondes)  |
 | `DEMO_ENABLED` | `0` | Mode démonstration fictive, activation explicite uniquement |
 | `SCRAPE_TIMEOUT`  | `12`           | Timeout HTTP du scraper           |

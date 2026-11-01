@@ -4,15 +4,15 @@
 
 Le produit public s'appelle **Samstag**. La version Flask servie sur le VPS
 Infomaniak constitue la référence fonctionnelle. Cette branche réconcilie cette
-version avec l'historique du dépôt Git `VinniMo/lausanne-cultura`.
+version avec l'historique du dépôt Git `VinniMo/samstag`.
 
-Les noms techniques historiques (`cultura.service`, `/opt/cultura` et les
-variables `CULTURA_*`) restent en place pour préserver l'exploitation.
+Les noms techniques historiques (`samstag.service`, `/opt/samstag` et les
+variables `SAMSTAG_*`) restent en place pour préserver l'exploitation.
 
 ## Source reprise
 
-- Source locale correspondant au déploiement : `cultura-v3/lausanne-cultura/`.
-- Dépôt de destination : `cultura-code/`.
+- Source locale correspondant au déploiement : `samstag-v3/samstag/`.
+- Dépôt de destination : `samstag/`.
 - Branche locale : `chore/samstag-reconciliation-20261101`.
 - Fichiers exclus : environnements Python, bases SQLite, journaux, secrets,
   résultats de validation, captures, dépendances JavaScript et caches.
