@@ -12,9 +12,13 @@ class Config:
     HOST: str = os.environ.get("HOST", "0.0.0.0")
     PORT: int = int(os.environ.get("PORT", "5000"))
     DEBUG: bool = os.environ.get("FLASK_DEBUG", "1") == "1"
+    DEMO_ENABLED: bool = os.environ.get("DEMO_ENABLED", "0") == "1"
+    COLLECTION_ON_VISIT: bool = os.environ.get("COLLECTION_ON_VISIT", "1") == "1"
+    COLLECTION_WORKERS: int = max(1, min(6, int(os.environ.get("COLLECTION_WORKERS", "4"))))
+    COLLECTION_HORIZON_DAYS: int = max(14, min(365, int(os.environ.get("COLLECTION_HORIZON_DAYS", "90"))))
 
     DB_PATH: str = os.environ.get(
-        "LAUSANNE_DB",
+        "SAMSTAG_DB",
         os.path.join(os.path.dirname(os.path.abspath(__file__)), "events.db"),
     )
 
@@ -22,7 +26,7 @@ class Config:
     SCRAPE_TIMEOUT_SECONDS: int = int(os.environ.get("SCRAPE_TIMEOUT", "12"))
     SCRAPE_USER_AGENT: str = os.environ.get(
         "SCRAPE_USER_AGENT",
-        "Mozilla/5.0 (compatible; LausanneCultura/1.0; +https://github.com/VinniMo/lausanne-cultura)",
+        "Mozilla/5.0 (compatible; Samstag/1.0; +https://github.com/VinniMo/samstag)",
     )
 
     # ----- Tier 1: aggregators (broad coverage, few sources) -----
@@ -46,6 +50,7 @@ class Config:
         ("guidle.com", r"^/fr/evenements/[^/]+_[A-Za-z0-9]+/?$"),
     )
     MAX_DETAIL_PAGES: int = int(os.environ.get("MAX_DETAIL_PAGES", "40"))
+    MAX_AGENDA_PAGES: int = max(1, min(40, int(os.environ.get("MAX_AGENDA_PAGES", "20"))))
 
     # ----- Tier 2: venue-specific (alternative & niche scenes) -----
     SCRAPE_VENUES: tuple[str, ...] = (
@@ -81,8 +86,9 @@ class Config:
 
     @property
     def SCRAPE_SOURCES(self) -> tuple[str, ...]:
-        """Combined source list: aggregators first (priority), then venues."""
-        return self.SCRAPE_AGGREGATORS + self.SCRAPE_VENUES
+        """Qualified channels from the consolidated nightlife inventory."""
+        from source_registry import active_sources
+        return tuple(row["canal"] for row in active_sources())
 
     CATEGORIES: tuple[str, ...] = (
         "Musique", "Théâtre", "Exposition", "Cinéma", "Danse",

@@ -1,5 +1,5 @@
 ---
-name: Lausanne Cultura
+name: Samstag
 description: Le programme culturel du moment à Lausanne, lu comme une liste horaire imprimée.
 colors:
   ground: "#f6f4ef"
@@ -149,13 +149,13 @@ components:
     padding: "8px 8px 8px 16px"
 ---
 
-# Design System: Lausanne Cultura
+# Design System: Lausanne Samstag
 
 ## Overview
 
 **Creative North Star: "Le programme imprimé du soir"**
 
-Lausanne Cultura se lit comme une feuille de programme qu'on aurait ramassée à l'entrée d'une salle : fond papier clair, encre noire, une liste horaire serrée, et quelques étiquettes de couleur collées de travers pour dire de quoi on parle. Rien n'est vitrine. La page répond à « que faire ce soir ? » par des lignes heure | titre | lieu, groupées par jour puis par rubrique, avec une densité de lecture et non d'affiche.
+Lausanne Samstag se lit comme une feuille de programme qu'on aurait ramassée à l'entrée d'une salle : fond papier clair, encre noire, une liste horaire serrée, et quelques étiquettes de couleur collées de travers pour dire de quoi on parle. Rien n'est vitrine. La page répond à « que faire ce soir ? » par des lignes heure | titre | lieu, groupées par jour puis par rubrique, avec une densité de lecture et non d'affiche.
 
 La couleur ne remplit jamais une surface de contenu : elle tient dans des étiquettes, un soulignement d'onglet, un mot du logo. Le noir porte la structure (barre du haut, filets de 1,5px, pastilles à bord noir), le jaune signale l'état actif ou la gratuité, le rose identifie la marque. Une seule famille, Archivo, à des tailles de lecture ; la hiérarchie vient de la graisse (400 à 800), pas de la taille.
 
@@ -173,7 +173,7 @@ Rejets confirmés par l'utilisateur : bandeaux de couleur pleine largeur dans le
 Une palette papier-encre, réchauffée d'un gris sable, relevée par deux couleurs vives utilisées en petites surfaces seulement.
 
 ### Primary
-- **Rose Cultura** (fluo): le mot « Cultura » dans la barre noire, le soulignement de 4px de l'onglet actif, le curseur du champ de recherche, l'anneau de focus du sélecteur Liste/Affiches. Toujours sur noir ou en trait ; jamais en fond sous du texte.
+- **Rose Samstag** (fluo): le mot « Samstag » dans la barre noire, le soulignement de 4px de l'onglet actif, le curseur du champ de recherche, l'anneau de focus du sélecteur Liste/Affiches. Toujours sur noir ou en trait ; jamais en fond sous du texte.
 
 ### Secondary
 - **Jaune Affiche** (yellow): état actif des pastilles de filtre, étiquette « GRATUIT », survol des boutons secondaires, sélection de texte, heure posée sur l'image d'une affiche, anneau de focus dans la barre noire. Le jaune dit « actif » ou « gratuit », rien d'autre.
@@ -276,7 +276,7 @@ Des pilules franches à bord d'encre, lisibles au pouce.
 - **Focus:** anneau d'encre de 2.5px décalé de 1px.
 
 ### Navigation
-- **Barre:** pleine largeur, encre ; « Lausanne » blanc et « Cultura » rose, 800 à 20px ; à droite un bouton loupe circulaire de 40px et une pilule « Mes goûts », tous deux à bord blanc 1.5px, inversés en blanc au survol et à l'état ouvert.
+- **Barre:** pleine largeur, encre ; « Lausanne » blanc et « Samstag » rose, 800 à 20px ; à droite un bouton loupe circulaire de 40px et une pilule « Mes goûts », tous deux à bord blanc 1.5px, inversés en blanc au survol et à l'état ouvert.
 - **Onglets:** collants en haut, sur fond sable avec un trait d'encre dessous ; 700 à 15px, gris au repos, encre et soulignement rose de 4px quand sélectionnés ; compte en 500 à 12px. Défilement horizontal sans barre visible.
 
 ### Étiquette de rubrique (signature)
@@ -294,7 +294,7 @@ Pilule encre arrondie à 10px, texte blanc 600 à 14px, action en jaune soulign�
 ## Do's and Don'ts
 
 ### Do:
-- **Do** garder le fond clair #f6f4ef par défaut et la barre noire avec « Cultura » en #ff2e88.
+- **Do** garder le fond clair #f6f4ef par défaut et la barre noire avec « Samstag » en #ff2e88.
 - **Do** écrire tout en Archivo, entre 12px et 24px, et hiérarchiser par la graisse (400 à 800).
 - **Do** signaler chaque rubrique par une étiquette inclinée de -1.5° dans l'un des trois styles : #a3004f sur #ffd9ea, #ffe500 sur #151515, #151515 sur #ffe500.
 - **Do** marquer la gratuité par l'étiquette jaune « GRATUIT », et l'absence de donnée par « n. c. » en gris.
@@ -310,3 +310,34 @@ Pilule encre arrondie à 10px, texte blanc 600 à 14px, action en jaune soulign�
 - **Don't** passer en mode sombre par défaut.
 - **Don't** incliner autre chose que les étiquettes, ni arrondir les étiquettes et tuiles.
 - **Don't** ajouter de surtitre ou d'étiquette décorative au-dessus d'un titre : une étiquette nomme une rubrique, un état ou une donnée.
+
+
+## 18 octobre 2026 — couleurs fixes et fin du survol rose
+- Couleurs par nom de rubrique, indépendantes de leur ordre : Concerts magenta #a3004f, Soirées & clubs noir/jaune, Scène jaune/noir, Cinéma bleu #244bc0, Expos vert #176449, Autres orange #f5a54b. Identité commune aux étiquettes et choix Mes goûts sélectionnés. Décision utilisateur : conserver l’esprit programme/affiche imprimé, couleurs franches.
+- Survol rose supprimé : sur pointeur, fond papier neutre, titre souligné et flèche noire. Le survol de fond est désactivé pour les appareils sans survol ; focus clavier conservé. Compteurs de catégories toujours supprimés, liens directs préservés.
+- Deux fichiers statiques appliqués sur VPS interne ; sauvegarde précédente /opt/samstag/ui-backup-20261018-couleurs/. Syntaxe JS contrôlée ; navigateur : Concerts magenta et Cinéma bleu confirmés, trois liens directs, aucun compteur de rubrique ni débordement dans la vue courante. Aucun changement de base ou de publication.
+
+
+## 21 octobre 2026 — fiche événement compacte validée
+- Nouveau modèle commun à toutes les rubriques, dans l’identité papier/encre/Archivo. Panneau événement 640 px maximum ; coins 16 px, bord 1,5 px ; poignée réservée au mobile. Autres panneaux inchangés.
+- Titre 24 px (23 px mobile) ; catégorie et éventuel crédit du film sous le titre. Filet plein pour séparer l’en-tête. Date 19 px/800 (17 px mobile), heure 18 px/750 (17 px mobile) et chiffres tabulaires ; lieu 16 px/750 (15 px mobile), adresse 13 px (12,5 px mobile). Ces tailles complètent intentionnellement la gamme de la fiche.
+- Photo en colonne droite de 104 × 139 px (80 × 107 px mobile), object-fit contain pour préserver les affiches ; colonne supprimée si visuel absent ou en panne. Informations pratiques à gauche, sans encart supplémentaire.
+- Description 15 px, interligne 1,65, contenu collecté conservé ; aucun sous-titre générique À propos/La soirée. Métadonnées et synopsis cinéma conservés. Descriptions absentes ou tronquées signalées honnêtement.
+- Actions après le contenu : petites pilules noires Voir le site et secondaires Partager, hauteur minimale 44 px, aucune pleine largeur forcée. Libellé Voir le site commun, car une destination peut être un agenda/billetterie.
+- Masquer/réafficher le lieu et signaler une erreur dans le menu Autres actions (trois points), bord 1 px, rayon 10 px, commandes intérieures rayon 6 px ; clavier, Échap et fermeture extérieure pris en charge.
+- Plages de dates conservées pour les programmes multi-jours. Mention nocturne uniquement pour ClubNight se terminant le lendemain avant midi, d’après l’instant de fin explicite en heure suisse ; aucune heure de fin inventée.
+
+
+## 22 octobre 2026 — identité samstag adoptée
+
+Le nom public devient **samstag**. Logo approuvé : minuscules grasses, dernier a en miroir bleu outremer, autres lettres noires. Asset raster transparent `static/brand/samstag.png` issu de la référence approuvée par ImageGen (pas encore vectorisé). La police Archivo du contenu reste inchangée.
+
+En-tête papier blanc et commandes noires pour accueillir ce logo ; signature « Les sorties à Lausanne » en 11 px (10 px sous 370 px). Le bleu #243bdb remplace les anciens accents de marque roses pour onglet actif, curseur et focus. Les couleurs propres aux catégories, le jaune des sélections et le fond papier existant sont conservés. Ces règles remplacent les mentions historiques de barre noire et de marque rose ci-dessus.
+
+Textes de personnalisation courts et orientés action ; éviter les précisions de stockage local dans les consignes courantes.
+
+
+## 22 octobre 2026 — accueil allégé
+- Accord utilisateur sur l’allègement : les six choix de rubriques et le grand cadre sont remplacés par une invitation compacte « Vos sorties, selon vos goûts », Personnaliser et Pas maintenant. Personnaliser ouvre Mes goûts ; aucun changement aux préférences existantes.
+- Contrôles locaux 320/390/1226 px réussis : hauteur 83 px mobile / 61 px ordinateur, sans débordement ni erreur JavaScript ; choix, enregistrement, refus et persistance après rechargement vérifiés.
+- Appliqué sur VPS après sauvegarde `/opt/samstag/samstag-backup-20261022T100557Z`, seul service Samstag redémarré ; HTTP 200, santé ok, deux services actifs, empreintes statiques conformes. Preuves `validation/accueil-compact-2026-10-22/`. Aucun changement moteur, DNS ou publication publique.

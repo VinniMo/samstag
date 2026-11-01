@@ -56,7 +56,7 @@ Delight must not:
 - become mandatory, unskippable, or exhausting on repeat;
 - add a dependency or asset cost disproportionate to the moment.
 
-For authored motion, load [animate.md](animate.md). Respect screen readers, keyboard use, touch, localization, and cultural context. Nonessential loops stop when hidden. Make celebration intensity proportional to frequency and consequence.
+For authored motion, load [animate.md](animate.md). Respect screen readers, keyboard use, touch, localization, and samstagl context. Nonessential loops stop when hidden. Make celebration intensity proportional to frequency and consequence.
 
 ## Verify
 

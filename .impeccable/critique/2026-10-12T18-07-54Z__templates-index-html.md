@@ -5,9 +5,9 @@ max_score: 40
 na_heuristics: 
 p0_count: 2
 p1_count: 2
-target_identity: "file:/home/user/lausanne-cultura/templates/index.html"
+target_identity: "file:/home/user/samstag/templates/index.html"
 target_fingerprint: "sha256:da3d3db16dcf53840d738bb4d96b1ba4bc06dc511d58c8f6c9be5e949c853859"
-target_path: /home/user/lausanne-cultura/templates/index.html
+target_path: /home/user/samstag/templates/index.html
 timestamp: 2026-10-12T18-07-54Z
 slug: templates-index-html
 ---

@@ -1,4 +1,4 @@
-"""Scraper for Lausanne cultural sources.
+"""Scraper for Lausanne samstagl sources.
 
 Strategy, for each configured source URL:
     1. iCalendar feed (BEGIN:VCALENDAR): read its VEVENT entries.
@@ -19,7 +19,8 @@ import hashlib
 import json
 import logging
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from zoneinfo import ZoneInfo
 from typing import Iterable
 from urllib.parse import urljoin, urlparse
@@ -29,6 +30,7 @@ from bs4 import BeautifulSoup, Tag
 
 from config import config
 import db
+from collection_result import CollectionResult
 
 logger = logging.getLogger(__name__)
 
@@ -159,6 +161,13 @@ def _normalize_jsonld(item: dict, page_url: str = "") -> dict | None:
 
     return {
         "id": _gen_id(title, date),
+        "start_at": item.get("startDate", ""),
+        "end_at": item.get("endDate", ""),
+        "event_kind": next((t for t in (item.get("@type") if isinstance(item.get("@type"), list) else [item.get("@type")]) if t in EVENT_TYPES and t != "Event"), ""),
+        "event_status": (item.get("eventStatus") or "").rsplit("/", 1)[-1],
+        "municipality": ((location_field.get("address") or {}).get("addressLocality", "")
+                         if isinstance(location_field, dict) and isinstance(location_field.get("address"), dict) else ""),
+        "evidence_url": page_url,
         "title": title,
         "date": date,
         "time": time_str,
@@ -182,9 +191,10 @@ def _jsonld_items(data) -> Iterable[dict]:
         for entry in data:
             yield from _jsonld_items(entry)
     elif isinstance(data, dict):
-        if "@graph" in data:
-            yield from _jsonld_items(data["@graph"])
         yield data
+        for value in data.values():
+            if isinstance(value, (dict, list)):
+                yield from _jsonld_items(value)
 
 
 def _is_event(item: dict) -> bool:
@@ -204,9 +214,13 @@ def _extract_jsonld_events(soup: BeautifulSoup, page_url: str = "") -> list[dict
         except json.JSONDecodeError:
             continue
         for item in _jsonld_items(data):
-            if not _is_event(item):
+            try:
+                if not _is_event(item):
+                    continue
+                normalized = _normalize_jsonld(item, page_url)
+            except (ValueError, TypeError, AttributeError):
+                logger.warning("Malformed structured event skipped on %s", page_url)
                 continue
-            normalized = _normalize_jsonld(item, page_url)
             if normalized:
                 events.append(normalized)
     return events
@@ -288,6 +302,25 @@ def _detail_links(soup: BeautifulSoup, page_url: str, pattern: str) -> list[str]
         url = urljoin(page_url, a["href"]).split("#")[0]
         if urlparse(url).netloc == host and rule.search(urlparse(url).path) and url not in links:
             links.append(url)
+    # Tourism listings are not necessarily chronological. Prefer cards with
+    # explicit dates in the current horizon, keeping unknown dates behind them.
+    if "lausanne-tourisme.ch" in host:
+        from venue_adapters import dotted_day
+        dates = {}
+        for anchor in soup.select("a[href]"):
+            target = urljoin(page_url, anchor["href"]).split("#")[0]
+            if target in links:
+                try:
+                    dates[target] = dotted_day(anchor.get_text(" ", strip=True))
+                except ValueError:
+                    pass
+        today = datetime.now(LOCAL_TZ).date()
+        def score(target):
+            day = dates.get(target)
+            if day and today <= day <= today+timedelta(days=28):
+                return 0, day.isoformat()
+            return (1 if day is None else 2), day.isoformat() if day else ""
+        links.sort(key=score)
     return links
 
 
@@ -324,6 +357,10 @@ def _parse_card(card: Tag, base_url: str) -> dict | None:
     date = ""
     if time_tag:
         date = (time_tag.get("datetime") or time_tag.get_text(strip=True))[:10]
+    try:
+        datetime.strptime(date, "%Y-%m-%d")
+    except ValueError:
+        return None  # headings/navigation without an actual date are not events
 
     desc_tag = card.find("p")
     description = desc_tag.get_text(strip=True)[:400] if desc_tag else ""
@@ -361,72 +398,128 @@ class FetchError(Exception):
     pass
 
 
-def _fetch(url: str) -> str:
+def _fetch(url: str, extra_headers: dict | None = None) -> str:
     headers = {
         "User-Agent": config.SCRAPE_USER_AGENT,
         "Accept-Language": "fr-CH,fr;q=0.9,en;q=0.5",
     }
+    headers.update(extra_headers or {})
     try:
         resp = requests.get(url, headers=headers, timeout=config.SCRAPE_TIMEOUT_SECONDS)
         resp.raise_for_status()
+        # Several venue servers omit charset and requests otherwise uses Latin-1.
+        if not resp.encoding or resp.encoding.lower() == "iso-8859-1":
+            resp.encoding = resp.apparent_encoding or "utf-8"
         return resp.text
     except requests.RequestException as exc:
         raise FetchError(str(exc)) from exc
 
 
-def scrape_one(url: str) -> tuple[list[dict], str]:
+def scrape_one(url: str) -> tuple[list[dict], str] | CollectionResult:
     """Collect one source. Returns (events, method used). Raises FetchError."""
     text = _fetch(url)
     if text.lstrip().startswith("BEGIN:VCALENDAR"):
         return parse_ics(text, url), "ical"
 
     soup = BeautifulSoup(text, "lxml")
+    from venue_adapters import collect_venue
+    from bar_adapters import collect_bar
+    from hango_adapter import collect_hango
+    from expanded_adapters import collect_expanded
+    from programme_adapters import collect_programme
+    try:
+        specialized = collect_programme(url, soup, _fetch)
+        if specialized is None:
+            specialized = collect_expanded(url, soup, _fetch)
+        if specialized is None:
+            specialized = collect_venue(url, soup, _fetch)
+        if specialized is None:
+            specialized = collect_hango(url, soup, _fetch)
+        if specialized is None:
+            specialized = collect_bar(url, soup, _fetch)
+    except (ValueError, TypeError) as exc:
+        raise FetchError(str(exc)) from exc
+    if specialized is not None:
+        return specialized
     found = _extract_jsonld_events(soup, url)
     if found:
         return found, "json-ld"
 
     pattern = _detail_pattern(url)
     if pattern:
-        links = _detail_links(soup, url, pattern)[: config.MAX_DETAIL_PAGES]
+        targets = _detail_links(soup, url, pattern)
+        links = targets[: config.MAX_DETAIL_PAGES]
+        failures = 0
         for link in links:
             try:
                 page = BeautifulSoup(_fetch(link), "lxml")
             except FetchError as exc:
                 logger.warning("Detail page failed %s: %s", link, exc)
+                failures += 1
                 continue
-            found.extend(_extract_jsonld_events(page, link))
-        return found, f"pages-detail ({len(links)} liens)"
+            structured = _extract_jsonld_events(page, link)
+            if structured:
+                found.extend(structured)
+            elif (urlparse(link).hostname or "").endswith("lausanne-tourisme.ch"):
+                from venue_adapters import parse_tourisme
+                try:
+                    event = parse_tourisme(page, link)
+                    if event:
+                        found.append(event)
+                except (ValueError, TypeError, KeyError) as exc:
+                    logger.warning("Tourisme detail malformed %s: %s", link, exc)
+                    failures += 1
+        return CollectionResult(found, f"pages-detail ({len(links)}/{len(targets)} liens, {failures} erreurs)",
+                                partial=bool(failures or len(targets) > len(links)))
 
-    return _extract_html_events(soup, base_url=url), "html"
+    if soup.select("iframe[src*='backoffice.hango.ch']"):
+        return [], "embedded-calendar: adaptateur Hango à étudier"
+    return _extract_html_events(soup, base_url=url), "html (validation requise)"
 
 
 def scrape_sources(sources: Iterable[str] | None = None) -> list[dict]:
     """Scrape every source URL and return a deduplicated list of events."""
-    sources = sources or config.SCRAPE_SOURCES
+    from collection_quality import assess
+    sources = config.SCRAPE_SOURCES if sources is None else sources
     aggregated: dict[str, dict] = {}
 
-    for url in sources:
-        try:
-            found, method = scrape_one(url)
-        except FetchError as exc:
-            logger.warning("Fetch failed for %s: %s", url, exc)
-            db.log_scrape("scraper", url, "error", 0, str(exc)[:300])
-            continue
-
-        for evt in found:
-            aggregated[evt["id"]] = evt
-
-        status = "ok" if found else "empty"
-        db.log_scrape("scraper", url, status, len(found), method)
-        logger.info("Scraped %d events from %s (%s)", len(found), url, method)
+    # Fetch sources concurrently; persist on this thread for deterministic,
+    # short SQLite transactions. One failing parser cannot stop the pass.
+    with ThreadPoolExecutor(max_workers=config.COLLECTION_WORKERS) as pool:
+        jobs = {pool.submit(scrape_one, url): url for url in dict.fromkeys(sources)}
+        for job in as_completed(jobs):
+            url = jobs[job]
+            try:
+                result = job.result()
+                found, method = result
+            except Exception as exc:
+                logger.warning("Collection failed for %s: %s", url, exc)
+                db.log_scrape("scraper", url, "error", 0, str(exc)[:300])
+                continue
+            seen_ids = set()
+            malformed = 0
+            for evt in found:
+                try:
+                    item = assess(evt, url)
+                except (ValueError, TypeError, AttributeError) as exc:
+                    logger.warning("Malformed record from %s: %s", url, exc)
+                    malformed += 1
+                    continue
+                db.stage_collection(item)
+                seen_ids.add(item["event"]["id"])
+                aggregated[item["event"]["id"]] = item["event"]
+            partial = bool(getattr(result, "partial", False) or malformed)
+            if getattr(result, "complete_snapshot", False) and not partial:
+                db.reconcile_source_snapshot(url, seen_ids)
+            status = ("partial" if partial else "ok" if found else
+                      "needs_adapter" if method.startswith(("html", "embedded-calendar")) else "empty")
+            db.log_scrape("scraper", url, status, len(found), method)
+            logger.info("Scraped %d events from %s (%s)", len(found), url, method)
 
     return list(aggregated.values())
 
 
 def refresh_database() -> int:
-    """Run a scrape pass and persist results. Returns number of events written."""
-    events = scrape_sources()
-    if events:
-        db.bulk_upsert(events, source="scraper")
-        logger.info("Persisted %d scraped events", len(events))
-    return len(events)
+    """Refresh qualified sources, with a lease shared by Flask/CLI workers."""
+    with db.collection_lease() as acquired:
+        return len(scrape_sources()) if acquired else 0

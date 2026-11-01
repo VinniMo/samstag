@@ -1,0 +1,548 @@
+[
+  {
+    "id": "SRC_L001",
+    "venue_id": "L001",
+    "nom": "Les Docks",
+    "canal": "https://www.docks.ch/programme/",
+    "preuve": "https://www.docks.ch/contact/",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Conflit : certaines fiches événement LT indiquent Sévelin 46 ; retenir le contact officiel."
+  },
+  {
+    "id": "SRC_L002",
+    "venue_id": "L002",
+    "nom": "Le Romandie",
+    "canal": "https://www.leromandie.ch/programmation",
+    "preuve": "https://www.leromandie.ch/contact",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": " Seules les soirées club qualifiées sont automatiques ; les heures de portes sont explicitement étiquetées. Concerts avec seulement une heure de portes : revue.",
+    "allowed_kinds": [
+      "ClubNight"
+    ]
+  },
+  {
+    "id": "SRC_L003",
+    "venue_id": "L003",
+    "nom": "D! Club",
+    "canal": "https://dclub.ch/agenda/",
+    "preuve": "https://dclub.ch/contact/?date=20260522",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Bar Club ABC : sous-espace à relier, pas doublon du club. Seules les soirées club qualifiées sont automatiques ; les heures de portes sont explicitement étiquetées. Concerts avec seulement une heure de portes : revue.",
+    "allowed_kinds": [
+      "ClubNight"
+    ]
+  },
+  {
+    "id": "SRC_L004",
+    "venue_id": "L004",
+    "nom": "MAD Club",
+    "canal": "https://www.mad.club/agenda/",
+    "preuve": "https://www.mad.club/contact/",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Séparer les espaces Mainfloor et Jetlag si la fiche événement le précise. Lecteur v3 : seuls les événements avec lieu admis, date et horaire explicites passent automatiquement. Données incomplètes conservées en revue.",
+    "allowed_kinds": [
+      "ClubNight"
+    ]
+  },
+  {
+    "id": "SRC_L005",
+    "venue_id": "L005",
+    "nom": "Folklor",
+    "canal": "https://www.folklor.club/events/",
+    "preuve": "https://www.folklor.club/contact/",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": " Lecteur v3 : seuls les événements avec lieu admis, date et horaire explicites passent automatiquement. Données incomplètes conservées en revue.",
+    "allowed_kinds": [
+      "ClubNight"
+    ]
+  },
+  {
+    "id": "SRC_L006",
+    "venue_id": "L006",
+    "nom": "Jumeaux Jazz Club",
+    "canal": "https://www.jumeaux.club/",
+    "preuve": "https://www.jumeaux.club/contact",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Le bureau de l’association est au 21 : ne pas géocoder les concerts au bureau."
+  },
+  {
+    "id": "SRC_L007",
+    "venue_id": "L007",
+    "nom": "Chorus Jazz Club",
+    "canal": "https://chorus.ch/",
+    "preuve": "https://chorus.ch/",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Lecteur du programme officiel testé. Année issue de la période publiée, séances du soir uniquement, pas de durée de spectacle inventée."
+  },
+  {
+    "id": "SRC_L009",
+    "venue_id": "L009",
+    "nom": "Cave du Bleu Lézard",
+    "canal": "https://www.bleu-lezard.ch/programmation/",
+    "preuve": "https://www.lausanne-tourisme.ch/fr/adresses-musique/",
+    "auto_publish": false,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "17.10.2026 : version www accessible ; programme officiel explicitement vide. Ne pas reprendre le PDF 2025."
+  },
+  {
+    "id": "SRC_L012",
+    "venue_id": "L012",
+    "nom": "Barberousse",
+    "canal": "https://www.barberoussebar.ch/agenda",
+    "preuve": "https://www.lausanne-tourisme.ch/fr/decouvrir/barberousse/",
+    "auto_publish": false,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Le domaine barberousse.com ne doit pas remplacer le site lausannois identifié. | Actualisation bars : Sept entrées JSON-LD récupérées, toutes datées de mars 2025. Programme actuel 2026 non trouvé dans le contenu structuré ; archives non publiables."
+  },
+  {
+    "id": "SRC_L013",
+    "venue_id": "L013",
+    "nom": "Satellite",
+    "canal": "https://satellite.bar/events/",
+    "preuve": "https://satellite.bar/infosPratiques/",
+    "auto_publish": false,
+    "priority": 10,
+    "enabled": false,
+    "type": "official",
+    "notes": "Retiré à la demande de l’utilisateur le 17 octobre 2026. Ne pas réactiver."
+  },
+  {
+    "id": "SRC_N001",
+    "venue_id": "N001",
+    "nom": "Théâtre Boulimie",
+    "canal": "https://theatreboulimie.com/",
+    "preuve": "https://theatreboulimie.com/contact/",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": " Lecteur v3 : seuls les événements avec lieu admis, date et horaire explicites passent automatiquement. Données incomplètes conservées en revue.",
+    "allowed_kinds": [
+      "ComedyEvent"
+    ]
+  },
+  {
+    "id": "SRC_N019",
+    "venue_id": "N019",
+    "nom": "Brasserie du Château / Château Music Club",
+    "canal": "https://app.hango.ch/venues/chateau-music-club-zofhmvrmaepaiykgh08megmv",
+    "preuve": "https://brasserieduchateau.ch/",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "aggregator",
+    "notes": "Qualification du 17.10.2026 : canal public Hango, même nom/adresse que la Brasserie du Château. Chaque événement doit porter exactement l’identité du lieu configuré, date/heure explicites et type DJ set. Recommandations d’autres lieux rejetées. Sélection partielle ; ancien lien officiel 404 conservé comme limite.",
+    "allowed_kinds": [
+      "ClubNight"
+    ]
+  },
+  {
+    "id": "SRC_E001",
+    "venue_id": "E001",
+    "nom": "La Datcha",
+    "canal": "https://la-datcha.ch/programmation/",
+    "preuve": "https://la-datcha.ch/programmation/",
+    "auto_publish": false,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": " | Actualisation bars : Treize titres de programme et liens récupérés ; annonces reportées et hors-les-murs présentes. Lire les détails pour année, heure et lieu réel. Ne pas déduire ces données du pied de page."
+  },
+  {
+    "id": "SRC_E006",
+    "venue_id": "E006",
+    "nom": "Cinéma Bellevaux",
+    "canal": "https://www.cinemabellevaux.ch/",
+    "preuve": "https://www.cinemabellevaux.ch/acces",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Lecteur du programme officiel testé. Année issue de la période publiée, séances du soir uniquement, pas de durée de spectacle inventée."
+  },
+  {
+    "id": "SRC_B001",
+    "venue_id": "B001",
+    "nom": "Taco’s Bar",
+    "canal": "https://tacos-bar.ch/events",
+    "preuve": "https://tacos-bar.ch/contact",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Qualifier les tags inconnus ; première validation des candidats. Conserver le conflit avec les adresses d’annuaires."
+  },
+  {
+    "id": "SRC_B002",
+    "venue_id": "B002",
+    "nom": "Bruxelles Café",
+    "canal": "https://www.bruxellescafe.ch/",
+    "preuve": "https://www.bruxellescafe.ch/",
+    "auto_publish": false,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Horaires et catégorie à vérifier dans les détails ; pas de déduction depuis les horaires du bar."
+  },
+  {
+    "id": "SRC_B006",
+    "venue_id": "B006",
+    "nom": "Captain Cook",
+    "canal": "https://captaincook.ch/",
+    "preuve": "https://captaincook.ch/",
+    "auto_publish": false,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Distinguer offres, résumés de semaine et soirées ; 17 h correspond parfois à l’ouverture, pas au début réel."
+  },
+  {
+    "id": "SRC_B007",
+    "venue_id": "B007",
+    "nom": "L’Étoile Blanche",
+    "canal": "https://etoileblanche.ch/",
+    "preuve": "https://etoileblanche.ch/",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Calendrier public Hango vérifié. DJ sets et types structurés reconnus seulement ; afterworks et soirées non qualifiées en revue.",
+    "widget_names": [
+      "Etoile Blanche",
+      "L'Étoile Blanche"
+    ]
+  },
+  {
+    "id": "SRC_B008",
+    "venue_id": "B008",
+    "nom": "Holy Monkey",
+    "canal": "https://holymonkey.ch/next-events/",
+    "preuve": "https://holymonkey.ch/",
+    "auto_publish": false,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "17.10.2026 : annonces lisibles ; année et heures absentes. Lecteur conservant les preuves en revue, aucune année déduite."
+  },
+  {
+    "id": "SRC_B018",
+    "venue_id": "B018",
+    "nom": "Le Montriond",
+    "canal": "https://www.lemontriond.ch/home",
+    "preuve": "https://www.lemontriond.ch/",
+    "auto_publish": false,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "17.10.2026 : page /home accessible, coordonnées sans programmation datée. Ne pas déduire de soirées des horaires."
+  },
+  {
+    "id": "SRC_B019",
+    "venue_id": "B019",
+    "nom": "Hungry Bear",
+    "canal": "https://www.hungrybearfood.ch/events",
+    "preuve": "https://www.hungrybearfood.ch/events",
+    "auto_publish": false,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "17.10.2026 : annonces lues, tournoi du 18/10/2026 sans heure ni type culturel qualifié. Aucune publication automatique."
+  },
+  {
+    "id": "SRC_B020",
+    "venue_id": "B020",
+    "nom": "Ta Cave",
+    "canal": "https://www.tacave.ch/evenements",
+    "preuve": "https://www.tacave.ch/lieux/tacave-lausanne",
+    "auto_publish": false,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Filtrer le lieu réel : le tag Lausanne apparaît aussi sur un pop-up à Ascona et une privatisation à Aran, hors territoire. ICS visible, export non testé."
+  },
+  {
+    "id": "SRC_B021",
+    "venue_id": "B021",
+    "nom": "Café du Simplon",
+    "canal": "https://www.cafedusimplon.ch/",
+    "preuve": "https://www.cafedusimplon.ch/",
+    "auto_publish": false,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "17.10.2026 : site rendu en JavaScript ; bundle public inspecté, aucun programme daté identifié. Réservations de groupe exclues des événements."
+  },
+  {
+    "id": "SRC_B023",
+    "venue_id": "B023",
+    "nom": "Les Gosses du Québec — Lausanne",
+    "canal": "https://gossesduquebec.ch/pub-lausanne/",
+    "preuve": "https://gossesduquebec.ch/pub-lausanne/",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Identité du calendrier public intégré vérifiée. Types structurés reconnus seulement ; afterworks et promotions hors automatisation.",
+    "widget_names": [
+      "Pub Les Gosses du Québec"
+    ]
+  },
+  {
+    "id": "S019",
+    "venue_id": "",
+    "nom": "Lausanne Tourisme",
+    "canal": "https://www.lausanne-tourisme.ch/fr/evenement/",
+    "preuve": "https://www.lausanne-tourisme.ch/fr/evenement/",
+    "auto_publish": true,
+    "priority": 50,
+    "enabled": true,
+    "type": "aggregator",
+    "notes": "Filtrage du lieu, de la commune, de la catégorie et des horaires obligatoire. Les tags Cinéma et Festival ne prouvent pas une séance ou un spectacle individuel ; ces types restent à qualifier.",
+    "allowed_kinds": [
+      "MusicEvent",
+      "ComedyEvent",
+      "DanceEvent"
+    ]
+  },
+  {
+    "id": "S020",
+    "venue_id": "",
+    "nom": "L’Agenda",
+    "canal": "https://www.l-agenda.ch/evenements/",
+    "preuve": "https://www.l-agenda.ch/evenements/",
+    "auto_publish": true,
+    "priority": 50,
+    "enabled": true,
+    "type": "aggregator",
+    "notes": "Filtrage du lieu, de la commune, de la catégorie et des horaires obligatoire. Lecteur v3 : seuls les événements avec lieu admis, date et horaire explicites passent automatiquement. Données incomplètes conservées en revue.",
+    "allowed_kinds": [
+      "ComedyEvent",
+      "MusicEvent",
+      "ScreeningEvent",
+      "TheaterEvent",
+      "DanceEvent"
+    ]
+  },
+  {
+    "id": "S022",
+    "venue_id": "",
+    "nom": "Guidle",
+    "canal": "https://www.guidle.com/de/support/faq/ohne-ortsangabe/in-welcher-form-kann-ich-den-content-beziehen_ABSa6K6",
+    "preuve": "https://www.guidle.com/de/support/faq/ohne-ortsangabe/in-welcher-form-kann-ich-den-content-beziehen_ABSa6K6",
+    "auto_publish": false,
+    "priority": 50,
+    "enabled": false,
+    "type": "aggregator",
+    "notes": "Documentation des conditions du flux Guidle, pas une page d’agenda. Aucun collecteur activé sur cette URL."
+  },
+  {
+    "id": "SRC_E002",
+    "venue_id": "E002",
+    "nom": "La Brèche",
+    "canal": "https://www.la-breche.fun/",
+    "preuve": "https://www.la-breche.fun/infos-pratiques",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Adaptateur en cours de qualification ; publication soumise aux contrôles de lieu, date, horaire et catégorie. Lecteur v3 : seuls les événements avec lieu admis, date et horaire explicites passent automatiquement. Données incomplètes conservées en revue.",
+    "allowed_kinds": [
+      "MusicEvent",
+      "ClubNight",
+      "TheaterEvent"
+    ]
+  },
+  {
+    "id": "SRC_E005",
+    "venue_id": "E005",
+    "nom": "Cinéma CityClub",
+    "canal": "https://www.cityclubpully.ch/",
+    "preuve": "https://www.cityclubpully.ch/infos-pratiques/",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Adaptateur en cours de qualification ; publication soumise aux contrôles de lieu, date, horaire et catégorie. Lecteur v3 : seuls les événements avec lieu admis, date et horaire explicites passent automatiquement. Données incomplètes conservées en revue.",
+    "allowed_kinds": [
+      "ScreeningEvent"
+    ]
+  },
+  {
+    "id": "SRC_L028",
+    "venue_id": "L028",
+    "nom": "Pavillon Naftule",
+    "canal": "https://naftule.ch/programme/",
+    "preuve": "https://naftule.ch/programme/",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Adaptateur en cours de qualification ; publication soumise aux contrôles de lieu, date, horaire et catégorie. Lecteur v3 : seuls les événements avec lieu admis, date et horaire explicites passent automatiquement. Données incomplètes conservées en revue.",
+    "allowed_kinds": [
+      "ComedyEvent",
+      "MusicEvent"
+    ]
+  },
+  {
+    "id": "SRC_E014",
+    "venue_id": "E014",
+    "nom": "JazzOnze+",
+    "canal": "https://jazzonzeplus.ch/",
+    "preuve": "https://jazzonzeplus.ch/",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Adaptateur en cours de qualification ; publication soumise aux contrôles de lieu, date, horaire et catégorie. Lecteur v3 : seuls les événements avec lieu admis, date et horaire explicites passent automatiquement. Données incomplètes conservées en revue.",
+    "allowed_kinds": [
+      "MusicEvent",
+      "ScreeningEvent"
+    ]
+  },
+  {
+    "id": "SRC_L019",
+    "venue_id": "L019",
+    "nom": "Arsenic",
+    "canal": "https://arsenic.ch/",
+    "preuve": "https://arsenic.ch/spectacle/",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Adaptateur en cours de qualification ; publication soumise aux contrôles de lieu, date, horaire et catégorie. Lecteur v3 : seuls les événements avec lieu admis, date et horaire explicites passent automatiquement. Données incomplètes conservées en revue.",
+    "allowed_kinds": [
+      "DanceEvent",
+      "TheaterEvent",
+      "ClubNight"
+    ]
+  },
+  {
+    "id": "SRC_L029",
+    "venue_id": "L029",
+    "nom": "La Grange UNIL",
+    "canal": "https://www.grange-unil.ch/",
+    "preuve": "https://www.grange-unil.ch/acces/",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Qualification du 17.10.2026 : fiches officielles, séances explicites, lieu La Grange ; commune Ecublens confirmée par tableau cantonal des bâtiments. Ateliers exclus, séances diurnes et au-delà de 90 jours non publiées.",
+    "allowed_kinds": [
+      "TheaterEvent",
+      "DanceEvent",
+      "MusicEvent"
+    ]
+  },
+  {
+    "id": "SRC_L018",
+    "venue_id": "L018",
+    "nom": "Théâtre Vidy-Lausanne",
+    "canal": "https://www.vidy.ch/fr/calendrier/",
+    "preuve": "https://www.vidy.ch/fr/",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Qualification du 17.10.2026 : toute séance admissible est recoupée avec sa fiche officielle (date et salle exactes) avant publication. Ateliers, rencontres, visites et lieux extérieurs restent hors automatisation ; minuit non vérifié et fiches absentes restent en revue. Calendrier partiel sans retrait par absence.",
+    "require_detail_confirmation": true,
+    "allowed_kinds": [
+      "TheaterEvent",
+      "DanceEvent",
+      "MusicEvent",
+      "ScreeningEvent",
+      "ComedyEvent"
+    ]
+  },
+  {
+    "id": "SRC_L023",
+    "venue_id": "L023",
+    "nom": "Pulloff Théâtres",
+    "canal": "https://www.pulloff.ch/",
+    "preuve": "https://www.pulloff.ch/infos/",
+    "auto_publish": true,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "17.10.2026 : fiches officielles comparées aux séances ; adresse de la salle corrigée (Industrie 10, distincte de l’administration Barre 14). Relâches exceptionnelles exclues, périodes dans un même mois acceptées. Année à deux chiffres et données manquantes gardées en revue. Automatisation limitée aux séances de théâtre complètes.",
+    "allowed_kinds": [
+      "TheaterEvent"
+    ]
+  },
+  {
+    "id": "SRC_E007",
+    "venue_id": "E007",
+    "nom": "Cinéma Oblò",
+    "canal": "https://oblo.ch/cinema",
+    "preuve": "https://www.l-agenda.ch/lieux/cinema-oblo/",
+    "auto_publish": true,
+    "allowed_kinds": [
+      "ScreeningEvent",
+      "TheaterEvent"
+    ],
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Programme officiel avec date civile et heure ; séances et performances séparées."
+  },
+  {
+    "id": "SRC_B025",
+    "venue_id": "B025",
+    "nom": "The Great Escape",
+    "canal": "https://the-great.ch/",
+    "preuve": "https://the-great.ch/",
+    "auto_publish": false,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Site officiel et adresse confirmés. Programme de retransmissions sportives visible ; calendrier culturel complet avec année explicite non établi."
+  },
+  {
+    "id": "SRC_B026",
+    "venue_id": "B026",
+    "nom": "Le Pavillon / Pavillon Bar & Kitchen",
+    "canal": "https://pavillonbar.ch/",
+    "preuve": "https://pavillonbar.ch/",
+    "auto_publish": false,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "DJ sets récurrents annoncés jeudi/vendredi/samedi, sans séances datées ni horaires artistiques explicites. Archives radio 2018 exclues."
+  },
+  {
+    "id": "SRC_B027",
+    "venue_id": "B027",
+    "nom": "La Bossette",
+    "canal": "https://bo7.ch/",
+    "preuve": "https://bo7.ch/",
+    "auto_publish": false,
+    "priority": 10,
+    "enabled": true,
+    "type": "official",
+    "notes": "Site actuel et adresse confirmés ; aucun programme daté trouvé. Ancien domaine bossette.ch en 403, aucun contournement."
+  }
+]

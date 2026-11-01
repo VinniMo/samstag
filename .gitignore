@@ -9,6 +9,9 @@ dist/
 
 # Virtual environments
 .venv/
+.venv
+.venv-*/
+.venv/
 venv/
 env/
 ENV/
@@ -40,6 +43,11 @@ logs/
 .coverage
 htmlcov/
 .tox/
+validation/
+reprise/
+node_modules/
+playwright-report/
+test-results/
 
 # Flask
 instance/

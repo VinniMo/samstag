@@ -1,0 +1,27 @@
+# Préparation seulement. Remplacer SAMSTAG_DOMAIN après choix utilisateur,
+# obtenir le certificat, puis nginx -t avant toute activation/recharge.
+server {
+    listen 80;
+    server_name SAMSTAG_DOMAIN;
+    location /.well-known/acme-challenge/ { root /var/www/samstag-acme; }
+    location / { return 301 https://$host$request_uri; }
+}
+server {
+    listen 443 ssl;
+    server_name SAMSTAG_DOMAIN;
+    ssl_certificate /etc/letsencrypt/live/SAMSTAG_DOMAIN/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/SAMSTAG_DOMAIN/privkey.pem;
+    client_max_body_size 16k;
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy strict-origin-when-cross-origin always;
+    location = /api/refresh { return 403; }
+    location / {
+        proxy_pass http://127.0.0.1:8011;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_read_timeout 60s;
+    }
+}
+# À l'ouverture HTTPS : COOKIE_SECURE=1 dans la configuration Samstag.
+# Ne jamais remplacer le vhost immobilier existant.

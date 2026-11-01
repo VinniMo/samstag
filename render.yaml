@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: lausanne-cultura
+    name: samstag
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt

@@ -6,6 +6,7 @@ import os
 import secrets
 import threading
 import time
+from collections import Counter
 from datetime import datetime
 
 from flask import Flask, Response, jsonify, render_template, request
@@ -16,6 +17,7 @@ import db
 import scraper
 from config import config
 from seed_data import build_demo_events
+from source_registry import source_for
 
 logging.basicConfig(
     level=logging.INFO,
@@ -33,7 +35,7 @@ def ensure_demo_events() -> None:
     Demo events are only written when no collected event exists, and are
     rewritten once a day so the page never shows a stale, all-past demo.
     """
-    if db.count_events(exclude_source=DEMO_SOURCE) > 0:
+    if not config.DEMO_ENABLED or db.list_public_events():
         return
     today = agenda.today_local()
     written = db.oldest_update(DEMO_SOURCE)
@@ -71,6 +73,8 @@ def maybe_refresh_from_scraper() -> None:
     sources. Any attempt counts, so failing sources are retried at most
     once per interval rather than on every page view.
     """
+    if not config.COLLECTION_ON_VISIT:
+        return
     age = time.time() - db.last_scrape_time()
     if age < config.SCRAPE_INTERVAL_SECONDS:
         return
@@ -91,16 +95,23 @@ def _check_auth(username: str, password: str) -> bool:
 def _auth_required_response() -> Response:
     return Response(
         "Authentification requise.\n", 401,
-        {"WWW-Authenticate": 'Basic realm="Lausanne Cultura"'},
+        {"WWW-Authenticate": 'Basic realm="Lausanne Samstag"'},
     )
 
 
 def create_app() -> Flask:
     """Application factory."""
     app = Flask(__name__)
-    CORS(app)
+    app.secret_key = os.environ.get('SAMSTAG_SESSION_SECRET') or secrets.token_hex(32)
+    app.config.update(MAX_CONTENT_LENGTH=16_384, SESSION_COOKIE_HTTPONLY=True,
+                      SESSION_COOKIE_SAMESITE='Lax',
+                      SESSION_COOKIE_SECURE=os.environ.get('COOKIE_SECURE') == '1')
+    CORS(app, resources={r'/api/(events|categories|health|sources)$': {'origins': '*', 'methods': ['GET']}})
 
     bootstrap_database()
+    from feedback import feedback, init_feedback
+    init_feedback()
+    app.register_blueprint(feedback)
 
     auth_enabled = bool(
         os.environ.get("BASIC_AUTH_USER") and os.environ.get("BASIC_AUTH_PASS")
@@ -128,14 +139,15 @@ def create_app() -> Flask:
         search = request.args.get("search", "").strip()
 
         # Collected events win; demo events only show when nothing was collected.
-        events = db.list_all_events(exclude_source=DEMO_SOURCE)
-        demo = not events
+        events = db.list_public_events()
+        demo = config.DEMO_ENABLED and not events
         if demo:
-            events = db.list_all_events()
+            events = [e for e in db.list_all_events() if e["source"] == DEMO_SOURCE]
         if search:
             events = [e for e in events if agenda.matches(e, search)]
 
-        programme = agenda.build_programme(events, agenda.today_local())
+        programme = (agenda.build_programme(events, agenda.today_local()) if demo
+                     else agenda.build_night_programme(events))
         last = db.last_scrape_time(successful_only=True)
         return jsonify({
             **programme,
@@ -150,8 +162,9 @@ def create_app() -> Flask:
 
     @app.route("/api/categories")
     def api_categories():
+        counts = Counter(e["category"] for e in db.list_public_events())
         return jsonify({
-            "categories": db.list_categories(),
+            "categories": [{"name": name, "count": count} for name, count in counts.items()],
             "all": list(config.CATEGORIES),
         })
 
@@ -162,7 +175,8 @@ def create_app() -> Flask:
             return jsonify({
                 "ok": True,
                 "scraped": count,
-                "total": db.count_events(),
+                "total": len(db.list_public_events()),
+                "pending": sum(i["status"] in {"candidate", "review"} for i in db.collection_items()),
             })
         except Exception as exc:
             logger.exception("Manual refresh failed")
@@ -172,11 +186,23 @@ def create_app() -> Flask:
     def api_sources():
         """Which sources answer and how many events each one gives."""
         latest = {row["url"]: row for row in db.source_status()}
+        items = db.collection_items()
+        public_events = db.list_public_events()
         sources = []
         for url in config.SCRAPE_SOURCES:
+            source = source_for(url)
             row = latest.get(url)
+            stages = [i for i in items if i["event"].get("source_url") == url]
             sources.append({
                 "url": url,
+                "venue_id": source["venue_id"] if source else None,
+                "venue": source["nom"] if source else None,
+                "publication": "automatique après contrôles" if source and source["auto_publish"] else "validation requise",
+                "candidates": sum(i["status"] == "candidate" for i in stages),
+                "to_review": sum(i["status"] == "review" for i in stages),
+                "excluded": sum(i["status"] == "excluded" for i in stages),
+                "public_events": sum(e.get("source_url") == url for e in public_events),
+                "research_note": source["notes"] if source else "",
                 "status": row["status"] if row else "jamais collectée",
                 "events": row["count"] if row else 0,
                 "detail": row["message"] if row else "",
@@ -184,19 +210,28 @@ def create_app() -> Flask:
                     datetime.fromtimestamp(row["timestamp"], agenda.TZ).isoformat(timespec="minutes")
                     if row else None
                 ),
+                "last_success_at": (
+                    datetime.fromtimestamp(row["last_success"], agenda.TZ).isoformat(timespec="minutes")
+                    if row and row.get("last_success") else None
+                ),
             })
         working = sum(1 for s in sources if s["status"] == "ok")
         return jsonify({
-            "summary": f"{working} source(s) sur {len(sources)} donnent des événements",
+            "summary": f"{working} source(s) sur {len(sources)} livrent des entrées ; {len(public_events)} sortie(s) validée(s) affichable(s)",
             "sources": sorted(sources, key=lambda s: (s["status"] != "ok", -s["events"], s["url"])),
         })
 
     @app.route("/api/health")
     def api_health():
+        from collection_health import health
         return jsonify({
             "status": "ok",
-            "events_in_db": db.count_events(),
+            "events_in_db": len(db.collection_items()),
+            "legacy_events": db.count_events(),
+            "public_events": len(db.list_public_events()),
+            "collection_items": len(db.collection_items()),
             "last_scrape": db.last_scrape_time(),
+            "collection": health(),
         })
 
     @app.errorhandler(404)

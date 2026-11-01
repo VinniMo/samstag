@@ -1,0 +1,1073 @@
+{
+  "generated_at": "2026-10-16T15:56:56.257246+02:00",
+  "configured_sources": 27,
+  "enabled_sources": 26,
+  "automatic_channels": 10,
+  "sources": [
+    {
+      "url": "https://bleu-lezard.ch/programmation/",
+      "status": "needs_adapter",
+      "count": 0,
+      "message": "html (validation requise)",
+      "timestamp": 1792158713.0249696
+    },
+    {
+      "url": "https://brasserieduchateau.ch/chateaumusicclub",
+      "status": "error",
+      "count": 0,
+      "message": "404 Client Error: Not Found for url: https://brasserieduchateau.ch/chateaumusicclub",
+      "timestamp": 1792158726.3132663
+    },
+    {
+      "url": "https://captaincook.ch/",
+      "status": "ok",
+      "count": 12,
+      "message": "public-calendar (JSON, horaires à vérifier)",
+      "timestamp": 1792158745.4483597
+    },
+    {
+      "url": "https://chorus.ch/",
+      "status": "ok",
+      "count": 6,
+      "message": "chorus-programme-v1 (mois et année publiés)",
+      "timestamp": 1792158715.1363752
+    },
+    {
+      "url": "https://dclub.ch/agenda/",
+      "status": "ok",
+      "count": 27,
+      "message": "dclub-official-programme-v1 (portes distinctes du début artistique)",
+      "timestamp": 1792158699.8947167
+    },
+    {
+      "url": "https://etoileblanche.ch/",
+      "status": "ok",
+      "count": 43,
+      "message": "hango-public-v1: 9/9 pages ; calendrier officiel intégré",
+      "timestamp": 1792158811.0081334
+    },
+    {
+      "url": "https://gossesduquebec.ch/pub-lausanne/",
+      "status": "empty",
+      "count": 0,
+      "message": "hango-public-v1: 1/0 pages ; calendrier officiel intégré",
+      "timestamp": 1792158791.0562258
+    },
+    {
+      "url": "https://holymonkey.ch/next-events/",
+      "status": "needs_adapter",
+      "count": 0,
+      "message": "html (validation requise)",
+      "timestamp": 1792158752.1365492
+    },
+    {
+      "url": "https://la-datcha.ch/programmation/",
+      "status": "ok",
+      "count": 13,
+      "message": "official-programme (année, horaires et lieu à vérifier dans les détails)",
+      "timestamp": 1792158729.7626855
+    },
+    {
+      "url": "https://satellite.bar/events/",
+      "status": "needs_adapter",
+      "count": 0,
+      "message": "html (validation requise)",
+      "timestamp": 1792158720.9962826
+    },
+    {
+      "url": "https://tacos-bar.ch/events",
+      "status": "ok",
+      "count": 43,
+      "message": "public-calendar (JSON5, sans exécution JS)",
+      "timestamp": 1792158744.866689
+    },
+    {
+      "url": "https://theatreboulimie.com/",
+      "status": "needs_adapter",
+      "count": 0,
+      "message": "html (validation requise)",
+      "timestamp": 1792158724.1599
+    },
+    {
+      "url": "https://www.barberoussebar.ch/agenda",
+      "status": "ok",
+      "count": 7,
+      "message": "json-ld",
+      "timestamp": 1792158717.386713
+    },
+    {
+      "url": "https://www.bruxellescafe.ch/",
+      "status": "ok",
+      "count": 9,
+      "message": "official-articles (validation requise)",
+      "timestamp": 1792158735.3142269
+    },
+    {
+      "url": "https://www.cafedusimplon.ch/",
+      "status": "needs_adapter",
+      "count": 0,
+      "message": "html (validation requise)",
+      "timestamp": 1792158775.6724958
+    },
+    {
+      "url": "https://www.cinemabellevaux.ch/",
+      "status": "ok",
+      "count": 20,
+      "message": "bellevaux-sessions-v1 (période explicite, séances distinctes)",
+      "timestamp": 1792158730.7559268
+    },
+    {
+      "url": "https://www.docks.ch/programme/",
+      "status": "ok",
+      "count": 14,
+      "message": "docks.ch: 14 liens, 14 contrôlés, 0 erreurs",
+      "timestamp": 1792158778.6159723
+    },
+    {
+      "url": "https://www.folklor.club/events/",
+      "status": "needs_adapter",
+      "count": 0,
+      "message": "html (validation requise)",
+      "timestamp": 1792158704.8173509
+    },
+    {
+      "url": "https://www.hungrybearfood.ch/events",
+      "status": "needs_adapter",
+      "count": 0,
+      "message": "html (validation requise)",
+      "timestamp": 1792158762.7333765
+    },
+    {
+      "url": "https://www.jumeaux.club/",
+      "status": "ok",
+      "count": 39,
+      "message": "jumeaux-html-v1",
+      "timestamp": 1792158706.438827
+    },
+    {
+      "url": "https://www.l-agenda.ch/evenements/",
+      "status": "needs_adapter",
+      "count": 0,
+      "message": "html (validation requise)",
+      "timestamp": 1792158791.3484209
+    },
+    {
+      "url": "https://www.lausanne-tourisme.ch/fr/evenement/",
+      "status": "ok",
+      "count": 16,
+      "message": "pages-detail (16 liens)",
+      "timestamp": 1792158878.4463928
+    },
+    {
+      "url": "https://www.lemontriond.ch/",
+      "status": "needs_adapter",
+      "count": 0,
+      "message": "html (validation requise)",
+      "timestamp": 1792158756.7844954
+    },
+    {
+      "url": "https://www.leromandie.ch/programmation",
+      "status": "ok",
+      "count": 16,
+      "message": "leromandie.ch: 34 liens, 16 contrôlés, 0 erreurs",
+      "timestamp": 1792158783.2895124
+    },
+    {
+      "url": "https://www.mad.club/",
+      "status": "needs_adapter",
+      "count": 0,
+      "message": "html (validation requise)",
+      "timestamp": 1792158702.219404
+    },
+    {
+      "url": "https://www.tacave.ch/evenements",
+      "status": "ok",
+      "count": 14,
+      "message": "html (validation requise)",
+      "timestamp": 1792158769.034671
+    }
+  ],
+  "historical_checks": [
+    {
+      "url": "https://www.guidle.com/de/support/faq/ohne-ortsangabe/in-welcher-form-kann-ich-den-content-beziehen_ABSa6K6",
+      "status": "empty",
+      "count": 0,
+      "message": "pages-detail (0 liens)",
+      "timestamp": 1792157678.318268
+    }
+  ],
+  "decisions_at_collection": {
+    "review": 255,
+    "approved": 71,
+    "excluded": 29
+  },
+  "public": 70,
+  "reasons": {
+    "missing_or_invalid_start": 14,
+    "unverified_or_out_of_scope_venue": 111,
+    "outside_28_day_horizon": 62,
+    "qualified_source_complete_event": 71,
+    "editorial_type_requires_review": 61,
+    "venue_out_of_scope": 7,
+    "past": 7,
+    "doors_not_artistic_start": 2,
+    "daytime_event": 9,
+    "commercial_offer_or_programme_summary": 3,
+    "private_event": 2,
+    "source_type_not_qualified": 2,
+    "changed_schedule": 2,
+    "cancelled": 1,
+    "venue_requires_editorial_review": 1
+  },
+  "coverage": {
+    "method": "Exact title + canonical venue + date + time in collected observations. No overall coverage percentage; detail limits and different titles/hours can prevent matches.",
+    "both": [
+      {
+        "title": "AMOR x NAVA",
+        "date": "2026-10-16",
+        "time": "23:00",
+        "location": "Le Romandie",
+        "evidence_url": "https://www.lausanne-tourisme.ch/fr/evenement/amor-x-nava/",
+        "id": "d725f8aa95a25ddc35018522",
+        "official": [
+          "https://www.leromandie.ch/programmation"
+        ],
+        "aggregator": [
+          "https://www.lausanne-tourisme.ch/fr/evenement/"
+        ]
+      }
+    ],
+    "official_only_in_this_run": [
+      {
+        "title": "L'Eclair + Fred Bürki_78",
+        "date": "2026-10-16",
+        "time": "21:00",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "d3eb634f38c5a8e359a42add",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "All Night Long – SLIMKA",
+        "date": "2026-10-17",
+        "time": "22:00",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "9aa9cac496b9a901aebff048",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Kenny Garrett - Sounds from the Ancestors",
+        "date": "2026-10-18",
+        "time": "17:00",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "2e3a823180162a26e35c5908",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Midweek Jazz Jam avec Prune Karlen",
+        "date": "2026-10-21",
+        "time": "20:30",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "99a5df59aaeddfcaf39a0fd2",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "After du Festival de Sévelin",
+        "date": "2026-10-23",
+        "time": "21:00",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "96a4ac24bb0c1e3603ff9688",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Anaïs Cardot",
+        "date": "2026-10-24",
+        "time": "21:00",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "b712431374a9c058c122ae95",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Nectar Woode + Chelan",
+        "date": "2026-10-28",
+        "time": "20:30",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "28b38166f6526a6eebdc9109",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Joe Armon-Jones + Miss C-Line",
+        "date": "2026-10-29",
+        "time": "20:30",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "aaaedd0d4476e1a72262b1f8",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Nubiyan Twist + Ace Ross + DJ Leo Luscher & Mystic V",
+        "date": "2026-10-30",
+        "time": "21:00",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "0400be4a6e90390e8966bda8",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Santrofi + Ramzi Hammad & Collective + DJ Mulah",
+        "date": "2026-10-31",
+        "time": "21:00",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "b46a67a49d2700059fedd4a3",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Jam du Chic Astral: ouverture par Piscine Rouge",
+        "date": "2026-11-04",
+        "time": "20:30",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "d8770821a63c2614c9a696af",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Boulimy Comedy Jeudy",
+        "date": "2026-11-05",
+        "time": "19:00",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "fb18bc654864b9da1426beef",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Mark Guiliana Beat Music",
+        "date": "2026-11-07",
+        "time": "21:00",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "a23ee51ebbfb10b912a9b458",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Bugge Wesseltoft solo",
+        "date": "2026-11-08",
+        "time": "18:00",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "2581900d7aecc6ef8ed92ec0",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Jam Swing avec le Flying Feet Colletive",
+        "date": "2026-11-11",
+        "time": "20:30",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "91b33e65549a78b36a15e27b",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Di-Meh Live Band feat. thaHomey",
+        "date": "2026-11-12",
+        "time": "20:30",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.jumeaux.club/",
+        "id": "9878ca94a4b1078ce227ab1d",
+        "official": [
+          "https://www.jumeaux.club/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Singers’ Jam",
+        "date": "2026-11-04",
+        "time": "20:30",
+        "location": "Taco’s Bar",
+        "evidence_url": "https://tacos-bar.ch/events-data.js?v=2026-10-06b",
+        "id": "65d9b625cd792de42e70004b",
+        "official": [
+          "https://tacos-bar.ch/events"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "J’capote ! La Morissette en concert",
+        "date": "2026-10-24",
+        "time": "21:30",
+        "location": "Taco’s Bar",
+        "evidence_url": "https://tacos-bar.ch/events-data.js?v=2026-10-06b",
+        "id": "dadbdbae5794ef956b08645f",
+        "official": [
+          "https://tacos-bar.ch/events"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Yard Act",
+        "date": "2026-10-16",
+        "time": "20:30",
+        "location": "Les Docks",
+        "evidence_url": "https://www.docks.ch/evenement/concerts/20261016/yard-act/",
+        "id": "5d77905e8e193e8bf2932a0b",
+        "official": [
+          "https://www.docks.ch/programme/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "The Valentino Vivace Experience",
+        "date": "2026-10-17",
+        "time": "19:45",
+        "location": "Les Docks",
+        "evidence_url": "https://www.docks.ch/evenement/concerts/20261017/the-valentino-vivace-experience/",
+        "id": "2398d4ac8bafea7887a0463b",
+        "official": [
+          "https://www.docks.ch/programme/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Temples",
+        "date": "2026-10-18",
+        "time": "20:00",
+        "location": "Les Docks",
+        "evidence_url": "https://www.docks.ch/evenement/concerts/20261018/temples-3/",
+        "id": "318f1df30f180c55b35fff49",
+        "official": [
+          "https://www.docks.ch/programme/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Cat Power",
+        "date": "2026-10-23",
+        "time": "20:30",
+        "location": "Les Docks",
+        "evidence_url": "https://www.docks.ch/evenement/concerts/20261023/cat-power-3/",
+        "id": "f542db1e6e60754c1bade8e6",
+        "official": [
+          "https://www.docks.ch/programme/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Sleaford Mods",
+        "date": "2026-10-25",
+        "time": "20:00",
+        "location": "Les Docks",
+        "evidence_url": "https://www.docks.ch/evenement/concerts/20261025/sleaford-mods/",
+        "id": "d812ecf5c7f61a57ed74bfb9",
+        "official": [
+          "https://www.docks.ch/programme/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Ghinzu",
+        "date": "2026-10-28",
+        "time": "20:30",
+        "location": "Les Docks",
+        "evidence_url": "https://www.docks.ch/evenement/concerts/20261028/ghinzu/",
+        "id": "af7facd5e228d6da96f4248d",
+        "official": [
+          "https://www.docks.ch/programme/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Michelle Gurevich",
+        "date": "2026-10-29",
+        "time": "20:30",
+        "location": "Les Docks",
+        "evidence_url": "https://www.docks.ch/evenement/concerts/20261029/michelle-gurevich/",
+        "id": "c4d1a9a78d2be71a03d9f91e",
+        "official": [
+          "https://www.docks.ch/programme/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "So La Lune",
+        "date": "2026-10-30",
+        "time": "20:30",
+        "location": "Les Docks",
+        "evidence_url": "https://www.docks.ch/evenement/concerts/20261030/so-la-lune-2/",
+        "id": "2928ceb56484c5ca303b3d16",
+        "official": [
+          "https://www.docks.ch/programme/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Walk off the Earth",
+        "date": "2026-11-01",
+        "time": "20:00",
+        "location": "Les Docks",
+        "evidence_url": "https://www.docks.ch/evenement/concerts/20261101/walk-off-the-earth-2/",
+        "id": "aaea22257ad09eb04afbb618",
+        "official": [
+          "https://www.docks.ch/programme/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Mike D 5D",
+        "date": "2026-11-03",
+        "time": "20:30",
+        "location": "Les Docks",
+        "evidence_url": "https://www.docks.ch/evenement/concerts/20261103/mike-d/",
+        "id": "5acaa4dbaf85dbadd978f4ac",
+        "official": [
+          "https://www.docks.ch/programme/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "NNAVY",
+        "date": "2026-11-05",
+        "time": "20:30",
+        "location": "Les Docks",
+        "evidence_url": "https://www.docks.ch/evenement/concerts/20261105/nnavy-2/",
+        "id": "2a65c5b5f2ccd3b1cc9d429a",
+        "official": [
+          "https://www.docks.ch/programme/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Alela Diane",
+        "date": "2026-11-07",
+        "time": "20:30",
+        "location": "Les Docks",
+        "evidence_url": "https://www.docks.ch/evenement/concerts/20261107/alela-diane-2/",
+        "id": "bb5bfa83d6a342dcbc988eaa",
+        "official": [
+          "https://www.docks.ch/programme/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "MICHAEL SCHENKER GROUP",
+        "date": "2026-11-12",
+        "time": "19:30",
+        "location": "Les Docks",
+        "evidence_url": "https://www.docks.ch/evenement/concerts/20261112/michael-schenker-group/",
+        "id": "5b84ab276cb44fb4ca769674",
+        "official": [
+          "https://www.docks.ch/programme/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Club François",
+        "date": "2026-10-17",
+        "time": "23:00",
+        "location": "Le Romandie",
+        "evidence_url": "https://www.leromandie.ch/event/club-francois-3",
+        "id": "862a6ca99bc5e8bd99001fd0",
+        "official": [
+          "https://www.leromandie.ch/programmation"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "ROMANDUB #2",
+        "date": "2026-10-24",
+        "time": "23:00",
+        "location": "Le Romandie",
+        "evidence_url": "https://www.leromandie.ch/event/romandub-2",
+        "id": "ef52cc2214176de87ac36c0d",
+        "official": [
+          "https://www.leromandie.ch/programmation"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Y2K NIGHT AVEC CARTON JAUNE CHARMED EDITION",
+        "date": "2026-10-30",
+        "time": "23:00",
+        "location": "Le Romandie",
+        "evidence_url": "https://www.leromandie.ch/event/y2k-night-avec-carton-jaune-charmed-edition",
+        "id": "173dc4c816f7ae752b2879c1",
+        "official": [
+          "https://www.leromandie.ch/programmation"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Grand Méchant Bal - Promo 2026",
+        "date": "2026-10-31",
+        "time": "21:00",
+        "location": "Le Romandie",
+        "evidence_url": "https://www.leromandie.ch/event/grand-mechant-bal-promo-2026",
+        "id": "fbb03b164e344590302652c0",
+        "official": [
+          "https://www.leromandie.ch/programmation"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Vendredi de L'Etoile",
+        "date": "2026-10-16",
+        "time": "22:30",
+        "location": "L’Étoile Blanche",
+        "evidence_url": "https://backoffice.hango.ch/external/widgets/estb_live_p8dmpywljl2by3l9gstd9gg6",
+        "id": "aaa02befcdfef59d4d9e796b",
+        "official": [
+          "https://etoileblanche.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Samedi de l'Etoile Blanche",
+        "date": "2026-10-17",
+        "time": "22:30",
+        "location": "L’Étoile Blanche",
+        "evidence_url": "https://backoffice.hango.ch/external/widgets/estb_live_p8dmpywljl2by3l9gstd9gg6",
+        "id": "eef32766e248c70013426251",
+        "official": [
+          "https://etoileblanche.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Vendredi de L'Etoile",
+        "date": "2026-10-23",
+        "time": "22:30",
+        "location": "L’Étoile Blanche",
+        "evidence_url": "https://backoffice.hango.ch/external/widgets/estb_live_p8dmpywljl2by3l9gstd9gg6",
+        "id": "892a1d7174e4c42acfcb4f13",
+        "official": [
+          "https://etoileblanche.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Samedi de l'Etoile Blanche",
+        "date": "2026-10-24",
+        "time": "22:30",
+        "location": "L’Étoile Blanche",
+        "evidence_url": "https://backoffice.hango.ch/external/widgets/estb_live_p8dmpywljl2by3l9gstd9gg6",
+        "id": "ccb3d2035985a2fa99fe3c67",
+        "official": [
+          "https://etoileblanche.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Vendredi de L'Etoile",
+        "date": "2026-10-30",
+        "time": "22:30",
+        "location": "L’Étoile Blanche",
+        "evidence_url": "https://backoffice.hango.ch/external/widgets/estb_live_p8dmpywljl2by3l9gstd9gg6",
+        "id": "7a30eac2a3314dd8f62b3472",
+        "official": [
+          "https://etoileblanche.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Samedi de l'Etoile Blanche",
+        "date": "2026-10-31",
+        "time": "22:30",
+        "location": "L’Étoile Blanche",
+        "evidence_url": "https://backoffice.hango.ch/external/widgets/estb_live_p8dmpywljl2by3l9gstd9gg6",
+        "id": "75bff57fc4074b7a1a324a7a",
+        "official": [
+          "https://etoileblanche.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Vendredi de L'Etoile",
+        "date": "2026-11-06",
+        "time": "22:30",
+        "location": "L’Étoile Blanche",
+        "evidence_url": "https://backoffice.hango.ch/external/widgets/estb_live_p8dmpywljl2by3l9gstd9gg6",
+        "id": "aa4ec004ae5cc6f8d8058348",
+        "official": [
+          "https://etoileblanche.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Samedi de l'Etoile Blanche",
+        "date": "2026-11-07",
+        "time": "22:30",
+        "location": "L’Étoile Blanche",
+        "evidence_url": "https://backoffice.hango.ch/external/widgets/estb_live_p8dmpywljl2by3l9gstd9gg6",
+        "id": "bdabc5ccc11f34145d60658a",
+        "official": [
+          "https://etoileblanche.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "NINJA WARRIORS — Indira Paganotto, Marhu, Sanem",
+        "date": "2026-10-16",
+        "time": "23:00",
+        "location": "D! Club",
+        "evidence_url": "https://dclub.ch/agenda/",
+        "id": "aabaf7d683054087f1b2c82f",
+        "official": [
+          "https://dclub.ch/agenda/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "D! Club 30 th Anniversary : THE GARD!EN — Holy Priest, Kistenbrügger, Nhū, Rōse",
+        "date": "2026-10-18",
+        "time": "17:00",
+        "location": "D! Club",
+        "evidence_url": "https://dclub.ch/agenda/",
+        "id": "69f179e016b75fb2947e905a",
+        "official": [
+          "https://dclub.ch/agenda/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "SUPERNOVA — VTSS, Pawlowski, Nhū",
+        "date": "2026-10-23",
+        "time": "23:00",
+        "location": "D! Club",
+        "evidence_url": "https://dclub.ch/agenda/",
+        "id": "9e0df783f509778ac30f6a1f",
+        "official": [
+          "https://dclub.ch/agenda/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "HEC HALLOWEEN — Mr W.",
+        "date": "2026-10-29",
+        "time": "23:00",
+        "location": "D! Club",
+        "evidence_url": "https://dclub.ch/agenda/",
+        "id": "aa3373ee0d60dfbc72dfe9e5",
+        "official": [
+          "https://dclub.ch/agenda/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Technoween — Ben Klock, Kink Live, Djerry C, Ricciø",
+        "date": "2026-10-30",
+        "time": "23:00",
+        "location": "D! Club",
+        "evidence_url": "https://dclub.ch/agenda/",
+        "id": "eb1f8923bae03e8f34ad4f12",
+        "official": [
+          "https://dclub.ch/agenda/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "PAPA SVEN — Sven Väth, Tal Fussman, Salvatore freda",
+        "date": "2026-11-06",
+        "time": "23:00",
+        "location": "D! Club",
+        "evidence_url": "https://dclub.ch/agenda/",
+        "id": "4767723dc556f0bc5c476eba",
+        "official": [
+          "https://dclub.ch/agenda/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "BeDiscovered Models – The Next 20",
+        "date": "2026-11-07",
+        "time": "19:00",
+        "location": "D! Club",
+        "evidence_url": "https://dclub.ch/agenda/",
+        "id": "66056d04c716c2dd3e1699ea",
+        "official": [
+          "https://dclub.ch/agenda/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "LE BAL DES AMBULANCIERS",
+        "date": "2026-11-12",
+        "time": "23:00",
+        "location": "D! Club",
+        "evidence_url": "https://dclub.ch/agenda/",
+        "id": "7a24eb02c345629db84cfeb7",
+        "official": [
+          "https://dclub.ch/agenda/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Paolo Fresu-David Linx-Gustavo Beytelmann: CD «Trama latina»",
+        "date": "2026-10-22",
+        "time": "21:00",
+        "location": "Chorus Jazz Club",
+        "evidence_url": "https://chorus.ch/",
+        "id": "4fb53ba9125b2938c785291e",
+        "official": [
+          "https://chorus.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Aleksandra Arutyunyan Zemlianskaia Quartet",
+        "date": "2026-10-23",
+        "time": "21:00",
+        "location": "Chorus Jazz Club",
+        "evidence_url": "https://chorus.ch/",
+        "id": "6c0123bc46e60127c12d3755",
+        "official": [
+          "https://chorus.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Hommage à Michel Portal",
+        "date": "2026-10-24",
+        "time": "21:00",
+        "location": "Chorus Jazz Club",
+        "evidence_url": "https://chorus.ch/",
+        "id": "b6e29080e6e792231aa6643f",
+        "official": [
+          "https://chorus.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "L’EJMA présente:",
+        "date": "2026-10-29",
+        "time": "20:30",
+        "location": "Chorus Jazz Club",
+        "evidence_url": "https://chorus.ch/",
+        "id": "1d73f2f52b2d4f975bd5f90e",
+        "official": [
+          "https://chorus.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Nella’s Dream Trio",
+        "date": "2026-10-30",
+        "time": "21:00",
+        "location": "Chorus Jazz Club",
+        "evidence_url": "https://chorus.ch/",
+        "id": "c58bd3185f2858298000e5ac",
+        "official": [
+          "https://chorus.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Deep Chuckles",
+        "date": "2026-10-31",
+        "time": "21:00",
+        "location": "Chorus Jazz Club",
+        "evidence_url": "https://chorus.ch/",
+        "id": "eb79e448c1f0b0142ee4ac85",
+        "official": [
+          "https://chorus.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "L'Espèce explosive",
+        "date": "2026-10-18",
+        "time": "20:45",
+        "location": "Cinéma Bellevaux",
+        "evidence_url": "https://www.cinemabellevaux.ch/",
+        "id": "f00305c144b743c63ea99d8c",
+        "official": [
+          "https://www.cinemabellevaux.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "L'Espèce explosive",
+        "date": "2026-10-20",
+        "time": "20:30",
+        "location": "Cinéma Bellevaux",
+        "evidence_url": "https://www.cinemabellevaux.ch/",
+        "id": "b6f473639250c6d268a7cc92",
+        "official": [
+          "https://www.cinemabellevaux.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Freedom – Le destin de Shewit",
+        "date": "2026-10-20",
+        "time": "18:30",
+        "location": "Cinéma Bellevaux",
+        "evidence_url": "https://www.cinemabellevaux.ch/",
+        "id": "2877eb57142588b3f6feedd0",
+        "official": [
+          "https://www.cinemabellevaux.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Salvation",
+        "date": "2026-10-19",
+        "time": "18:00",
+        "location": "Cinéma Bellevaux",
+        "evidence_url": "https://www.cinemabellevaux.ch/",
+        "id": "10e31a0e5798b00ab33d2307",
+        "official": [
+          "https://www.cinemabellevaux.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Rose",
+        "date": "2026-10-19",
+        "time": "20:30",
+        "location": "Cinéma Bellevaux",
+        "evidence_url": "https://www.cinemabellevaux.ch/",
+        "id": "ead0b11f2d8c2141dbc40466",
+        "official": [
+          "https://www.cinemabellevaux.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Fjord",
+        "date": "2026-10-18",
+        "time": "17:45",
+        "location": "Cinéma Bellevaux",
+        "evidence_url": "https://www.cinemabellevaux.ch/",
+        "id": "ef8444b1a581e7c96e4ce950",
+        "official": [
+          "https://www.cinemabellevaux.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Greaser's Palace",
+        "date": "2026-10-16",
+        "time": "18:15",
+        "location": "Cinéma Bellevaux",
+        "evidence_url": "https://www.cinemabellevaux.ch/",
+        "id": "a1185c6d0df1471ac57254d0",
+        "official": [
+          "https://www.cinemabellevaux.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Barbara Forever",
+        "date": "2026-10-16",
+        "time": "20:30",
+        "location": "Cinéma Bellevaux",
+        "evidence_url": "https://www.cinemabellevaux.ch/",
+        "id": "0633fde3041d5a4efed972f4",
+        "official": [
+          "https://www.cinemabellevaux.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Focus Archives",
+        "date": "2026-10-17",
+        "time": "18:30",
+        "location": "Cinéma Bellevaux",
+        "evidence_url": "https://www.cinemabellevaux.ch/",
+        "id": "4ce1eb0af14e6ff8a112f8a1",
+        "official": [
+          "https://www.cinemabellevaux.ch/"
+        ],
+        "aggregator": []
+      },
+      {
+        "title": "Fugs Film !",
+        "date": "2026-10-17",
+        "time": "20:45",
+        "location": "Cinéma Bellevaux",
+        "evidence_url": "https://www.cinemabellevaux.ch/",
+        "id": "327d74d725f3f43bbfbe8137",
+        "official": [
+          "https://www.cinemabellevaux.ch/"
+        ],
+        "aggregator": []
+      }
+    ],
+    "aggregator_only_in_this_run": [
+      {
+        "title": "L'Eclair + Fred Bürki_78",
+        "date": "2026-10-16",
+        "time": "20:00",
+        "location": "Jumeaux Jazz Club",
+        "evidence_url": "https://www.lausanne-tourisme.ch/fr/evenement/leclair-fred-burki-78/",
+        "id": "1a001a854c2d4b5d6938181e",
+        "official": [],
+        "aggregator": [
+          "https://www.lausanne-tourisme.ch/fr/evenement/"
+        ]
+      },
+      {
+        "title": "Satrocks XVIII",
+        "date": "2026-10-16",
+        "time": "20:00",
+        "location": "Satellite",
+        "evidence_url": "https://www.lausanne-tourisme.ch/fr/evenement/satrocks-xviii/",
+        "id": "6571660c4ba21646c606cf76",
+        "official": [],
+        "aggregator": [
+          "https://www.lausanne-tourisme.ch/fr/evenement/"
+        ]
+      }
+    ]
+  }
+}
