@@ -1,5 +1,7 @@
 # Bêta Samstag — protocole de test
 
+> **Archive historique d’octobre 2026.** Ce protocole préparait la bêta avant l’ouverture publique. Voir [ETAT_ACTUEL.md](../ETAT_ACTUEL.md) pour l’état courant.
+
 Objectif : vérifier qu’une personne trouve une sortie qui lui donne envie et comprend comment y aller.
 
 ## Avant invitation

@@ -1,5 +1,7 @@
 # Lausanne Samstag — récapitulatif du moteur et des collecteurs
 
+> **Archive historique du 16 octobre 2026.** Les compteurs et décisions ci-dessous ne décrivent pas l’état courant. Voir [ETAT_ACTUEL.md](../ETAT_ACTUEL.md).
+
 Version locale du 16 octobre 2026. **Aucun changement sur Render ni sur GitHub.**
 
 Le moteur travaille maintenant sur la base élargie des sorties du soir. Les bars

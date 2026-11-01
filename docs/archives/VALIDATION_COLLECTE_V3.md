@@ -1,5 +1,7 @@
 # Validation locale des collecteurs — 16 octobre 2026
 
+> **Archive historique du 16 octobre 2026.** Cette campagne reste une preuve datée et ne décrit pas l’état courant. Voir [ETAT_ACTUEL.md](../ETAT_ACTUEL.md).
+
 Base isolée : `validation/collecte.sqlite3`. Aucun déploiement ni envoi GitHub.
 
 ## Résultat de la passe réelle

@@ -1,5 +1,7 @@
 # Samstag — bilan du 17 octobre 2026
 
+> **Archive historique du 17 octobre 2026.** Cette campagne reste une preuve datée et ne décrit pas l’état courant. Voir [ETAT_ACTUEL.md](../ETAT_ACTUEL.md).
+
 **Bilan de la première phase.** Pour l’état courant (383 événements, qualification de La Grange/Vidy/Château et préparation du lancement commun), lire [QUALIFICATION_ET_MISE_EN_SERVICE.md](QUALIFICATION_ET_MISE_EN_SERVICE.md).
 
 ## Résultat pour le projet
@@ -64,6 +66,6 @@ La collecte initiale `collecte.sqlite3` est un diagnostic avant les dernières c
 
 ## Ce qui reste avant une mise en ligne
 
-La préparation et les contraintes d’hébergement sont dans [EXPLOITATION.md](EXPLOITATION.md). Le fichier SQLite doit être persistant et partagé entre le site et le processus de collecte. La configuration Render gratuite du dépôt ne fournit pas cette garantie ; la configuration réelle du compte n’a pas été inspectée.
+La préparation et les contraintes d’hébergement sont dans [EXPLOITATION.md](../EXPLOITATION.md). Le fichier SQLite doit être persistant et partagé entre le site et le processus de collecte. La configuration Render gratuite du dépôt ne fournit pas cette garantie ; la configuration réelle du compte n’a pas été inspectée.
 
 **Aucun push GitHub, déploiement Render, changement de plan ou service permanent effectué.** Il reste à choisir l’hébergement, tester la supervision adaptée, obtenir l’accord explicite avant mise en production puis observer les mises à jour sur 24 heures. Les deux passes rapprochées et les tests simulés ne démontrent pas une stabilité sur plusieurs jours.

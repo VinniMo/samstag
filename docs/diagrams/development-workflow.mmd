@@ -1,0 +1,14 @@
+flowchart TD
+    B[Objectif borné] --> C[Branche courte]
+    C --> I[Base locale jetable]
+    I --> T[Test ou preuve de départ]
+    T --> M[Modification minimale]
+    M --> V{Contrôles réussis}
+    V -->|Non| M
+    V -->|Oui| R[Revue et PR]
+    R --> G{Production concernée}
+    G -->|Non| D[Clôture et passation]
+    G -->|Oui| A[Autorisation et sauvegarde]
+    A --> P[Livraison du commit revu]
+    P --> H[Vérification et observation]
+    H --> D

@@ -1,0 +1,49 @@
+%% Cible future : voir docs/PLAN_REORGANISATION_CODE.md, sessions R0 à R7.
+%% Les migrations et évolutions fonctionnelles sont des lots séparés du rangement.
+flowchart TB
+    subgraph Inputs[Sources]
+        O[Sources officielles]
+        G[Agrégateurs]
+    end
+
+    subgraph Collection[Collecte]
+        HTTP[Client HTTP borné]
+        REG[Registre des adaptateurs]
+        ADP[Adaptateurs par source]
+        RUN[Orchestrateur de passe]
+    end
+
+    subgraph Domain[Domaine]
+        Q[Validation qualité]
+        DEDUP[Rapprochement conservateur]
+        AGENDA[Périodes et rubriques]
+    end
+
+    subgraph Storage[Stockage]
+        MIG[Migrations SQLite]
+        OBS[Observations et preuves]
+        PUB[Occurrences publiques]
+    end
+
+    subgraph Web[Application]
+        API[API publique allégée]
+        UI[Interface Samstag]
+        ADMIN[Diagnostics internes]
+    end
+
+    O --> HTTP
+    G --> HTTP
+    HTTP --> REG
+    REG --> ADP
+    ADP --> RUN
+    RUN --> Q
+    Q --> OBS
+    Q --> DEDUP
+    DEDUP --> PUB
+    MIG --> OBS
+    MIG --> PUB
+    PUB --> AGENDA
+    AGENDA --> API
+    API --> UI
+    OBS --> ADMIN
+    RUN --> ADMIN

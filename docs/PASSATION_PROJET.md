@@ -1,10 +1,15 @@
 # Lausanne Samstag — dossier de reprise
 
-**État courant : 18 octobre 2026.** Samstag est installé et testé en interne sur le VPS Lite Infomaniak ; domaine non choisi, aucune publication publique. Voir [la procédure VPS](../deploy/infomaniak/README.md) et `validation/infomaniak-2026-10-18/verification.json`. 85 tests réussis sur le VPS, 371 sorties à la première collecte. L’offre Render payante a été refusée. Les paragraphes suivants décrivent les étapes antérieures.
+## 1er novembre 2026 — bilan demandé des collecteurs
+- Lecture des registres, du worker et de l’audit existant, sans relancer les sources ni accéder au VPS. Bilan communiqué : 39 canaux configurés, 37 actifs, 24 autorisés à publier sous conditions ; cinq canaux actifs sans adaptateur ne constituent pas des collecteurs opérationnels.
+- Fréquence versionnée : passe immédiate au démarrage, puis attente de 3 600 secondes après chaque passe ; rythme commun aux sources actives. Configuration réellement installée non revérifiée par SSH.
+- Couverture jugée utile pour une bêta, mais exhaustivité non démontrée : 322 sorties et 19 lieux dans l’instantané public de l’audit ; lacunes bars, cinéma et sources partielles/en erreur. Aucun changement applicatif ou distant.
 
-**État du candidat local au 17 octobre 2026.** Lire d’abord [QUALIFICATION_ET_MISE_EN_SERVICE.md](QUALIFICATION_ET_MISE_EN_SERVICE.md) et [la proposition Render](../deploy/README.md). Les sections ci-dessous décrivent l’historique du 16 octobre et sont dépassées pour les compteurs et tâches déjà effectuées. Satellite est exclu ; les quatre bars demandés figurent dans le bilan courant. Le candidat local contient 383 événements retenus et passe 85 tests sous Python 3.9 et 3.12.14. Aucun déploiement.
+**Journal chronologique mis à jour le 1er novembre 2026.** L’état courant, la prochaine tâche et les limites vérifiées se trouvent dans [ETAT_ACTUEL.md](ETAT_ACTUEL.md). Le site public de référence est [samstagloz.ch](https://samstagloz.ch), servi par l’application Flask sur le VPS Infomaniak.
 
-Reprise locale : 16 octobre 2026. La stabilisation et une passe réelle ont été effectuées ; la qualification de tous les collecteurs reste incomplète. Ce document remplace la relecture intégrale de la conversation pour reprendre le chantier.
+Les sections suivantes conservent l’historique depuis le 16 octobre. Leurs mentions de domaine non choisi, de service interne, de branches, de compteurs ou de travaux à faire restent des faits datés et ne doivent pas être interprétées comme l’état actuel.
+
+## Archive chronologique
 
 ## Objectif et décisions à conserver
 
@@ -30,7 +35,7 @@ L’utilisateur souhaite des sessions courtes et ciblées, avec un récapitulati
 
 ### Version v2, avant l’élargissement
 
-Le récapitulatif historique `docs/RECAP_COLLECTE.md` et les diagnostics v2 décrivent la version précédente : 51 tests, 70 événements lors de son contrôle local, 10 canaux qualifiés. Les neuf lieux alimentés alors étaient Docks, Jumeaux, Chorus, Bellevaux, D! Club, Romandie (soirées DJ), Taco’s, Étoile Blanche et Satellite (via Lausanne Tourisme). Le calendrier des Gosses du Québec était lisible mais vide. Ces chiffres sont historiques, pas une mesure actuelle ou exhaustive.
+Le récapitulatif historique `docs/archives/RECAP_COLLECTE.md` et les diagnostics v2 décrivent la version précédente : 51 tests, 70 événements lors de son contrôle local, 10 canaux qualifiés. Les neuf lieux alimentés alors étaient Docks, Jumeaux, Chorus, Bellevaux, D! Club, Romandie (soirées DJ), Taco’s, Étoile Blanche et Satellite (via Lausanne Tourisme). Le calendrier des Gosses du Québec était lisible mais vide. Ces chiffres sont historiques, pas une mesure actuelle ou exhaustive.
 
 Le moteur possède déjà une validation des dates/heures/lieux, des preuves par source, une préférence officielle sur agrégateur, un dédoublonnage exact et un verrou SQLite partagé. Les événements incomplets restent en revue. Les événements non revérifiés depuis plus de 24 heures sont masqués. Les disparitions ne sont traitées que dans les calendriers complets qualifiés.
 
@@ -221,7 +226,7 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Mesure réelle sur les 14 jours à partir du 19 octobre : 126 sorties ; adresses manquantes 30 → 8 ; descriptions absentes 43 → 19. Total API au contrôle : 368 sorties. Le reste du catalogue n’est pas déclaré intégralement vérifié.
 - Observation bornée lancée : `samstag-observation.service`, début 19 octobre 16:53 UTC / 18:53 Paris, une mesure toutes les 15 minutes pendant 24 heures. Rapport `/var/lib/samstag/beta-observation-20261019.jsonl`, synthèse attendue `.summary.json` après fin. Premier relevé web ok, aucune source périmée/en échec ; limites de couverture connues. Historique préalable : deux erreurs ponctuelles de source sur la journée, sources rétablies au contrôle. Une observation complète sans interruption n’est pas encore prouvée.
 - Sauvegarde quotidienne locale confirmée (copie du 19 octobre 04:18 UTC). Nouvelle sauvegarde cohérente `/var/lib/samstag/backups/samstag-beta-20261019.sqlite3`. Copie hors VPS sur Mac `sauvegardes/hors-vps/samstag-beta-20261019.sqlite3`, intégrité et restauration contrôlées. Premier export refusé par auto-review pour risque de retours privés ; vérification de la sauvegarde figée : table feedback vide (0 ligne), autres tables d’agenda public ; copie ensuite autorisée. La copie hors VPS n’est pas automatisée.
-- Préparation publication : modèle Nginx séparé non activé dans `deploy/infomaniak/beta/nginx-samstag.conf.example` ; protocole 10–20 testeurs/une semaine dans `docs/TEST_BETA.md`. Question adresse publique posée ; attendre le choix avant configuration DNS/HTTPS. Aucun recrutement/invitation externe réalisé.
+- Préparation publication : modèle Nginx séparé non activé dans `deploy/infomaniak/beta/nginx-samstag.conf.example` ; protocole 10–20 testeurs/une semaine dans `docs/archives/TEST_BETA.md`. Question adresse publique posée ; attendre le choix avant configuration DNS/HTTPS. Aucun recrutement/invitation externe réalisé.
 - À terminer : choix adresse et ouverture HTTPS avec blocage public de `/api/refresh`, COOKIE_SECURE=1, vérification extérieure, observation 24 h, test du partage sur appareils physiques, qualification des bars Great Escape/Pavillon/Bossette toujours sans programme admissible. Aucun prix à enrichir en priorité pour cette bêta.
 - Preuves : `validation/beta-2026-10-19/` (tests, avant/après, déploiement, qualification JazzOnze+, copie/restauration). Aperçu `/mobile.html` port 8767 maintenant fondé sur la réponse réelle du VPS après corrections ; retours de l’aperçu stockés uniquement dans sa base locale de test.
 
@@ -279,3 +284,79 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Accord utilisateur sur l’allègement : les six choix de rubriques et le grand cadre sont remplacés par une invitation compacte « Vos sorties, selon vos goûts », Personnaliser et Pas maintenant. Personnaliser ouvre Mes goûts ; aucun changement aux préférences existantes.
 - Contrôles locaux 320/390/1226 px réussis : hauteur 83 px mobile / 61 px ordinateur, sans débordement ni erreur JavaScript ; choix, enregistrement, refus et persistance après rechargement vérifiés.
 - Appliqué sur VPS après sauvegarde `/opt/samstag/samstag-backup-20261022T100557Z`, seul service Samstag redémarré ; HTTP 200, santé ok, deux services actifs, empreintes statiques conformes. Preuves `validation/accueil-compact-2026-10-22/`. Aucun changement moteur, DNS ou publication publique.
+
+
+## 1er novembre 2026 — audit architecture, collecteurs et organisation
+- Audit demandé par l’utilisateur, sans modification applicative ni déploiement. Rapport courant : `docs/audits/AUDIT_2026-11-01.md` ; mesures publiques versionnées : `docs/audits/2026-11-01-mesures.json`.
+- Mise à jour factuelle : **https://samstagloz.ch est public et répond HTTP 200**. Les mentions anciennes « domaine non choisi / publication reportée » décrivent l’historique et ne sont plus l’état courant. Aucun DNS, proxy ou certificat modifié pendant l’audit.
+- Contrôle vers 22 h 31–33 Paris : 322 sorties publiques, 19 lieux représentés, 2 675 éléments conservés ; 37 sources actives sur 39, dont 24 autorisées à publier sous conditions. Collecte dégradée : 23 OK, 5 partielles, 5 sans adaptateur, 3 vides, MAD en erreur. Pas une mesure d’exhaustivité régionale.
+- 102 tests Python réussis dans un environnement temporaire Python 3.9 (avertissement LibreSSL), syntaxe JS correcte ; JS et CSS publics identiques au local par SHA-256. Pas de nouvelle campagne E2E, contrôle mobile complet, SSH, restauration ni observation 24 h.
+- Défauts confirmés : doublon Mike D / Mike D 5D aux Docks le 3 novembre à 20 h 30 entre L’Agenda et officiel ; reproduction isolée d’une panne de fiche Docks enregistrée `empty` au lieu d’erreur/partiel. Aucun correctif appliqué.
+- Recommandation : conserver Flask/SQLite et le design ; fiabiliser d’abord documentation actuelle, environnement et CI, puis statuts/rapprochement des collecteurs, sauvegardes/alertes, organisation progressive du code. Les lots suivants restent à décider ; aucun élargissement autonome de la collecte lancé.
+
+
+## 1er novembre 2026 — plan d’implémentation et suivi
+- Plan opérationnel ajouté dans `docs/PLAN_IMPLEMENTATION.md`, avec lots L0 à L6, dépendances, tâches identifiables et critères de fin. Tableau de bord court dans `docs/SUIVI_IMPLEMENTATION.md`.
+- Diagrammes Mermaid ajoutés dans `docs/diagrams/` : feuille de route, processus de développement et architecture cible. Leur état doit être actualisé avec le tableau de suivi à la fin de chaque session.
+- Première séquence recommandée : actualiser les documents actifs et l’environnement local, ajouter la CI et la validation des registres, puis corriger le statut partiel Docks/Romandie avant le diagnostic ciblé MAD et le dédoublonnage.
+- Aucun code applicatif, collecteur, serveur ou site public modifié. La décision « agenda nocturne ou culturel étendu » reste ouverte et bloque uniquement le lot produit L6.
+
+
+## 1er novembre 2026 — lot L0 finalisé
+- `docs/ETAT_ACTUEL.md` devient le point d’entrée réécrit pour l’état courant. `docs/PASSATION_PROJET.md` reste le journal chronologique et les anciens bilans portent désormais un bandeau d’archive.
+- `README.md`, `PRODUCT.md`, `docs/EXPLOITATION.md` et `deploy/infomaniak/README.md` ont été alignés sur le domaine public, la production Flask/Infomaniak, les fonctions présentes et les limites réellement vérifiées.
+- `docs/README.md` indexe les références actives et historiques. `docs/PREUVES_ET_ARCHIVES.md` distingue les preuves versionnées, les dossiers cités mais absents et les contrôles distants non réalisés.
+- Les tâches `L0.1` à `L0.6`, le tableau de suivi et la feuille de route Mermaid sont marqués terminés. Prochaine session bornée : `L1.1` à `L1.3`, sans modification des collecteurs.
+- Session documentaire uniquement : aucun code applicatif, appel de collecteur, commit, envoi GitHub, accès SSH ou changement de production.
+
+
+## 1er novembre 2026 — lot L1 finalisé
+- Python 3.12 déclaré dans `.python-version` et le devcontainer. `.env.example` documente une base absolue locale ; le lanceur impose `COLLECTION_ON_VISIT=0`, `DEMO_ENABLED=0`, l’écoute locale et refuse les chemins de production connus.
+- Interface commune ajoutée : `make setup`, `dev`, `test`, `e2e`, `check`, `report` et `lock`. Installation neuve vérifiée dans `.venv` depuis `requirements-dev.lock`.
+- Dépendances directes séparées dans les fichiers `.in` et transitives figées dans `requirements.lock` et `requirements-dev.lock`, générés pour Python 3.12 avec pip-tools 7.5.2.
+- Les E2E prennent désormais `SAMSTAG_PYTHON`, écrivent leurs rapports sous `.artifacts/` et gardent leur base sous `.local/`, sans supposer un `.venv` nommé. Une première matrice a révélé une collision entre base et sorties nettoyées par Playwright ; séparation appliquée puis matrice complète réussie : 85/85 sur cinq profils et 368 événements de fixture, aucune collecte externe.
+- Schémas JSON ajoutés pour sources, lieux et bars. Validation réussie : 39 sources, 159 lieux et 28 bars, avec identifiants uniques et références croisées.
+- Workflow GitHub Actions ajouté : Python 3.12, dépendances verrouillées, schémas JSON, syntaxe JavaScript, 102 tests Python et E2E Chromium. Le fichier est local et n’a pas encore été exécuté sur GitHub.
+- `make check` réussi : 102 tests Python. `make report` et `make dev` vérifiés sur la base locale vide ; santé HTTP 200. Aucun collecteur réel, service distant ou déploiement utilisé.
+
+
+## 1er novembre 2026 — événements diurnes au périmètre
+- Décision utilisateur : inclure les événements diurnes. Périmètre produit, état actuel, tâche L6.1, suivi et feuille de route actualisés.
+- Mise en œuvre à faire : `collection_quality.py` rejette encore les départs de 6 h à 16 h 59 ; vérifier aussi les restrictions propres aux adaptateurs et registres, puis les périodes de l’interface. Les expositions et longues périodes ne sont pas implicitement autorisées.
+- Documentation uniquement ; aucune collecte, modification applicative ni intervention en production.
+
+
+## 1er novembre 2026 — prise en charge locale des événements diurnes
+- Demande utilisateur appliquée au code local : retrait du rejet global des départs de 6 h à 16 h 59 ; confirmation des séances Vidy et enrichissement JazzOnze+ également en journée. Notes du registre Chorus, Bellevaux et Grange alignées, sans changement des drapeaux de publication ni des lieux admis.
+- Première période renommée « Aujourd’hui » et étendue de 6 h à 6 h le lendemain en heure suisse ; clé API historique `tonight` conservée. Avant 6 h, rattachement à la nuit précédente maintenu. Aucun changement CSS ou de structure visuelle.
+- 107 tests Python réussis via `make check`, registres et syntaxe JS valides. Régressions : frontières horaires, séance cinéma diurne, confirmation Vidy contradictoire, description JazzOnze+, publication SQLite isolée et présence dans Aujourd’hui, refus des annulations/horaires non vérifiés/expositions/longues périodes.
+- Tests navigateur lancés sur port local séparé 8779 et sortie `/private/tmp/samstag-diurne-e2e` (port 8768 déjà occupé). Paramètre `SAMSTAG_E2E_PORT` ajouté au lanceur/config E2E pour éviter les conflits.
+- Aucune collecte réelle ni mesure d’exhaustivité ; les anciennes exclusions seront réévaluées lors d’une prochaine collecte avec le nouveau code. Aucun accès VPS, transfert, déploiement, commit ou envoi GitHub. `L6.1` reste ouvert pour livraison et mesure réelle de couverture.
+
+- Résultat final navigateur : 17/17 scénarios Chromium réussis sur le catalogue de fixture, dont contrôle sans débordement à 320/390/1100 px. Rapport `/private/tmp/samstag-diurne-e2e/report/index.html`. Pas de contrôle sur téléphone physique ni de certification des autres navigateurs.
+
+
+## 1er novembre 2026 — rangement documentaire et nettoyage local
+- Deux lots demandés effectués : README orienté navigation, guide `docs/SE_REPERER.md` avec récapitulatif durable et architecture cible clairement distincte de l’arborescence actuelle, fiche `docs/COLLECTEURS.md` issue du registre et des mesures déjà sauvegardées.
+- Dix anciens bilans et diagnostics déplacés dans `docs/archives/`, avec index et adaptation des liens. Passation laissée à son chemin stable. Références erronées à `collection_engine.py` et `collection_readers.py` corrigées dans le README.
+- Suppression limitée à `.DS_Store` et aux caches Python de `scripts/` et `e2e/` ; déduplication de `.venv/` dans `.gitignore`. Rapports, bases locales, dépendances, ressources de design, preuves et sauvegardes conservés.
+- Aucun déplacement du code applicatif, aucune collecte, aucun accès distant ni déploiement. La réorganisation du code reste un lot ultérieur.
+
+
+## 1er novembre 2026 — contrôle final du lot L1
+- `make check` rejoué sur l’état local final : 107 tests Python réussis, syntaxe JavaScript valide et registres conformes (39 sources, 159 lieux, 28 bars).
+- Le résultat initial de 102 tests dans l’entrée L1 ci-dessus correspond à l’état précédant l’ajout parallèle des tests sur les événements diurnes. Le contrôle final couvre l’ensemble actuel sans attribuer ces changements applicatifs au lot L1.
+- Aucun collecteur réel, accès distant, commit, envoi GitHub ou déploiement effectué pendant ce contrôle.
+
+
+## 1er novembre 2026 — préparation de la publication GitHub
+- Changements séparés en commits cohérents sur `chore/samstag-full-rename-20261101` : `21ac481` pour la prise en charge locale des événements diurnes et `2f039ee` pour l’environnement reproductible L1 et la CI. Le présent commit documentaire regroupe l’audit L0, le rangement, les plans et la passation.
+- Contrôle avant publication : `make check` réussi avec 107 tests, 85/85 scénarios E2E déjà validés sur cinq profils, schémas JSON et syntaxe JavaScript valides, liens Markdown locaux contrôlés et `git diff --check` propre.
+- Branche préparée localement seulement : aucun envoi GitHub, aucune pull request, aucun accès VPS et aucun déploiement de production dans cette session.
+- Vérifications : liens locaux de 12 documents valides, trois diagnostics JSON identiques octet par octet à HEAD, `git diff --check` sans erreur. Aucun nouveau test applicatif nécessaire pour ce lot documentaire.
+
+
+## 1er novembre 2026 — plan du troisième point : réorganisation du code
+- Plan demandé enregistré dans `docs/PLAN_REORGANISATION_CODE.md`, relié au plan L5, à l’index et au guide SE_REPERER. Sessions R0 à R7 : référence Git/tests, pilote Vidy, autres lecteurs, collecte, domaine/stockage, web, finalisation, livraison séparée.
+- Dépendances globales L2–L4 conservées ; préparation locale possible. Migrations de schéma, nouveaux contrats et changement de dispatch distingués du simple rangement.
+- Aucun code déplacé, test applicatif relancé, collecteur ou serveur utilisé. Vérification des liens documentaires uniquement.
