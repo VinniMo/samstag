@@ -55,6 +55,16 @@ class ProgrammeTest(unittest.TestCase):
         self.assertEqual(decisions[1]['reason'],'conflicting_published_dates')
         self.assertTrue(result.events[0]['evidence_url'].endswith('/fr/evenement/test/'))
 
+    def test_vidy_daytime_session_requires_matching_official_detail(self):
+        day = '2026-11-01 14:00:00'
+        for confirmed_day, expected in [(day, 'candidate'), ('2026-11-01 14:30:00', 'review')]:
+            result = parse_vidy(vidy_page([vidy_row(day)]), 'https://www.vidy.ch/fr/calendrier/')
+            fetch = Mock(return_value=vidy_detail([{'date':confirmed_day, 'location':'Salle 17, Le Pavillon'}]))
+            now = datetime(2026,10,17,tzinfo=TZ)
+            confirm_vidy(result, fetch, now)
+            fetch.assert_called_once()
+            self.assertEqual(assess(result.events[0], 'https://www.vidy.ch/fr/calendrier/', now)['status'], expected)
+
     def test_vidy_failed_detail_cannot_publish_an_unconfirmed_calendar_row(self):
         from scraper import FetchError
         result=parse_vidy(vidy_page([vidy_row()]),'https://www.vidy.ch/fr/calendrier/')

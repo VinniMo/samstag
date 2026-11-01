@@ -59,7 +59,7 @@ def confirm_vidy(result, fetch, now=None):
         except (KeyError, ValueError):
             continue
         if (event.get('event_kind') and event.get('room') in VIDY_ROOMS
-                and event.get('time_role') != 'unverified' and start.hour >= 17
+                and event.get('time_role') != 'unverified'
                 and now <= start <= now + timedelta(days=config.COLLECTION_HORIZON_DAYS)):
             eligible.append(event)
     targets = list(dict.fromkeys(e['url'] for e in eligible))

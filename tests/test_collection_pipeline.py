@@ -111,7 +111,7 @@ class ReaderTest(unittest.TestCase):
         row = event(location="Cinéma CityClub", municipality="Pully", event_kind="ScreeningEvent")
         self.assertEqual(quality.assess(row, "https://example.test", NOW)["status"], "candidate")
         row.update(time="14:00", start_at="2026-10-17T14:00:00+02:00")
-        self.assertEqual(quality.assess(row, "https://example.test", NOW)["reason"], "daytime_event")
+        self.assertEqual(quality.assess(row, "https://example.test", NOW)["status"], "candidate")
         row.update(location="Bibliothèque Chauderon")
         self.assertEqual(quality.assess(row, "https://example.test", NOW)["status"], "excluded")
 
@@ -128,6 +128,14 @@ class PipelineTest(unittest.TestCase):
     def tearDown(self):
         self.path_patch.stop()
         self.directory.cleanup()
+
+    def test_daytime_session_is_published_and_appears_in_today_programme(self):
+        start = (datetime.now(agenda.TZ)+timedelta(days=1)).replace(hour=14, minute=0, second=0, microsecond=0)
+        raw = {**self.raw, 'time':'14:00', 'start_at':start.isoformat()}
+        db.stage_collection(quality.assess(raw, 'https://tacos-bar.ch/events'))
+        [published] = db.list_public_events()
+        programme = agenda.build_night_programme([published], start.replace(hour=9))
+        self.assertEqual(programme['moments'][0]['days'][0]['ids'], [published['id']])
 
     def test_qualified_source_auto_publishes_then_cancelled_disappears(self):
         source = "https://tacos-bar.ch/events"

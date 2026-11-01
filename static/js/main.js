@@ -282,7 +282,7 @@
         const others = state.data.moments.filter((m) => m.key !== state.moment && m.count > 0)
             .slice(0, 2)
             .map((m) => actionBtn(`${m.label} · ${momentCount(m)}`, () => selectMoment(m.key, true)));
-        const label = { tonight: 'ce soir', tomorrow: 'demain', weekend: 'ce week-end', later: 'plus tard' }[moment.key];
+        const label = { tonight: 'aujourd’hui', tomorrow: 'demain', weekend: 'ce week-end', later: 'plus tard' }[moment.key];
         return stateBlock(`Rien au programme ${label}`,
             'Essayez une autre période.', others);
     }

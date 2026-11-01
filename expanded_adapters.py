@@ -334,7 +334,7 @@ def collect_jazzonze(soup, url, fetch):
     for event in events:
         if not event.get('date') or not today <= date.fromisoformat(event['date']) <= today + timedelta(days=config.COLLECTION_HORIZON_DAYS):
             continue
-        if event.get('event_status') == 'EventCancelled' or not event.get('time') or event['time'] < '17:00':
+        if event.get('event_status') == 'EventCancelled' or not event.get('time'):
             continue
         if checked >= config.MAX_DETAIL_PAGES or urlparse(event['url']).hostname != urlparse(url).hostname:
             partial = True
@@ -489,7 +489,7 @@ def collect_grange(soup, url, fetch):
             continue
         kind, category = (('DanceEvent','Danse') if 'danse' in genres else
                           ('MusicEvent','Musique') if 'musique' in genres else ('TheaterEvent','Théâtre'))
-        # Workshops are outside the selected evening programme.
+        # Workshops remain outside the admitted event types.
         if 'atelier' in genres:
             continue
         days = [dotted_day(value) for value in re.findall(r'\d{1,2}\.\d{1,2}\.\d{4}', text(card,'.card-footer'))]
