@@ -1,0 +1,18 @@
+[Unit]
+Description=Cultura - observation bornee de la beta sur 24 heures
+After=cultura.service
+
+[Service]
+Type=simple
+User=cultura
+Group=cultura
+WorkingDirectory=/opt/cultura/app
+ExecStart=/opt/cultura/venv/bin/python /opt/cultura/app/monitor_beta.py --duration 86400 --interval 900 --output /var/lib/cultura/beta-observation-20261019.jsonl
+Restart=no
+MemoryMax=64M
+CPUQuota=5%
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/cultura

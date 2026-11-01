@@ -1,0 +1,22 @@
+{
+  "checks": {
+    "/": 200,
+    "/api/events": 200,
+    "/api/categories": 200,
+    "/api/sources": 200,
+    "/api/health": 200
+  },
+  "demo": false,
+  "public_events": 70,
+  "source_count": 26,
+  "rubrics": {
+    "Concerts": 38,
+    "Cinéma": 10,
+    "Soirées & clubs": 21,
+    "Scène": 1
+  },
+  "synthetic_tests_passed": 51,
+  "css_templates_changed": false,
+  "production_changed": false,
+  "sources_count_is_not_operational_collectors": true
+}

@@ -87,8 +87,10 @@ class DetailPagesTest(unittest.TestCase):
                 return LISTING
             return event_page("Midweek Jazz Jam", "2026-10-21T20:30:00+02:00", "Jumeaux Jazz Club")
         with mock.patch.object(scraper, "_fetch", side_effect=fetch):
-            events, _ = scraper.scrape_one("https://www.lausanne-tourisme.ch/fr/evenement/")
+            result = scraper.scrape_one("https://www.lausanne-tourisme.ch/fr/evenement/")
+            events, _ = result
         self.assertEqual(len(events), 1)
+        self.assertTrue(result.partial)
 
 
 if __name__ == "__main__":

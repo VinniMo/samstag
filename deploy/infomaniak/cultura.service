@@ -1,0 +1,30 @@
+[Unit]
+Description=Cultura - agenda lausannois et collecte
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=cultura
+Group=cultura
+WorkingDirectory=/opt/cultura/app
+EnvironmentFile=/etc/cultura/cultura.env
+ExecStart=/opt/cultura/venv/bin/python /opt/cultura/app/run_service.py
+Restart=on-failure
+RestartSec=15
+TimeoutStopSec=150
+KillMode=mixed
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/cultura
+RestrictSUIDSGID=true
+MemoryMax=512M
+CPUQuota=50%
+Nice=10
+TasksMax=64
+
+[Install]
+WantedBy=multi-user.target

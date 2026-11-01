@@ -1,0 +1,193 @@
+{
+  "generated_at": "2026-10-16T12:40:30.245278+00:00",
+  "scope": "local bars pilot; no deployment",
+  "source_status": [
+    {
+      "url": "https://brasserieduchateau.ch/chateaumusicclub",
+      "status": "error",
+      "count": 0,
+      "message": "HTTP 404 ; lien PROGRAMME sans slash observé sur la page officielle",
+      "timestamp": 1792154497.5779104
+    },
+    {
+      "url": "https://brasserieduchateau.ch/chateaumusicclub/",
+      "status": "error",
+      "count": 0,
+      "message": "HTTPSConnectionPool(host='brasserieduchateau.ch', port=443): Read timed out. (read timeout=12)",
+      "timestamp": 1792154223.5746605
+    },
+    {
+      "url": "https://captaincook.ch/",
+      "status": "ok",
+      "count": 12,
+      "message": "public-calendar (JSON, horaires à vérifier)",
+      "timestamp": 1792154240.2857409
+    },
+    {
+      "url": "https://etoileblanche.ch/",
+      "status": "empty",
+      "count": 0,
+      "message": "embedded-calendar: adaptateur Hango à étudier",
+      "timestamp": 1792154246.7254252
+    },
+    {
+      "url": "https://la-datcha.ch/programmation/",
+      "status": "ok",
+      "count": 13,
+      "message": "official-programme (année, horaires et lieu à vérifier dans les détails)",
+      "timestamp": 1792154315.1655128
+    },
+    {
+      "url": "https://tacos-bar.ch/events",
+      "status": "ok",
+      "count": 43,
+      "message": "public-calendar (JSON5, sans exécution JS)",
+      "timestamp": 1792154196.7202458
+    },
+    {
+      "url": "https://www.barberoussebar.ch/agenda",
+      "status": "ok",
+      "count": 7,
+      "message": "json-ld",
+      "timestamp": 1792154227.7745771
+    },
+    {
+      "url": "https://www.bruxellescafe.ch/",
+      "status": "ok",
+      "count": 9,
+      "message": "official-articles (validation requise)",
+      "timestamp": 1792154203.1438177
+    }
+  ],
+  "counts": {
+    "review": 71,
+    "excluded": 11,
+    "candidate": 2
+  },
+  "reasons": {
+    "missing_or_invalid_start": 9,
+    "outside_28_day_horizon": 11,
+    "unverified_or_out_of_scope_venue": 18,
+    "past": 5,
+    "commercial_offer_or_programme_summary": 3,
+    "private_event": 2,
+    "editorial_type_requires_review": 31,
+    "changed_schedule": 2,
+    "ready_for_first_source_validation": 2,
+    "cancelled": 1
+  },
+  "public_events": 0,
+  "candidates": [
+    {
+      "id": "65d9b625cd792de42e70004b",
+      "title": "Singers’ Jam",
+      "date": "2026-11-04",
+      "time": "20:30",
+      "location": "Taco’s Bar",
+      "source_url": "https://tacos-bar.ch/events",
+      "evidence_url": "https://tacos-bar.ch/events-data.js?v=2026-10-06b"
+    },
+    {
+      "id": "dadbdbae5794ef956b08645f",
+      "title": "J’capote ! La Morissette en concert",
+      "date": "2026-10-24",
+      "time": "21:30",
+      "location": "Taco’s Bar",
+      "source_url": "https://tacos-bar.ch/events",
+      "evidence_url": "https://tacos-bar.ch/events-data.js?v=2026-10-06b"
+    }
+  ],
+  "limitations": [
+    "Extracted counts include past and incomplete entries, not publishable upcoming events.",
+    "Chateau programme returned HTTP 404 for the exact official link, with or without trailing slash; timeout on one collection retry.",
+    "Hango public iframe returned HTTP 200 with a client-rendered app shell, no event data in HTML.",
+    "28 researched bars, 7 pilot sources, not exhaustive."
+  ],
+  "http_checks": [
+    {
+      "id": "B001",
+      "status": 200,
+      "url": "https://tacos-bar.ch/events",
+      "bytes": 22280,
+      "jsonld": 0,
+      "iframes": []
+    },
+    {
+      "id": "B002",
+      "status": 200,
+      "url": "https://www.bruxellescafe.ch/",
+      "bytes": 219961,
+      "jsonld": 1,
+      "iframes": [
+        "about:blank"
+      ]
+    },
+    {
+      "id": "B003",
+      "status": 200,
+      "url": "https://la-datcha.ch/programmation/",
+      "bytes": 152296,
+      "jsonld": 0,
+      "iframes": []
+    },
+    {
+      "id": "B004",
+      "status": 404,
+      "url": "https://brasserieduchateau.ch/chateaumusicclub/",
+      "bytes": 3094,
+      "jsonld": 0,
+      "iframes": []
+    },
+    {
+      "id": "B005",
+      "status": 200,
+      "url": "https://www.barberoussebar.ch/agenda",
+      "bytes": 747836,
+      "jsonld": 1,
+      "iframes": [
+        "https://www.googletagmanager.com/ns.html?id=GTM-TWSFSJNS"
+      ]
+    },
+    {
+      "id": "B006",
+      "status": 200,
+      "url": "https://captaincook.ch/",
+      "bytes": 23035,
+      "jsonld": 0,
+      "iframes": []
+    },
+    {
+      "id": "B007",
+      "status": 200,
+      "url": "https://etoileblanche.ch/",
+      "bytes": 91466,
+      "jsonld": 1,
+      "iframes": [
+        "https://www.googletagmanager.com/ns.html?id=GTM-5QVCPLC",
+        "https://backoffice.hango.ch/external/widgets/estb_live_p8dmpywljl2by3l9gstd9gg6",
+        "https://maps.google.com/maps?q=etoile%20blanche%20lausanne&t=m&z=19&output=embed&iwloc=near"
+      ]
+    }
+  ],
+  "additional_checks": [
+    {
+      "url": "https://brasserieduchateau.ch/",
+      "http_status": 200,
+      "programme_link": "https://brasserieduchateau.ch/chateaumusicclub"
+    },
+    {
+      "url": "https://brasserieduchateau.ch/chateaumusicclub",
+      "http_status": 404
+    },
+    {
+      "url": "https://backoffice.hango.ch/external/widgets/estb_live_p8dmpywljl2by3l9gstd9gg6",
+      "http_status": 200,
+      "result": "Client-rendered HTML shell, no event data extracted"
+    }
+  ],
+  "tests": {
+    "passed": 30,
+    "network_tests": false,
+    "live_collection_separate": true
+  }
+}

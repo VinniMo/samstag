@@ -1,0 +1,15 @@
+[Unit]
+Description=Sauvegarde locale Cultura
+ConditionPathExists=/var/lib/cultura/cultura.sqlite3
+
+[Service]
+Type=oneshot
+User=cultura
+Group=cultura
+ExecStart=/opt/cultura/venv/bin/python /opt/cultura/app/deploy/infomaniak/backup.py
+UMask=0027
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/cultura

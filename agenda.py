@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import re
 import unicodedata
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, time, timedelta
 from zoneinfo import ZoneInfo
 
 TZ = ZoneInfo("Europe/Zurich")
@@ -201,3 +201,28 @@ def build_programme(events: list[dict], today: date) -> dict:
         "moments": moments,
         "events": upcoming + undated,
     }
+
+
+def build_night_programme(events: list[dict], now: datetime | None = None) -> dict:
+    """Ce soir spans 17:00–06:00; before 06:00 keep the previous evening."""
+    now = now or datetime.now(TZ)
+    now = now.replace(tzinfo=TZ) if now.tzinfo is None else now.astimezone(TZ)
+    anchor = now.date() - timedelta(days=1) if now.hour < 6 else now.date()
+    programme = build_programme(events, anchor)
+    lo = datetime.combine(anchor, time(17), TZ)
+    hi = datetime.combine(anchor + timedelta(days=1), time(6), TZ)
+    hits = []
+    for event in programme["events"]:
+        try:
+            start = datetime.fromisoformat(event.get("start_at", ""))
+            end = datetime.fromisoformat(event["end_at"]) if event.get("end_at") else None
+            if start.tzinfo is None or (end and end.tzinfo is None):
+                continue
+        except (ValueError, TypeError):
+            continue
+        if start < hi and ((end and end > max(now, lo)) or (not end and start >= max(now, lo))):
+            hits.append((start, event["id"]))
+    tonight = next(m for m in programme["moments"] if m["key"] == "tonight")
+    tonight["count"] = len(hits)
+    tonight["days"] = [{"date": anchor.isoformat(), "ids": [i for _, i in sorted(hits)]}] if hits else []
+    return programme

@@ -24,7 +24,7 @@ Succès, dans l'ordre :
 
 ## Positioning
 
-L'agenda officiel de la Ville (agenda.lausanne.ch) a un registre très classique et n'affiche pas les événements des bars et des petits lieux. Lausanne Cultura s'adresse aux jeunes et combine les agendas officiels avec les programmes des salles indépendantes, clubs et petits lieux, que personne ne réunit aujourd'hui en un seul endroit.
+L'agenda officiel de la Ville (agenda.lausanne.ch) a un registre très classique et n'affiche pas les événements des bars et des petits lieux. Samstag s'adresse aux jeunes et combine les agendas officiels avec les programmes des salles indépendantes, clubs et petits lieux, que personne ne réunit aujourd'hui en un seul endroit.
 
 ## Operating Context
 
@@ -40,7 +40,8 @@ L'agenda officiel de la Ville (agenda.lausanne.ch) a un registre très classique
 - Pas de compte utilisateur ni de billetterie.
 - Prévu dans la refonte de l'accueil : partager un événement ; filtre « gratuit / petit prix » (limité tant que les prix collectés manquent souvent) ; **mes goûts** : choisir les thèmes et lieux qui intéressent, masquer ceux qui n'intéressent jamais (exemple : ne plus voir l'Opéra), enregistrés sur le téléphone, sans compte.
 - Langue : français uniquement. Contexte suisse (prix en CHF).
-- Hébergement : Render, offre gratuite. L'accès en ligne est pour l'instant protégé par mot de passe.
+- Hébergement de référence : VPS Lite Infomaniak, service Flask interne accessible
+  par tunnel. Aucun domaine public dédié n'est encore configuré.
 - Décisions ouvertes :
   - **Bars et petits lieux** : objectif central, mais aucun bar ne figure encore dans les sources collectées.
   - Tranche d'âge exacte du public cible.
@@ -50,8 +51,9 @@ L'agenda officiel de la Ville (agenda.lausanne.ch) a un registre très classique
 
 ## Brand Commitments
 
-- Nom : **Lausanne Cultura**.
-- Présents dans le code mais pas confirmés comme définitifs : le monogramme « L·C » et l'accroche « Vivez la culture, une nuit à la fois. »
+- Nom : **Samstag**.
+- Logo approuvé : minuscules grasses, dernier « a » en miroir bleu outremer ;
+  signature « Les sorties à Lausanne ».
 - Registre voulu : direct et pratique, à l'opposé du ton institutionnel et classique de l'agenda officiel.
 
 ## Evidence on Hand
@@ -67,3 +69,32 @@ L'agenda officiel de la Ville (agenda.lausanne.ch) a un registre très classique
 3. **Droit au but.** Un visuel clair et pratique : chaque élément aide à choisir, rien ne retarde la décision. Ton direct, loin du registre institutionnel.
 4. **Honnêteté des données.** Afficher ce qui est connu, signaler clairement ce qui manque, ne jamais combler un trou par une information inventée.
 5. **Chacun son fil.** Chacun voit d'abord ce qui l'intéresse ; ce qui est masqué reste signalé et récupérable d'un geste.
+
+
+## Pilote bars — préparation locale du 16 octobre 2026
+
+La demande actuelle recentre le premier lot sur les sorties animées, en priorité
+les bars du centre et de Sous-Gare. Salles et bibliothèques restent hors de ce
+premier périmètre. Le Buzz Club est exclu. Le registre comprend 28 bars repérés,
+avec leurs preuves et incertitudes ; sept sources sont consultées par le pilote.
+Les anciens thèmes et lieux décrits ci-dessus constituent le contexte historique.
+La validation initiale des sources est manuelle ; une automatisation complète
+reste à qualifier source par source. Aucune mise en production n'est autorisée.
+
+
+## Moteur élargi — version locale du 16 octobre 2026
+
+Le pilote bars est remplacé par le registre consolidé des sorties du soir.
+La configuration courante comporte 26 canaux activés, dont 10 qualifiés pour
+publication conditionnelle automatique. Le contrôle local a exposé 70 sorties
+réelles : concerts, clubs, séances de cinéma et humour. Ce volume est un instantané.
+Le détail des actions et limites est dans `docs/RECAP_COLLECTE.md`. Les salles
+génériques, bibliothèques et Buzz Club restent écartés. Le design existant est
+conservé ; le texte distingue les portes du début artistique. Render reste intact.
+
+
+## 22 octobre 2026 — nom adopté et consignes rédactionnelles
+- Marque publique : **samstag**, en remplacement de Lausanne Cultura. Le nom des services et les clés de préférences existantes restent techniques et inchangés.
+- Logo gras approuvé, dernier a en miroir bleu outremer. Le lettrage léger n'est pas retenu.
+- L'agenda conserve toutes ses périodes ; « Les sorties à Lausanne » précise son rôle.
+- Préférence utilisateur : textes pratiques et courts ; supprimer les précisions inutiles sur l'enregistrement local dans la personnalisation.

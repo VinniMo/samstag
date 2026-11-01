@@ -1,0 +1,11 @@
+Projet : Lausanne Cultura
+
+Développer un agenda de sorties à Lausanne et dans les communes immédiatement voisines : culture, concerts, spectacles, cinéma, bars et clubs. Interface rapide et simple ; plusieurs périodes (ce soir, ce week-end, semaine prochaine et au-delà).
+
+Priorité : collecteurs fiables, couverture large, base régulièrement mise à jour, dédoublonnage et preuves. Bars prioritaires au centre et Sous-Gare. Instagram reporté ; Buzz Club et bibliothèques exclus. Préserver le design existant.
+
+Ne jamais modifier ni déployer le site Render en production sans mon autorisation explicite.
+
+Au début de chaque session, lire PASSATION_PROJET.md et travailler uniquement sur l’objectif demandé. Éviter de refaire les recherches déjà documentées. Ne pas confondre lieux inventoriés et lieux effectivement alimentés. Ne jamais annoncer comme validé un collecteur dont le dernier code n’a pas été testé.
+
+À la fin : récapitulatif bref des actions, tests, limites et prochaine étape ; actualiser la passation pour la session suivante.

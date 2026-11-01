@@ -5,7 +5,10 @@
     'use strict';
 
     const API = '/api/events';
-    const TAG_STYLES = ['t1', 't2', 't3'];
+    const RUBRIC_STYLES = {
+        Concerts: 't1', 'Soirées & clubs': 't2', Scène: 't3',
+        Cinéma: 't4', Expos: 't5', Autres: 't6',
+    };
     const KEYS = { view: 'lc.view', tastes: 'lc.tastes', forMe: 'lc.forMe', cheap: 'lc.cheap' };
 
     const $ = (sel, root = document) => root.querySelector(sel);
@@ -31,7 +34,7 @@
         moment: 'tonight',
         view: store.get(KEYS.view, 'list') === 'posters' ? 'posters' : 'list',
         forMe: store.get(KEYS.forMe, true) && tastes.rubrics.length > 0,
-        cheap: !!store.get(KEYS.cheap, false),
+        cheap: false, // Prix mis de côté : ne pas réactiver un ancien filtre enregistré.
         query: '',
         revealed: new Set(),
         status: 'loading',
@@ -59,10 +62,7 @@
     const venueKey = (evt) => fold(evt.location);
     const hasVenue = (evt) => venueKey(evt) !== '' && venueKey(evt) !== 'lausanne';
     const hasLink = (evt) => /^https?:\/\//i.test(evt.url || '');
-    const tagClass = (rubric) => {
-        const i = (state.data?.rubrics || []).indexOf(rubric);
-        return TAG_STYLES[(i < 0 ? 5 : i) % TAG_STYLES.length];
-    };
+    const tagClass = (rubric) => RUBRIC_STYLES[rubric] || 't6';
 
     const dayFmt = new Intl.DateTimeFormat('fr-CH', { weekday: 'long', day: 'numeric', month: 'long' });
     const shortFmt = new Intl.DateTimeFormat('fr-CH', { day: 'numeric', month: 'long' });
@@ -169,30 +169,35 @@
 
     function detailLine(evt, day) {
         const parts = [];
-        if (evt.subcategory && fold(evt.subcategory) !== fold(evt.category)) parts.push(evt.subcategory);
+        const precision = (evt.subcategory || evt.description || '').replace(/\s+/g, ' ').trim();
+        if (precision && fold(precision) !== fold(evt.title) && fold(precision) !== fold(evt.category)) {
+            const excerpt = precision.length > 110
+                ? `${precision.slice(0, 107).replace(/\s+\S*$/, '').trimEnd()}…` : precision;
+            parts.push(excerpt);
+        }
+        if (evt.time_role === 'doors' && evt.time) parts.unshift(`Portes à ${evt.time}`);
         if (evt.end_date && evt.end_date !== evt.date && day) {
             parts.push(`jusqu'au ${shortFmt.format(parseDay(evt.end_date))}`);
         }
-        return parts.length ? h('span', { class: 'd' }, parts.join(' · ')) : null;
+        return parts.length ? h('span', { class: 'd', title: parts.join(' · ') }, parts.join(' · ')) : null;
     }
 
-    function priceNode(evt, cls = 'price') {
-        if (evt.is_free) return h('span', { class: 'free' }, 'GRATUIT');
-        if (evt.known && evt.price) return h('span', { class: cls }, evt.price);
-        return h('span', { class: `${cls} nc` }, 'Prix n. c.');
+    function eventAttrs(evt, className) {
+        return { class: className, type: 'button', 'data-id': evt.id, 'aria-haspopup': 'dialog' };
+    }
+
+    function availabilityNode(evt) {
+        return evt.availability === 'sold_out' ? h('span', { class: 'availability' }, 'Complet') : null;
     }
 
     const venueText = (evt) => (hasVenue(evt) ? evt.location : 'Lieu n. c.');
 
     function rowItem({ evt, masked }, day) {
         return h('li', {},
-            h('button', {
-                type: 'button', class: `row${masked ? ' is-masked' : ''}`,
-                'data-id': evt.id, 'aria-haspopup': 'dialog',
-            },
+            h('button', eventAttrs(evt, `row${masked ? ' is-masked' : ''}`),
             hourCell(evt),
-            h('span', {}, h('span', { class: 't' }, evt.title), detailLine(evt, day)),
-            h('span', { class: 'v' }, venueText(evt), priceNode(evt))));
+            h('span', {}, h('span', { class: 't' }, evt.title, null), availabilityNode(evt), detailLine(evt, day)),
+            h('span', { class: 'v' }, venueText(evt))));
     }
 
     function tileItem({ evt, masked }) {
@@ -203,24 +208,21 @@
         let media;
         if (evt.image) {
             const img = h('img', { src: evt.image, alt: '', loading: 'lazy', decoding: 'async' });
-            media = h('span', { class: 'media' }, img, evt.time ? h('span', { class: 'st' }, evt.time) : null);
+            media = h('span', { class: 'media' }, img, evt.time ? h('span', { class: 'st' }, `${evt.time_role === 'doors' ? 'Portes ' : ''}${evt.time}`) : null);
             img.addEventListener('error', () => {
                 media.replaceWith(typeMedia());
                 const t = btn.querySelector('.t');
-                if (evt.time && t && !t.dataset.timed) { t.dataset.timed = '1'; t.prepend(`${evt.time} · `); }
+                if (evt.time && t && !t.dataset.timed) { t.dataset.timed = '1'; t.prepend(`${evt.time_role === 'doors' ? 'Portes ' : ''}${evt.time} · `); }
             }, { once: true });
         } else {
             media = typeMedia();
         }
-        const title = h('span', { class: 't' }, !evt.image && evt.time ? `${evt.time} · ` : '', evt.title);
+        const title = h('span', { class: 't' }, !evt.image && evt.time ? `${evt.time_role === 'doors' ? 'Portes ' : ''}${evt.time} · ` : '', evt.title);
         if (!evt.image && evt.time) title.dataset.timed = '1';
-        const btn = h('button', {
-            type: 'button', class: `tile${masked ? ' is-masked' : ''}`,
-            'data-id': evt.id, 'aria-haspopup': 'dialog',
-        },
+        const btn = h('button', eventAttrs(evt, `tile${masked ? ' is-masked' : ''}`),
         media,
-        h('span', { class: 'tile-body' }, title,
-            h('span', { class: 'vv' }, venueText(evt), ' · ', priceNode(evt, 'p'))));
+        h('span', { class: 'tile-body' }, title, availabilityNode(evt), detailLine(evt, false),
+            h('span', { class: 'vv' }, venueText(evt))));
         return h('li', {}, btn);
     }
 
@@ -247,8 +249,7 @@
                 const items = groups.get(r);
                 return h('div', { class: 'rubric' },
                     h('h3', { class: 'rubric-head' },
-                        h('span', { class: `tag ${tagClass(r)}` }, r),
-                        h('span', { class: 'n', 'aria-label': `${items.length} événement${items.length > 1 ? 's' : ''}` }, items.length)),
+                        h('span', { class: `tag ${tagClass(r)}` }, r)),
                     state.view === 'posters'
                         ? h('ul', { class: 'grid' }, items.map((it) => tileItem(it)))
                         : h('ul', { class: 'rows' }, items.map((it) => rowItem(it, view.date))));
@@ -283,7 +284,7 @@
             .map((m) => actionBtn(`${m.label} · ${momentCount(m)}`, () => selectMoment(m.key, true)));
         const label = { tonight: 'ce soir', tomorrow: 'demain', weekend: 'ce week-end', later: 'plus tard' }[moment.key];
         return stateBlock(`Rien au programme ${label}`,
-            'Aucun événement collecté pour ce moment.', others);
+            'Essayez une autre période.', others);
     }
 
     function render() {
@@ -296,7 +297,7 @@
         if (state.status === 'error') {
             $('#tabs-shell').hidden = !!state.query;
             panel.replaceChildren(stateBlock('Le programme n\'a pas pu être chargé',
-                'Le serveur ne répond pas pour l\'instant. Vérifiez votre connexion puis réessayez.',
+                'Vérifiez votre connexion puis réessayez.',
                 [actionBtn('Réessayer', () => load(), true)]));
             return;
         }
@@ -306,6 +307,9 @@
         $('#demo-note').hidden = !state.data.demo;
         $('#onboard').hidden = tastes.onboarded || searching;
         renderTabs();
+        if (searching) panel.setAttribute('aria-label', `Résultats pour ${state.query}`);
+        else panel.removeAttribute('aria-label');
+        if (searching) panel.removeAttribute('aria-labelledby');
         renderControls();
 
         const blocks = searching
@@ -334,13 +338,13 @@
         const d = state.data;
         const el = $('#foot-source');
         if (d.demo) {
-            el.textContent = 'Aucun événement collecté pour l\'instant : la page affiche des données de démonstration fictives.';
+            el.textContent = 'Programme de démonstration : événements fictifs.';
             return;
         }
-        let text = `Programme collecté automatiquement sur ${d.source_count} sites de lieux et d'agendas lausannois, mis à jour au plus une fois par heure.`;
+        let text = `Programme de ${d.source_count} lieux et agendas lausannois.`;
         if (d.last_update) {
             const t = new Date(d.last_update);
-            text += ` Dernière collecte : ${t.toLocaleDateString('fr-CH', { day: 'numeric', month: 'long' })} à ${t.toLocaleTimeString('fr-CH', { hour: '2-digit', minute: '2-digit' })}.`;
+            text += ` Mis à jour le ${t.toLocaleDateString('fr-CH', { day: 'numeric', month: 'long' })} à ${t.toLocaleTimeString('fr-CH', { hour: '2-digit', minute: '2-digit' })}.`;
         }
         el.textContent = text;
     }
@@ -357,7 +361,7 @@
     function setCheap(on) { state.cheap = on; save(); render(); }
 
     function revealAll() {
-        const blocks = state.data.moments.find((m) => m.key === state.moment).days;
+        const blocks = state.query ? searchDays() : state.data.moments.find((m) => m.key === state.moment).days;
         for (const b of blocks) state.revealed.add(b.date || 'undated');
         render();
     }
@@ -424,8 +428,9 @@
 
     let returnFocus = null;
 
-    function openSheet(dialog) {
-        returnFocus = document.activeElement;
+    function openSheet(dialog, trigger = null) {
+        // Safari does not necessarily focus a button when it is clicked.
+        returnFocus = trigger || document.activeElement;
         dialog.showModal();
         dialog.scrollTop = 0;
         const target = dialog.querySelector('[data-autofocus]') || dialog.querySelector('.sheet-title, .ev-title');
@@ -453,60 +458,140 @@
 
     function whenText(evt) {
         if (!evt.date) return h('span', { class: 'nc' }, 'Date non communiquée');
-        const multi = evt.end_date && evt.end_date !== evt.date;
-        const dates = multi
-            ? `Du ${shortFmt.format(parseDay(evt.date))} au ${shortFmt.format(parseDay(evt.end_date))}`
-            : dayLabel(evt.date);
-        return [dates.charAt(0).toUpperCase() + dates.slice(1),
-            h('small', {}, evt.time ? `${multi ? 'Dès' : 'À'} ${evt.time}` : 'Heure non communiquée')];
+        const start = parseDay(evt.date), end = parseDay(evt.end_date);
+        const next = new Date(start); next.setDate(next.getDate() + 1);
+        // An overnight club occurrence is different from a multi-day programme.
+        // Require the stored end instant and local date; never infer a closing time.
+        const endInstant = evt.end_at ? new Date(evt.end_at) : null;
+        const endHour = endInstant && !Number.isNaN(endInstant.getTime())
+            ? Number(new Intl.DateTimeFormat('fr-CH', { timeZone: 'Europe/Zurich', hour: 'numeric', hourCycle: 'h23' }).formatToParts(endInstant).find(part => part.type === 'hour').value) : null;
+        const overnight = evt.event_kind === 'ClubNight' && end && next.getTime() === end.getTime()
+            && endHour !== null && endHour < 12;
+        const multi = end && evt.end_date !== evt.date;
+        const dates = multi && !overnight
+            ? `Du ${shortFmt.format(start)} au ${shortFmt.format(end)}` : dayLabel(evt.date);
+        const time = evt.time ? `${evt.time_role === 'doors' ? 'Portes à' : evt.rubric === 'Soirées & clubs' ? 'Dès' : 'À'} ${evt.time.replace(':', ' h ')}` : 'Heure non communiquée';
+        return [h('p', { class: 'ev-date' }, dates.charAt(0).toUpperCase() + dates.slice(1)),
+            h('p', { class: 'ev-time' }, time),
+            overnight ? h('p', { class: 'ev-overnight' }, `Dans la nuit du ${start.getMonth() === end.getMonth() ? start.getDate() : shortFmt.format(start)} au ${shortFmt.format(end)}`) : null];
+    }
+
+    function closeEventOptions(restoreFocus = false) {
+        const options = $('#event-options');
+        const trigger = $('#event-options-toggle');
+        if (!options || options.hidden) return;
+        options.hidden = true;
+        trigger?.setAttribute('aria-expanded', 'false');
+        if (restoreFocus) trigger?.focus();
+    }
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.ev-options, .ev-more')) closeEventOptions();
+    });
+    eventSheet.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && $('#event-options') && !$('#event-options').hidden) {
+            e.preventDefault(); e.stopPropagation(); closeEventOptions(true);
+        }
+    });
+    eventSheet.addEventListener('close', () => closeEventOptions());
+
+    // Separate only explicitly recognizable metadata; never infer missing facts.
+    function eventReading(evt) {
+        const raw = (evt.description || '').trim();
+        const film = evt.rubric === 'Cinéma' && raw.match(/^d[’'](.+?)\s+(Fiction|Documentaire|Animation),\s*([^,]+),\s*(\d{4}),\s*([^,]+),\s*(.+?),\s*(\d+\/\d+\s*ans)\s+([\s\S]+)$/i);
+        let body = film ? film[8] : raw;
+        // Current collectors sometimes cap prose at 400 characters. Show the last
+        // complete sentence and acknowledge the missing remainder, rather than a cut word.
+        const partial = raw.length === 400 && !/[.!?…][»”"')]*$/.test(raw);
+        if (partial) {
+            const end = Math.max(body.lastIndexOf('. '), body.lastIndexOf('! '), body.lastIndexOf('? '));
+            if (end > 40) body = body.slice(0, end + 1);
+            else body = body.replace(/\s+\S*$/, '') + '…';
+        }
+        return { film, body, partial };
     }
 
     function renderEventSheet(evt) {
         const venueHidden = hasVenue(evt) && tastes.venues.includes(venueKey(evt));
-        const shareBtn = h('button', { type: 'button', class: 'btn btn-ink', onclick: () => share(evt) },
-            svgIcon('share'), 'Partager');
+        const reading = eventReading(evt);
+        const film = reading.film;
+        const shareBtn = h('button', { type: 'button', class: 'btn', onclick: () => share(evt) }, svgIcon('share'), 'Partager');
         const linkBtn = hasLink(evt)
-            ? h('a', { class: 'btn', href: evt.url, target: '_blank', rel: 'noopener' }, 'Site officiel', svgIcon('out'),
-                h('span', { class: 'sr-only' }, '(nouvel onglet)'))
+            ? h('a', { class: 'btn btn-ink', href: evt.url, target: '_blank', rel: 'noopener noreferrer' },
+                'Voir le site', svgIcon('out'), h('span', { class: 'sr-only' }, '(nouvel onglet)'))
             : null;
         const hideBtn = hasVenue(evt)
-            ? h('button', { type: 'button', class: 'text-btn ev-hide', onclick: () => toggleVenue(evt) },
-                venueHidden ? `Ne plus masquer ${evt.location}` : `Masquer ${evt.location}`)
+            ? h('button', { type: 'button', class: 'ev-option ev-hide', onclick: () => {
+                toggleVenue(evt);
+                if (venueHidden && eventSheet.open) $('#event-options-toggle')?.focus();
+            } }, venueHidden ? `Réafficher les sorties de ${evt.location}` : 'Ne plus afficher les sorties de ce lieu')
             : null;
-
-        $('#sheet-body').replaceChildren(
-            h('h2', { class: 'ev-title', id: 'sheet-title' }, evt.title),
-            h('dl', { class: 'ev-facts' },
-                h('div', {}, h('dt', {}, 'Rubrique'), h('dd', {}, h('span', { class: `tag ${tagClass(evt.rubric)}` }, evt.rubric))),
-                h('div', {}, h('dt', {}, 'Quand'), h('dd', {}, whenText(evt))),
-                h('div', {}, h('dt', {}, 'Où'), h('dd', {},
-                    hasVenue(evt) ? evt.location : h('span', { class: 'nc' }, 'Lieu non communiqué'),
-                    evt.address && fold(evt.address) !== venueKey(evt) ? h('small', {}, evt.address) : null)),
-                h('div', {}, h('dt', {}, 'Prix'), h('dd', {},
-                    evt.known && evt.price ? evt.price : h('span', { class: 'nc' }, 'Prix non communiqué')))),
-            evt.description ? h('p', { class: 'ev-desc' }, evt.description) : null,
+        const moreBtn = h('button', { type: 'button', class: 'ev-more', id: 'event-options-toggle',
+            'aria-label': 'Autres actions', 'aria-expanded': 'false', 'aria-controls': 'event-options',
+            onclick: () => {
+                const options = $('#event-options');
+                const open = options.hidden;
+                options.hidden = !open;
+                moreBtn.setAttribute('aria-expanded', String(open));
+            } }, svgIcon('more'));
+        const options = h('div', { class: 'ev-options', id: 'event-options', hidden: true }, hideBtn,
+            h('button', { type: 'button', class: 'ev-option ev-report', onclick: () => openFeedback(evt) }, 'Signaler une erreur'));
+        const paragraphs = reading.body.split(/\n\s*\n|\n/).map(t => t.trim()).filter(Boolean);
+        const visual = /^https?:\/\//i.test(evt.image || '') ? h('figure', { class: 'ev-visual' },
+            h('img', { src: evt.image, alt: `Visuel de ${evt.title}`, decoding: 'async',
+                onerror: () => {
+                    const summary = visual.closest('.ev-summary');
+                    visual.remove();
+                    summary?.classList.remove('ev-has-image');
+                } })) : null;
+        $('#sheet-body').replaceChildren(...[
+            h('header', {}, h('h2', { class: 'ev-title', id: 'sheet-title' }, evt.title),
+                h('div', { class: 'ev-identity' }, h('span', { class: `tag ${tagClass(evt.rubric)}` }, evt.rubric),
+                    film ? h('span', { class: 'ev-credit' }, `Un film d’${film[1]}`) : null)),
+            h('section', { class: `ev-summary${visual ? ' ev-has-image' : ''}`, 'aria-label': 'Date et lieu' },
+                h('div', { class: 'ev-essentials' }, whenText(evt),
+                    evt.doors_time && evt.doors_time !== evt.time ? h('p', { class: 'ev-note' }, `Ouverture des portes à ${evt.doors_time}`) : null,
+                    h('p', { class: 'ev-place' }, hasVenue(evt) ? evt.location : 'Lieu non communiqué'),
+                    evt.room ? h('p', { class: 'ev-address' }, evt.room) : null,
+                    h('p', { class: 'ev-address' }, evt.address && fold(evt.address) !== venueKey(evt) ? evt.address : 'Adresse précise à vérifier sur le site de l’événement.'),
+                    availabilityNode(evt),
+                    evt.access_conditions ? h('p', { class: 'ev-note' }, evt.access_conditions) : null), visual),
+            film ? h('section', { class: 'ev-section ev-film-details', 'aria-label': 'Le film' },
+                h('p', { class: 'ev-film' }, `${film[2]} · ${film[4]} · ${film[5]}`),
+                h('p', { class: 'ev-film' }, film[3].replaceAll('/', ' / ')),
+                h('p', { class: 'ev-film' }, `${film[6]} · Âge indiqué : ${film[7]}`)) : null,
+            h('section', { class: 'ev-section ev-story', 'aria-label': film ? 'Synopsis' : 'Description' },
+                !film && evt.subcategory && fold(evt.subcategory) !== fold(evt.description) ? h('p', { class: 'ev-kind' }, evt.subcategory) : null,
+                ...paragraphs.map(t => h('p', { class: 'ev-prose' }, t)),
+                !reading.body ? h('p', { class: 'ev-note' }, linkBtn
+                    ? 'Description disponible sur le site de l’événement.'
+                    : 'La description n’a pas été communiquée.') : null,
+                reading.partial ? h('p', { class: 'ev-note' }, 'Lire la suite sur le site de l’événement.') : null),
             state.data.demo ? h('p', { class: 'ev-demo' }, 'Événement fictif (données de démonstration).') : null,
-            h('div', { class: 'sheet-actions' }, shareBtn, linkBtn),
-            hideBtn);
+            h('footer', { class: 'ev-actions' }, linkBtn, shareBtn, moreBtn, options)
+        ].filter(Boolean));
         eventSheet.dataset.eventId = evt.id;
+        eventSheet.scrollTop = 0;
     }
 
-    function openEvent(id) {
+    function openEvent(id, trigger = null) {
         const evt = state.byId.get(id);
         if (!evt) return;
         renderEventSheet(evt);
         if (location.hash !== `#e=${id}`) history.replaceState(null, '', `#e=${encodeURIComponent(id)}`);
-        if (!eventSheet.open) openSheet(eventSheet);
+        if (!eventSheet.open) openSheet(eventSheet, trigger);
     }
 
     function openFromHash() {
         const m = location.hash.match(/^#e=(.+)$/);
-        if (m && !eventSheet.open) openEvent(decodeURIComponent(m[1]));
+        if (m) {
+            const id = decodeURIComponent(m[1]);
+            if (!eventSheet.open || eventSheet.dataset.eventId !== id) openEvent(id);
+        }
     }
 
     async function share(evt) {
         const url = `${location.origin}${location.pathname}#e=${encodeURIComponent(evt.id)}`;
-        const when = evt.date ? `${dayLabel(evt.date)}${evt.time ? ` à ${evt.time}` : ''}` : '';
+        const when = evt.date ? `${dayLabel(evt.date)}${evt.time ? ` · ${evt.time_role === 'doors' ? 'portes à' : 'à'} ${evt.time}` : ''}` : '';
         const text = [evt.title, [when, hasVenue(evt) ? evt.location : ''].filter(Boolean).join(', ')].filter(Boolean).join(' · ');
         if (navigator.share) {
             try { await navigator.share({ title: evt.title, text, url }); return; } catch (err) {
@@ -527,12 +612,54 @@
         svg.setAttribute('width', '16'); svg.setAttribute('height', '16'); svg.setAttribute('viewBox', '0 0 24 24');
         svg.setAttribute('fill', 'none'); svg.setAttribute('stroke', 'currentColor'); svg.setAttribute('stroke-width', '2.4');
         svg.setAttribute('stroke-linecap', 'round'); svg.setAttribute('stroke-linejoin', 'round'); svg.setAttribute('aria-hidden', 'true');
-        const d = kind === 'share' ? 'M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6' : 'M7 17 17 7M8 7h9v9';
+        const d = kind === 'more' ? 'M4 12h.01M12 12h.01M20 12h.01' : kind === 'share' ? 'M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6' : 'M7 17 17 7M8 7h9v9';
         const path = document.createElementNS(ns, 'path');
         path.setAttribute('d', d);
         svg.append(path);
         return svg;
     }
+
+    // ---------- Retours des testeurs ----------
+
+    const feedbackSheet = $('#feedback-sheet');
+    let feedbackEvent = null;
+    function openFeedback(evt = null) {
+        feedbackEvent = evt;
+        $('#feedback-context').textContent = evt ? evt.title : 'Une idée ou un problème avec samstag ?';
+        const eventOption = $('#feedback-kind option[value="event"]');
+        eventOption.hidden = !evt;
+        $('#feedback-kind').value = evt ? 'event' : 'idea';
+        $('#feedback-status').textContent = '';
+        $('#feedback-message').value = '';
+        $('#feedback-submit').disabled = false;
+        if (eventSheet.open) eventSheet.close();
+        openSheet(feedbackSheet);
+    }
+    $('#feedback-open').addEventListener('click', () => openFeedback());
+    $('#feedback-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submit = $('#feedback-submit');
+        const status = $('#feedback-status');
+        submit.disabled = true;
+        status.textContent = 'Envoi en cours…';
+        try {
+            const session = await fetch('/api/feedback/token', { credentials: 'same-origin', cache: 'no-store' });
+            if (!session.ok) throw new Error('Impossible de préparer l’envoi. Réessayez.');
+            const { token } = await session.json();
+            const response = await fetch('/api/feedback', {
+                method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token, kind: $('#feedback-kind').value,
+                    message: $('#feedback-message').value, event_id: feedbackEvent?.id || '' }),
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Envoi impossible. Réessayez.');
+            status.textContent = 'Merci pour votre retour !';
+            $('#feedback-message').value = '';
+        } catch (err) {
+            status.textContent = err instanceof TypeError ? 'Envoi interrompu. Réessayez.' : err.message;
+            submit.disabled = false;
+        }
+    });
 
     // ---------- Mes goûts ----------
 
@@ -599,19 +726,16 @@
         openSheet(tastesSheet);
     }
 
-    const emptyVenues = () => h('li', { class: 'empty' }, 'Aucun lieu masqué. Pour en masquer un, ouvrez un événement puis « Masquer ».');
+    const emptyVenues = () => h('li', { class: 'empty' }, 'Aucun lieu masqué.');
 
     $('#tastes-open').addEventListener('click', openTastes);
     $('#tastes-save').addEventListener('click', () => {
         applyRubrics(pickedRubrics($('#tastes-choices')));
         tastesSheet.close();
-        toast(tastes.rubrics.length ? 'Mes goûts enregistrés' : 'Aucune rubrique choisie : tout est affiché');
+        toast(tastes.rubrics.length ? 'Préférences mises à jour' : 'Toutes les rubriques sont affichées');
     });
 
-    $('#onboard-save').addEventListener('click', () => {
-        applyRubrics(pickedRubrics($('#onboard-choices')));
-        $('#tabs')?.querySelector('[aria-selected="true"]')?.focus();
-    });
+    $('#onboard-personalize').addEventListener('click', openTastes);
     $('#onboard-skip').addEventListener('click', () => {
         tastes.onboarded = true;
         save();
@@ -658,7 +782,7 @@
             return;
         }
         const card = e.target.closest('[data-id]');
-        if (card) openEvent(card.dataset.id);
+        if (card) openEvent(card.dataset.id, card);
     });
 
     window.addEventListener('hashchange', openFromHash);
@@ -681,10 +805,5 @@
 
     // ---------- Démarrage ----------
 
-    function initOnboarding() {
-        if (tastes.onboarded || !state.data) return;
-        choiceButtons($('#onboard-choices'), []);
-    }
-
-    load().then(initOnboarding);
+    load();
 })();

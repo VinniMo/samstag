@@ -1,5 +1,5 @@
 ---
-name: Lausanne Cultura
+name: Samstag
 description: Le programme culturel du moment à Lausanne, lu comme une liste horaire imprimée.
 colors:
   ground: "#f6f4ef"
@@ -310,3 +310,34 @@ Pilule encre arrondie à 10px, texte blanc 600 à 14px, action en jaune soulign�
 - **Don't** passer en mode sombre par défaut.
 - **Don't** incliner autre chose que les étiquettes, ni arrondir les étiquettes et tuiles.
 - **Don't** ajouter de surtitre ou d'étiquette décorative au-dessus d'un titre : une étiquette nomme une rubrique, un état ou une donnée.
+
+
+## 18 octobre 2026 — couleurs fixes et fin du survol rose
+- Couleurs par nom de rubrique, indépendantes de leur ordre : Concerts magenta #a3004f, Soirées & clubs noir/jaune, Scène jaune/noir, Cinéma bleu #244bc0, Expos vert #176449, Autres orange #f5a54b. Identité commune aux étiquettes et choix Mes goûts sélectionnés. Décision utilisateur : conserver l’esprit programme/affiche imprimé, couleurs franches.
+- Survol rose supprimé : sur pointeur, fond papier neutre, titre souligné et flèche noire. Le survol de fond est désactivé pour les appareils sans survol ; focus clavier conservé. Compteurs de catégories toujours supprimés, liens directs préservés.
+- Deux fichiers statiques appliqués sur VPS interne ; sauvegarde précédente /opt/cultura/ui-backup-20261018-couleurs/. Syntaxe JS contrôlée ; navigateur : Concerts magenta et Cinéma bleu confirmés, trois liens directs, aucun compteur de rubrique ni débordement dans la vue courante. Aucun changement de base ou de publication.
+
+
+## 21 octobre 2026 — fiche événement compacte validée
+- Nouveau modèle commun à toutes les rubriques, dans l’identité papier/encre/Archivo. Panneau événement 640 px maximum ; coins 16 px, bord 1,5 px ; poignée réservée au mobile. Autres panneaux inchangés.
+- Titre 24 px (23 px mobile) ; catégorie et éventuel crédit du film sous le titre. Filet plein pour séparer l’en-tête. Date 19 px/800 (17 px mobile), heure 18 px/750 (17 px mobile) et chiffres tabulaires ; lieu 16 px/750 (15 px mobile), adresse 13 px (12,5 px mobile). Ces tailles complètent intentionnellement la gamme de la fiche.
+- Photo en colonne droite de 104 × 139 px (80 × 107 px mobile), object-fit contain pour préserver les affiches ; colonne supprimée si visuel absent ou en panne. Informations pratiques à gauche, sans encart supplémentaire.
+- Description 15 px, interligne 1,65, contenu collecté conservé ; aucun sous-titre générique À propos/La soirée. Métadonnées et synopsis cinéma conservés. Descriptions absentes ou tronquées signalées honnêtement.
+- Actions après le contenu : petites pilules noires Voir le site et secondaires Partager, hauteur minimale 44 px, aucune pleine largeur forcée. Libellé Voir le site commun, car une destination peut être un agenda/billetterie.
+- Masquer/réafficher le lieu et signaler une erreur dans le menu Autres actions (trois points), bord 1 px, rayon 10 px, commandes intérieures rayon 6 px ; clavier, Échap et fermeture extérieure pris en charge.
+- Plages de dates conservées pour les programmes multi-jours. Mention nocturne uniquement pour ClubNight se terminant le lendemain avant midi, d’après l’instant de fin explicite en heure suisse ; aucune heure de fin inventée.
+
+
+## 22 octobre 2026 — identité samstag adoptée
+
+Le nom public devient **samstag**. Logo approuvé : minuscules grasses, dernier a en miroir bleu outremer, autres lettres noires. Asset raster transparent `static/brand/samstag.png` issu de la référence approuvée par ImageGen (pas encore vectorisé). La police Archivo du contenu reste inchangée.
+
+En-tête papier blanc et commandes noires pour accueillir ce logo ; signature « Les sorties à Lausanne » en 11 px (10 px sous 370 px). Le bleu #243bdb remplace les anciens accents de marque roses pour onglet actif, curseur et focus. Les couleurs propres aux catégories, le jaune des sélections et le fond papier existant sont conservés. Ces règles remplacent les mentions historiques de barre noire et de marque rose ci-dessus.
+
+Textes de personnalisation courts et orientés action ; éviter les précisions de stockage local dans les consignes courantes.
+
+
+## 22 octobre 2026 — accueil allégé
+- Accord utilisateur sur l’allègement : les six choix de rubriques et le grand cadre sont remplacés par une invitation compacte « Vos sorties, selon vos goûts », Personnaliser et Pas maintenant. Personnaliser ouvre Mes goûts ; aucun changement aux préférences existantes.
+- Contrôles locaux 320/390/1226 px réussis : hauteur 83 px mobile / 61 px ordinateur, sans débordement ni erreur JavaScript ; choix, enregistrement, refus et persistance après rechargement vérifiés.
+- Appliqué sur VPS après sauvegarde `/opt/cultura/samstag-backup-20261022T100557Z`, seul service Cultura redémarré ; HTTP 200, santé ok, deux services actifs, empreintes statiques conformes. Preuves `validation/accueil-compact-2026-10-22/`. Aucun changement moteur, DNS ou publication publique.

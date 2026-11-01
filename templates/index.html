@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#151515">
+    <meta name="theme-color" content="#ffffff">
     <meta name="description" content="Que faire à Lausanne ce soir, demain ou ce week-end : concerts, soirées, scène, cinéma, expos.">
-    <title>Lausanne Cultura · ce soir à Lausanne</title>
+    <title>samstag · Les sorties à Lausanne</title>
 
     <link rel="preload" href="{{ url_for('static', filename='fonts/archivo-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
 
@@ -16,7 +16,10 @@
 
     <header class="bar">
         <div class="bar-inner">
-            <a href="/" class="logo">Lausanne <span>Cultura</span></a>
+            <a href="/" class="logo" aria-label="samstag — accueil">
+                <span class="logo-mark"><img src="{{ url_for('static', filename='brand/samstag.png') }}" width="2172" height="724" alt="samstag" fetchpriority="high"></span>
+                <span class="logo-caption">Les sorties à Lausanne</span>
+            </a>
             <div class="bar-actions">
                 <button type="button" class="icon-btn" id="search-toggle" aria-label="Rechercher" aria-expanded="false" aria-controls="search-row">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
@@ -43,8 +46,8 @@
 
         <div class="controls" id="controls">
             <button type="button" class="chip" id="filter-forme" aria-pressed="false">Pour moi</button>
-            <button type="button" class="chip" id="filter-cheap" aria-pressed="false" aria-describedby="cheap-rule">Gratuit / petit prix</button>
-            <span class="sr-only" id="cheap-rule">Gratuit, ou CHF 15 et moins. Les prix non communiqués sont exclus.</span>
+            <button type="button" class="chip" id="filter-cheap" hidden aria-pressed="false" aria-describedby="cheap-rule">Gratuit / petit prix</button>
+            <span class="sr-only" id="cheap-rule" hidden>Gratuit, ou CHF 15 et moins. Les prix non communiqués sont exclus.</span>
             <div class="seg" role="group" aria-label="Affichage">
                 <button type="button" data-view="list" aria-pressed="true">Liste</button>
                 <button type="button" data-view="posters" aria-pressed="false">Affiches</button>
@@ -56,11 +59,9 @@
         </p>
 
         <section class="onboard" id="onboard" hidden aria-labelledby="onboard-title">
-            <h2 id="onboard-title">Qu'est-ce qui vous intéresse ?</h2>
-            <p>Choisissez vos rubriques : « Pour moi » les mettra en avant. Rien n'est envoyé, c'est enregistré sur cet appareil.</p>
-            <div class="choice-list" id="onboard-choices"></div>
+            <h2 id="onboard-title">Vos sorties, selon vos goûts</h2>
             <div class="onboard-actions">
-                <button type="button" class="btn btn-ink" id="onboard-save">Valider</button>
+                <button type="button" class="btn btn-ink" id="onboard-personalize" aria-haspopup="dialog">Personnaliser</button>
                 <button type="button" class="text-btn" id="onboard-skip">Pas maintenant</button>
             </div>
         </section>
@@ -72,8 +73,9 @@
 
     <footer class="foot">
         <div class="wrap">
-            <p id="foot-source">Programme collecté automatiquement sur les sites de lieux et d'agendas lausannois, mis à jour au plus une fois par heure.</p>
-            <p>Horaires et prix peuvent changer : vérifiez auprès de l'organisateur avant de vous déplacer.</p>
+            <button type="button" class="text-btn" id="feedback-open" aria-haspopup="dialog">Donner mon avis</button>
+            <p id="foot-source">Le programme des lieux et agendas lausannois.</p>
+            <p>Les informations peuvent changer : vérifiez auprès de l'organisateur avant de vous déplacer.</p>
         </div>
     </footer>
 
@@ -86,13 +88,33 @@
         </div>
     </dialog>
 
+    <dialog class="sheet" id="feedback-sheet" aria-labelledby="feedback-title">
+        <div class="sheet-inner">
+            <button type="button" class="close-btn" data-close aria-label="Fermer le formulaire"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+            <h2 class="sheet-title" id="feedback-title">Votre retour</h2>
+            <p class="sheet-lede" id="feedback-context">Une idée ou un problème avec samstag ?</p>
+            <form id="feedback-form">
+                <label class="feedback-label" for="feedback-kind">Sujet</label>
+                <select id="feedback-kind" name="kind" required>
+                    <option value="idea">Une idée ou un avis</option>
+                    <option value="bug">Un problème avec le site</option>
+                    <option value="event" hidden>Une information sur cette sortie</option>
+                </select>
+                <label class="feedback-label" for="feedback-message">Votre message</label>
+                <textarea id="feedback-message" name="message" minlength="10" maxlength="2000" rows="5" required placeholder="Qu’avez-vous constaté ? Que pourrait-on améliorer ?"></textarea>
+                <p id="feedback-status" class="ev-note" role="status" aria-live="polite"></p>
+                <div class="sheet-actions"><button type="submit" class="btn btn-ink" id="feedback-submit">Envoyer mon retour</button></div>
+            </form>
+        </div>
+    </dialog>
+
     <dialog class="sheet" id="tastes-sheet" aria-labelledby="tastes-title">
         <div class="sheet-inner">
             <button type="button" class="close-btn" data-close aria-label="Fermer Mes goûts">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
             </button>
             <h2 id="tastes-title" class="sheet-title">Mes goûts</h2>
-            <p class="sheet-lede">Enregistré sur cet appareil, sans compte.</p>
+            <p class="sheet-lede">Choisissez vos rubriques et gérez les lieux masqués.</p>
             <h3 class="sheet-sub">Ce qui m'intéresse</h3>
             <div class="choice-list" id="tastes-choices"></div>
             <h3 class="sheet-sub">Lieux masqués</h3>
