@@ -49,19 +49,19 @@ Bars, clubs, concerts, spectacles et cinéma ; Lausanne et communes immédiateme
 - CSS et JavaScript publics identiques aux fichiers locaux par empreinte ;
 - réponses publiques et comptages archivés dans l’audit.
 
-Python 3.12 est la référence reproductible. Les commandes `make setup`, `dev`, `test`, `e2e`, `check` et `report` utilisent un environnement local protégé. Le workflow GitHub est actif. Le 2 novembre, un contrôle SSH en lecture seule a confirmé Python 3.12.3, le service, HTTPS, la session, le cookie sécurisé et la sauvegarde quotidienne. Aucune restauration distante, observation sur 24 heures ni audit mobile complet n'a été réalisé.
+Python 3.12 est la référence reproductible. Les commandes `make setup`, `dev`, `test`, `e2e`, `check` et `report` utilisent un environnement local protégé. Le workflow GitHub est actif. Le 2 novembre, le service, HTTPS, la session, le cookie sécurisé, la sauvegarde quotidienne et une restauration distante isolée ont été contrôlés. Aucune observation sur 24 heures ni audit mobile complet n'a été réalisé.
 
 ## Points restant à traiter
 
 - le MAD reste suivi mais sa publication automatique locale est désactivée tant que ses fiches liées sont illisibles ;
-- la sauvegarde locale est intègre, mais la copie hors VPS et la restauration distante ne sont pas encore prouvées ;
-- le calcul d'alerte considère encore trois lecteurs partiels réussis comme « jamais réussis » ; aucun envoi n'est activé tant que ce point n'est pas corrigé.
+- la sauvegarde locale et la restauration isolée sont prouvées, mais la copie hors VPS ne l'est pas encore ;
+- le calcul des trois fausses alertes est corrigé localement ; aucun envoi n'est activé et cette correction n'est pas encore livrée.
 
 ## Prochaine étape
 
 Les lots L0 à L3 sont terminés localement. L3 rapproche le cas Mike D vers la fiche officielle sur une base isolée, conserve toutes les preuves et laisse les cas ambigus séparés. Le contrôle ciblé de Taco's confirme que l'horaire 20:26 est explicitement publié par la source officielle ; aucune correction n'est nécessaire.
 
-L4 a livré son sous-lot applicatif le 2 novembre après sauvegarde et restauration isolée. La production exécute `b593dc6` : Nginx et Flask protègent la route administrative, 39 canaux sont visibles, 37 actifs et 23 automatiques. Le premier cycle complet a publié 414 sorties et la version est restée stable sans redémarrage pendant dix minutes. L'ancien dossier `ed42492` reste disponible pour retour arrière. Les sauvegardes locales sont actives et intègres ; la copie externe, l'alerte corrigée et sa réception restent à prouver. Voir le [rapport de livraison](audits/L4_LIVRAISON_VPS_2026-11-02.md) et le [plan L4](PLAN_L4_EXPLOITATION.md).
+L4 a livré son sous-lot applicatif le 2 novembre après sauvegarde et restauration isolée. La production exécute `b593dc6` : Nginx et Flask protègent la route administrative, 39 canaux sont visibles, 37 actifs et 23 automatiques. Le premier cycle complet a publié 414 sorties et la version est restée stable sans redémarrage pendant dix minutes. L'ancien dossier `ed42492` reste disponible pour retour arrière. Le calcul des trois fausses alertes découvertes après livraison est corrigé localement et validé par 134 tests, sans activation ni envoi. La copie externe, la livraison de cette correction et la réception d'une alerte de test restent à réaliser. Voir le [rapport de livraison](audits/L4_LIVRAISON_VPS_2026-11-02.md) et le [plan L4](PLAN_L4_EXPLOITATION.md).
 
 Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLAN_IMPLEMENTATION.md). Le statut court se trouve dans [SUIVI_IMPLEMENTATION.md](SUIVI_IMPLEMENTATION.md).
 

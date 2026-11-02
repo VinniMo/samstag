@@ -136,7 +136,7 @@ Prouver que le service peut être surveillé, sauvegardé et restauré sans dép
 - [ ] `L4.4` Automatiser une copie chiffrée hors VPS avec rétention définie.
 - [x] `L4.5` Tester une restauration dans un fichier isolé : intégrité, comptages et lecture applicative. Exercice distant réussi avant la livraison du 2 novembre.
 - [x] `L4.6` Définir RPO 24 h, RTO 4 h et procédure de retour arrière ; mesure distante encore requise.
-- [ ] `L4.7` Alerter avant que les événements d’une source importante deviennent invisibles après 24 heures.
+- [ ] `L4.7` Alerter avant que les événements d’une source importante deviennent invisibles après 24 heures. Calcul corrigé localement pour les lecteurs partiels réussis ; activation et réception d'un test encore requises.
 - [x] `L4.8` Définir la conservation et l’accès aux retours utilisateurs. Automatisation après migration SQLite versionnée.
 - [x] `L4.9` Documenter un journal de livraison : commit, sauvegarde, vérifications et rollback. Paquet applicatif complet et retour arrière préparés le 2 novembre.
 

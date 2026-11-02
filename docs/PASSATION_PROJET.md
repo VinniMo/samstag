@@ -467,3 +467,11 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Observation 21:00:15–21:11:06 UTC : 414 sorties constantes, service actif, zéro redémarrage et aucune erreur système. Version maintenue ; rollback disponible.
 - Limite : le rapport d'alerte classe à tort Lausanne Tourisme, Vidy et Château Music Club comme « jamais réussis » alors que leur accès et leur lecture sont corrects mais partiels. Aucun envoi n'est activé. Prochaine session bornée : corriger ce calcul localement sur données isolées avant activation. Copie externe toujours absente.
 - Preuve : `docs/audits/L4_LIVRAISON_VPS_2026-11-02.md`.
+
+
+## 2 novembre 2026 — fausses alertes L4 corrigées localement
+- Branche `codex/l4-alert-freshness-fix` créée depuis `main`. Aucun accès VPS, collecte réelle, tâche planifiée, destinataire ou message.
+- Cause : `operations_report.py` utilisait uniquement l'ancien historique `ok/empty`. Les diagnostics récents de Vidy, Lausanne Tourisme et Château indiquaient `access_status=ok` et `parse_status=ok`, mais une couverture partielle ; ils étaient donc classés à tort « jamais réussis ».
+- Correction : l'heure d'un diagnostic avec accès et analyse réussis compte comme dernière réussite, même si la couverture est partielle ou soumise à revue. Une erreur d'accès ou d'analyse ne renouvelle jamais cette heure.
+- Régressions : les trois identifiants observés ne déclenchent plus d'alerte récente ; les seuils 18 h/24 h restent appliqués ; une analyse en erreur sans réussite antérieure reste critique. `make check` réussit avec 134 tests, registres et JavaScript valides.
+- Correction locale seulement. La production reste sur `b593dc6`, le mécanisme d'envoi reste inactif et la copie externe absente. Prochaine action : contrôle et publication de cette correction, sans activation.
