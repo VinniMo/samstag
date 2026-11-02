@@ -60,7 +60,7 @@ Python 3.12 est la référence reproductible. Les commandes `make setup`, `dev`,
 
 Les lots L0 à L3 sont terminés localement. L3 rapproche le cas Mike D vers la fiche officielle sur une base isolée, conserve toutes les preuves et laisse les cas ambigus séparés. Le contrôle ciblé de Taco's confirme que l'horaire 20:26 est explicitement publié par la source officielle ; aucune correction n'est nécessaire.
 
-L4 est préparé et son étape A est terminée localement, sans intervention sur le VPS. La route administrative de collecte est désactivée par défaut, limitée à POST et exige un secret dédié lorsqu'elle est explicitement activée. La prochaine session teste la sauvegarde et la restauration dans un dossier local isolé. Le constat distant en lecture seule et les éventuelles modifications du serveur feront l'objet de deux autorisations séparées. Voir le [plan L4](PLAN_L4_EXPLOITATION.md).
+L4 est préparé et ses étapes A–B sont terminées localement, sans intervention sur le VPS. La route administrative de collecte est protégée. Les outils peuvent sauvegarder puis restaurer une base fictive dans un nouveau fichier, vérifier son intégrité et la relire par l'application sans écraser l'original. La prochaine session définit les alertes, la destination de copie chiffrée et la conservation des retours. Le constat distant en lecture seule et les éventuelles modifications du serveur feront l'objet de deux autorisations séparées. Voir le [plan L4](PLAN_L4_EXPLOITATION.md).
 
 Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLAN_IMPLEMENTATION.md). Le statut court se trouve dans [SUIVI_IMPLEMENTATION.md](SUIVI_IMPLEMENTATION.md).
 

@@ -417,3 +417,10 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Les exemples d'environnement gardent cette route désactivée. L'exemple serveur indique `COOKIE_SECURE=1` et rappelle que la clé de session reste dans le fichier privé, sans valeur versionnée.
 - Trois tests locaux vérifient la désactivation, les configurations incomplètes, le mauvais secret et le chemin autorisé avec collecteur simulé. `make check` réussit avec 122 tests ; registres et syntaxe JavaScript valides. Aucun site n'est contacté par ces tests.
 - Prochaine session : étape B, sauvegarde et restauration dans un dossier isolé. Aucun accès VPS, changement de production, secret, collecte réelle ou déploiement.
+
+
+## 2 novembre 2026 — étape B L4 terminée localement
+- `backup.py` accepte des chemins explicites tout en conservant les chemins VPS par défaut. Copie SQLite cohérente, intégrité, comptages, empreinte, permissions 0640 et rétention ciblée sont contrôlés sans exposer de contenu privé.
+- `restore_check.py` restaure uniquement vers un nouveau fichier, refuse tout écrasement et vérifie la copie. Une base fictive contenant un événement synthétique est sauvegardée, restaurée puis relue par `db.py` ; aucune base réelle utilisée. `make check` réussit avec 125 tests, registres et syntaxe JavaScript valides.
+- Objectifs de travail fixés à RPO 24 h et RTO 4 h, à confirmer par un exercice distant chronométré. Modèle de journal ajouté pour relier commit, sauvegarde, vérifications et retour arrière.
+- Prochaine session : étape C, alertes, copie externe chiffrée et conservation des retours. Aucun accès VPS, sauvegarde de production, transfert externe ou déploiement.

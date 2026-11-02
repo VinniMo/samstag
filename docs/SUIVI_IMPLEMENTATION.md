@@ -10,17 +10,17 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | L1 — Développement et CI | Codex | Terminé | Maintenir les verrous et la CI | `make check` et 85 E2E réussis le 1er novembre 2026 |
 | L2 — Diagnostics collecte | Codex | Terminé | Maintenir le tableau lors des évolutions de lecteurs | 114 tests et contrôle MAD ciblé du 2 novembre 2026 |
 | L3 — Qualité et doublons | Codex | Terminé | Maintenir les règles et preuves lors des évolutions | Taco's contrôlé à la source et 119 tests le 2 novembre 2026 |
-| L4 — Exploitation | Codex | En cours | Tester sauvegarde et restauration dans un dossier isolé | Route protégée et 122 tests réussis le 2 novembre 2026 |
+| L4 — Exploitation | Codex | En cours | Définir alertes, copie externe et rétention des retours | Restauration isolée et 125 tests réussis le 2 novembre 2026 |
 | L5 — Architecture interne | Codex | Pilote local terminé | R2 : CityClub ; suite globale dépend de L2–L4 | Bilan R0–R1 du 2 novembre, 109 tests |
 | L6 — Produit et performance | À attribuer | À faire | Livrer et mesurer la couverture diurne (`L6.1`) | Décision utilisateur du 1er novembre 2026 |
 
 ## En cours
 
-- L'étape A de L4 est terminée localement : la route administrative est désactivée par défaut et protégée par un secret dédié si elle est activée.
+- Les étapes A et B de L4 sont terminées localement : route administrative protégée, sauvegarde et restauration isolées testables.
 
 ## Prêt à démarrer
 
-- [ ] Étape B de L4 : tester sauvegarde et restauration dans un dossier local isolé.
+- [ ] Étape C de L4 : définir alertes, destination chiffrée et conservation des retours.
 
 ## Bloqué ou soumis à décision
 
@@ -43,6 +43,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 - [x] `L3.7` Horaire 20:26 de Taco's confirmé dans la source officielle et conservé sans correction.
 - [x] `L4.0` Plan d'exploitation, preuves attendues et points d'autorisation préparés sans accès VPS.
 - [x] `L4.3` Route de collecte manuelle désactivée par défaut, limitée à POST et protégée par un secret dédié.
+- [x] `L4.5`, `L4.6` et `L4.9` Restauration locale isolée, objectifs de reprise et journal de livraison préparés.
 
 ## Journal
 
@@ -58,6 +59,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | 2026-11-02 | Troisième étape et clôture L3 : contrôle Taco's | Trois occurrences à 20:26 confirmées dans la source officielle ; base isolée ; 119 tests | Aucun autre site contrôlé, aucune donnée réelle ni production modifiée |
 | 2026-11-02 | Préparation L4 : reprise et exploitation | Risques, six étapes, preuves et autorisations séparées documentés | Aucun accès VPS, restauration réelle, alerte ou déploiement |
 | 2026-11-02 | Étape A L4 : sécurité locale | Route manuelle refusée par défaut ; 122 tests réussis sans réseau réel | Code non livré sur le VPS ; session et cookie distants non contrôlés |
+| 2026-11-02 | Étape B L4 : reprise locale | Sauvegarde/restauration fictives, intégrité, comptages, lecture et refus d'écrasement ; 125 tests | Aucune sauvegarde de production ni durée distante mesurée |
 
 ## Modèle d’entrée de journal
 

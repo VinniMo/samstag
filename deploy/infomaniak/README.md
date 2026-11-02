@@ -18,6 +18,7 @@
 | `samstag-backup.service` | exécute une sauvegarde SQLite cohérente |
 | `samstag-backup.timer` | planifie les sauvegardes locales |
 | `backup.py` | implémente la sauvegarde et la rétention |
+| `restore_check.py` | restaure une copie dans un nouveau fichier et vérifie son intégrité |
 | `samstag.env` | exemple historique de variables à adapter sans y placer de secret réel |
 | `beta/nginx-samstag.conf.example` | exemple historique de proxy Nginx public |
 | `beta/samstag-observation.service` | observateur borné utilisé pendant la bêta |
@@ -31,3 +32,14 @@
 - les données doivent être sauvegardées avec une méthode cohérente SQLite avant une livraison.
 
 Le dépôt documente cette topologie, mais la session du 1er novembre 2026 n’a pas vérifié par SSH les chemins, les unités, les variables ni les versions effectivement actives. Suivre [docs/EXPLOITATION.md](../../docs/EXPLOITATION.md) et consigner les preuves dans la [passation](../../docs/PASSATION_PROJET.md).
+
+## Exercice local isolé
+
+Les chemins par défaut de `backup.py` restent ceux du VPS pour préserver l'unité existante. En local, toujours fournir des chemins jetables explicites :
+
+```sh
+python deploy/infomaniak/backup.py --database /chemin/test.sqlite3 --backup-dir /tmp/samstag-backups
+python deploy/infomaniak/restore_check.py --backup /tmp/samstag-backups/samstag-DATE.sqlite3 --destination /tmp/samstag-restored.sqlite3
+```
+
+La restauration refuse toute destination existante. Les résultats contiennent l'intégrité, les comptages, la taille et l'empreinte, jamais le contenu des retours utilisateurs. Le [modèle de journal](../../docs/JOURNAL_LIVRAISON_MODELE.md) doit être rempli lors d'une future livraison autorisée.

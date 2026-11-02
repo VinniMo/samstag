@@ -14,6 +14,7 @@ Commencer par [Se repérer](SE_REPERER.md), [État actuel](ETAT_ACTUEL.md) ou [C
 | [PLAN_L4_EXPLOITATION.md](PLAN_L4_EXPLOITATION.md) | sauvegardes, restauration, alertes et autorisations du lot L4 |
 | [SUIVI_IMPLEMENTATION.md](SUIVI_IMPLEMENTATION.md) | avancement court et journal des lots |
 | [EXPLOITATION.md](EXPLOITATION.md) | contrôles, livraison et retour arrière |
+| [JOURNAL_LIVRAISON_MODELE.md](JOURNAL_LIVRAISON_MODELE.md) | preuve à remplir pour chaque livraison autorisée |
 | [DEVELOPPEMENT.md](DEVELOPPEMENT.md) | environnement local, commandes, verrous et CI |
 | [PREUVES_ET_ARCHIVES.md](PREUVES_ET_ARCHIVES.md) | preuves présentes, externes ou absentes |
 | [PASSATION_PROJET.md](PASSATION_PROJET.md) | journal chronologique de reprise |
