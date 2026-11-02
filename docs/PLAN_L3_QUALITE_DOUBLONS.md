@@ -1,6 +1,6 @@
 # L3 — qualité et doublons
 
-**État au 2 novembre 2026 : prêt à démarrer.** Cette préparation ne modifie ni les événements ni le site public.
+**État au 2 novembre 2026 : étape A terminée, étape B à démarrer.** Le détecteur et son rapport sont en lecture seule ; aucune sortie n'a été fusionnée.
 
 ## Résultat attendu
 
@@ -21,7 +21,7 @@ Le cas de départ est le concert publié sous deux titres, « Mike D » par L'Ag
 
 | Étape | Travail | Résultat contrôlable |
 |---|---|---|
-| A — Détecter | Reproduire Mike D avec une petite donnée de test, repérer les candidats qui partagent lieu, date et heure, produire un rapport sans modifier les données | Liste des doublons probables et test protégeant le cas Mike D |
+| A — Détecter — terminée | Reproduire Mike D avec une petite donnée de test, repérer les candidats qui partagent lieu, date et heure, produire un rapport sans modifier les données | Mike D détecté comme un groupe de deux fiches ; base isolée inchangée |
 | B — Décider | Identifier les cas certains, privilégier la source officielle, classer les cas ambigus et conserver tous les liens | Mike D n'apparaît plus deux fois ; les exemples ambigus restent séparés |
 | C — Vérifier | Rejouer les contrôles sur une base isolée, mesurer les décisions automatiques et manuelles, puis contrôler Taco's séparément | Rapport final compréhensible, aucune perte de preuve, aucune fusion risquée |
 
@@ -41,7 +41,11 @@ Le rapprochement sera enregistré à côté des fiches d'origine. Il ne supprime
 - Une nouvelle collecte peut réviser ou annuler un rapprochement sans supprimer l'historique.
 - Le rapport indique séparément les cas rapprochés, ambigus et laissés inchangés.
 
-## Limites de la première session
+## Résultat de la première session
 
-La première session couvre `L3.1`, `L3.2` et `L3.6` sur des données de test et une base isolée. Elle ne contacte aucun site et ne change aucune sortie publique. Le contrôle ciblé de Taco's (`L3.7`) reste une session distincte pour éviter de mélanger qualité des données et recherche à la source.
+`L3.1`, `L3.2` et `L3.6` sont terminés. Le rapport détecte les fiches distinctes qui partagent un lieu reconnu, une date et une heure. Il distingue le cas officiel + agrégateur des autres coïncidences à contrôler. Il ignore les horaires incomplets et ne modifie aucune donnée.
+
+Le cas Mike D produit un groupe contenant deux fiches et leurs preuves. Un exemple de deux spectacles distincts au même créneau reste intact et est seulement signalé. 116 tests réussissent. Aucun site n'a été contacté.
+
+La prochaine session couvre `L3.3` à `L3.5` : décider quels candidats peuvent être rapprochés, privilégier la source officielle et conserver toutes les preuves. Le contrôle Taco's (`L3.7`) reste séparé.
 

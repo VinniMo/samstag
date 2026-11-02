@@ -33,7 +33,7 @@ def main():
         from collections import Counter
         from datetime import datetime
         from agenda import TZ
-        from collection_report import coverage
+        from collection_report import coverage, duplicate_candidates
         enabled_urls = {s["canal"] for s in SOURCES if s["enabled"]}
         statuses = db.source_status()
         print(json.dumps({"generated_at":datetime.now(TZ).isoformat(),
@@ -46,7 +46,8 @@ def main():
                           "historical_checks": [s for s in statuses if s["url"] not in enabled_urls],
                           "decisions_at_collection": dict(Counter(i["status"] for i in db.collection_items())),
                           "public": len(db.list_public_events()), "reasons": dict(Counter(i["reason"] for i in db.collection_items())),
-                          "coverage": coverage()}, ensure_ascii=False, indent=2))
+                          "coverage": coverage(),
+                          "possible_duplicates": duplicate_candidates()}, ensure_ascii=False, indent=2))
     elif not args.event_id:
         parser.error("approve requiert l'identifiant de l'événement")
     else:

@@ -382,3 +382,10 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Nouvelle branche locale `codex/l3-quality-dedup-plan` créée depuis la branche principale fusionnée.
 - L3 préparé sans modification métier : plan en trois étapes, règles conservatrices, contrôles obligatoires et diagramme de décision. Première session bornée à la reproduction Mike D, la détection et un rapport en lecture seule sur une base isolée.
 - Le contrôle ciblé des horaires Taco's reste une session distincte. Aucun site contacté, aucune donnée d'événement modifiée.
+
+
+## 2 novembre 2026 — première étape L3 terminée
+- Fixture minimale ajoutée pour le doublon « Mike D » / « Mike D 5D ». Le détecteur regroupe les fiches distinctes qui partagent un lieu canonique, une date et une heure explicite ; il ne rapproche pas les horaires incomplets.
+- Rapport en lecture seule ajouté à la commande de diagnostic. Le cas Mike D apparaît comme un groupe officiel + agrégateur avec les deux liens de preuve. Deux spectacles distincts au même créneau sont seulement signalés pour revue et restent inchangés.
+- Contrôle sur base SQLite isolée : contenu strictement identique avant et après le rapport. `make check` réussi avec 116 tests, registres conformes et syntaxe JavaScript valide.
+- Tâches `L3.1`, `L3.2` et `L3.6` terminées. Prochaine session bornée : `L3.3` à `L3.5`. Aucun site contacté, aucune collecte réelle, aucun accès VPS, aucun déploiement.

@@ -9,19 +9,18 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | L0 — Documentation | Codex | Terminé | Maintenir l’état actuel à chaque lot | Contrôle documentaire du 1er novembre 2026 |
 | L1 — Développement et CI | Codex | Terminé | Maintenir les verrous et la CI | `make check` et 85 E2E réussis le 1er novembre 2026 |
 | L2 — Diagnostics collecte | Codex | Terminé | Maintenir le tableau lors des évolutions de lecteurs | 114 tests et contrôle MAD ciblé du 2 novembre 2026 |
-| L3 — Qualité et doublons | Codex | Prêt | Détecter et rapporter Mike D sans modifier les données | Plan L3 préparé le 2 novembre 2026 |
+| L3 — Qualité et doublons | Codex | En cours | Décider les rapprochements sûrs et conserver les preuves | Détecteur en lecture seule et 116 tests le 2 novembre 2026 |
 | L4 — Exploitation | À attribuer | À faire | Préparer le contrôle VPS et la restauration | Procédures versionnées, état distant non audité par SSH |
 | L5 — Architecture interne | Codex | Pilote local terminé | R2 : CityClub ; suite globale dépend de L2–L4 | Bilan R0–R1 du 2 novembre, 109 tests |
 | L6 — Produit et performance | À attribuer | À faire | Livrer et mesurer la couverture diurne (`L6.1`) | Décision utilisateur du 1er novembre 2026 |
 
 ## En cours
 
-- La préparation de L3 est terminée. L'implémentation n'a pas commencé.
+- La première étape de L3 est terminée : Mike D est reproduit, les candidats sont détectés et le rapport ne modifie aucune donnée.
 
 ## Prêt à démarrer
 
-- [ ] Première session : `L3.1`, `L3.2` et `L3.6` en lecture seule sur des données de test et une base isolée.
-- [ ] Deuxième session : `L3.3` à `L3.5` après contrôle du rapport de candidats.
+- [ ] Deuxième session : `L3.3` à `L3.5`, rapprochements sûrs, cas ambigus séparés et preuves conservées.
 - [ ] Troisième session séparée : `L3.7`, contrôle ciblé des horaires Taco's.
 
 ## Bloqué ou soumis à décision
@@ -40,6 +39,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 - [x] `L1.1` à `L1.7` Environnement Python 3.12, commandes, verrous, E2E portable, CI et schémas JSON.
 - [x] `L2.0` à `L2.7` Tableau de santé des 39 canaux, compteurs par passe, incidents séparés des limites et MAD sécurisé.
 - [x] `L3.0` Plan détaillé, règles de sécurité et diagramme de décision préparés.
+- [x] `L3.1`, `L3.2` et `L3.6` Fixture Mike D, détection par lieu/date/heure et rapport en lecture seule.
 
 ## Journal
 
@@ -50,6 +50,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | 2026-11-01 | Lot L1 finalisé : développement reproductible et CI | Installation neuve ; suite finale de 107 tests Python ; 85 E2E sur cinq profils ; schémas JSON ; syntaxe JS ; démarrage local | Workflow GitHub ajouté mais pas encore exécuté à distance |
 | 2026-11-02 | Lot L2 finalisé : santé globale des collecteurs | 114 tests ; matrice synthétique des 37 actifs ; 39 canaux visibles ; deux contrôles ciblés MAD | Aucun autre site relancé, aucun déploiement |
 | 2026-11-02 | Préparation L3 : séquence détection, décision et vérification | Lecture du dédoublonnage actuel et du cas Mike D ; plan et diagramme | Aucun code métier, aucune donnée et aucun site modifiés |
+| 2026-11-02 | Première étape L3 : détection sans fusion | Mike D détecté ; base isolée inchangée ; 116 tests réussis | Le rapport signale des candidats mais ne décide encore aucun rapprochement |
 
 ## Modèle d’entrée de journal
 
