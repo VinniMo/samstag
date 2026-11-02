@@ -8,6 +8,7 @@
 |---|---|---|
 | Audit public et local | `docs/audits/AUDIT_2026-11-01.md` | architecture, site, collecteurs, organisation |
 | Contrôle VPS L4 | `docs/audits/L4_VPS_LECTURE_SEULE_2026-11-02.md` | services, version, options non secrètes, sauvegarde et santé en lecture seule |
+| Livraison VPS L4 | `docs/audits/L4_LIVRAISON_VPS_2026-11-02.md` | sauvegarde, restauration isolée, version, contrôles publics et stabilité |
 | Mesures publiques | `docs/audits/2026-11-01-mesures.json` | comptages et santé au 1er novembre |
 | Diagnostics de collecte | `docs/archives/collecte_diagnostic.json`, `docs/archives/diagnostic_collecte_v2.json` | instantanés historiques |
 | Validation locale v2 | `docs/archives/validation_locale_v2.json` | validation historique |

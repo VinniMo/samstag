@@ -1,6 +1,6 @@
 # L4 — lot de livraison préparé
 
-**État au 2 novembre 2026 : paquet construit et contrôlé localement. Aucune intervention sur le VPS.**
+**État au 2 novembre 2026 : sous-lot applicatif livré et maintenu après contrôles.**
 
 ## Vue simple
 
@@ -9,6 +9,8 @@ Ce lot met la production au niveau du code validé depuis `ed42492` : événemen
 La livraison remplace le dossier applicatif complet afin d'éviter un mélange entre ancienne et nouvelle version. L'ancienne application est conservée entière jusqu'à validation. La base, les secrets, Nginx, les unités systemd et l'environnement Python ne sont pas remplacés.
 
 Ce lot couvre l'application et les outils locaux de sauvegarde. La copie chiffrée hors VPS et l'envoi d'alertes restent un lot séparé, car leur fournisseur et leurs destinataires privés ne sont pas encore configurés.
+
+La livraison autorisée a été effectuée le 2 novembre. Le [rapport de livraison](audits/L4_LIVRAISON_VPS_2026-11-02.md) conserve la sauvegarde, les contrôles, l'observation et les limites. La procédure ci-dessous reste la référence pour comprendre ou reproduire le retour arrière.
 
 ## Paquet prêt
 
