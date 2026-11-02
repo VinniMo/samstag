@@ -50,7 +50,7 @@ jobs:
         working-directory: e2e
       - run: pnpm exec playwright install --with-deps chromium
         working-directory: e2e
-      - run: pnpm test -- --project=chromium
+      - run: pnpm test --project=chromium
         working-directory: e2e
         env:
           SAMSTAG_PYTHON: python
