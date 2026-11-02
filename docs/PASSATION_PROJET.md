@@ -410,3 +410,10 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Plan L4 découpé en six étapes : sécurité locale, reprise isolée, surveillance, constat VPS en lecture seule, application autorisée et preuve finale. Le constat distant et les modifications demandent deux autorisations distinctes.
 - Cibles proposées : RPO 24 heures et RTO 4 heures, à confirmer par restauration chronométrée. Les preuves excluent secrets, bases réelles et contenu des retours.
 - Première session recommandée : protéger `/api/refresh` dans Flask et la tester localement. Aucun accès VPS, collecte réelle, restauration de production, alerte ou déploiement effectué.
+
+
+## 2 novembre 2026 — étape A L4 terminée localement
+- `/api/refresh` n'accepte plus GET. POST répond 404 par défaut et ne peut atteindre le collecteur que si `MANUAL_REFRESH_ENABLED=1` et un secret dédié d'au moins 32 caractères correspondent en temps constant.
+- Les exemples d'environnement gardent cette route désactivée. L'exemple serveur indique `COOKIE_SECURE=1` et rappelle que la clé de session reste dans le fichier privé, sans valeur versionnée.
+- Trois tests locaux vérifient la désactivation, les configurations incomplètes, le mauvais secret et le chemin autorisé avec collecteur simulé. `make check` réussit avec 122 tests ; registres et syntaxe JavaScript valides. Aucun site n'est contacté par ces tests.
+- Prochaine session : étape B, sauvegarde et restauration dans un dossier isolé. Aucun accès VPS, changement de production, secret, collecte réelle ou déploiement.

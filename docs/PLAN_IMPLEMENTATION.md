@@ -132,7 +132,7 @@ Prouver que le service peut être surveillé, sauvegardé et restauré sans dép
 - [x] `L4.0` Préparer l'ordre d'exécution, les autorisations et les preuves dans [PLAN_L4_EXPLOITATION.md](PLAN_L4_EXPLOITATION.md).
 - [ ] `L4.1` Vérifier sur le VPS les unités, versions, variables non secrètes et empreintes réellement actives.
 - [ ] `L4.2` Confirmer une clé de session persistante et `COOKIE_SECURE=1` sans révéler les secrets.
-- [ ] `L4.3` Désactiver ou authentifier `/api/refresh` dans Flask, en plus du blocage Nginx.
+- [x] `L4.3` Désactiver et authentifier `/api/refresh` dans Flask, en plus du blocage Nginx. Code local testé ; livraison distante non effectuée.
 - [ ] `L4.4` Automatiser une copie chiffrée hors VPS avec rétention définie.
 - [ ] `L4.5` Tester une restauration dans un fichier isolé : intégrité, comptages et lecture applicative.
 - [ ] `L4.6` Définir RPO, RTO et procédure de retour arrière.
