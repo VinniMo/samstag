@@ -79,6 +79,37 @@ CREATE TABLE IF NOT EXISTS collection_presence (
     missing_runs INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY(source_url,event_id)
 );
+CREATE TABLE IF NOT EXISTS collection_runs (
+    run_id TEXT PRIMARY KEY,
+    started_at REAL NOT NULL,
+    finished_at REAL,
+    status TEXT NOT NULL,
+    sources_expected INTEGER NOT NULL,
+    sources_checked INTEGER NOT NULL DEFAULT 0,
+    message TEXT NOT NULL DEFAULT ''
+);
+CREATE TABLE IF NOT EXISTS collection_source_runs (
+    run_id TEXT NOT NULL,
+    source_url TEXT NOT NULL,
+    source_id TEXT,
+    access_status TEXT NOT NULL,
+    parse_status TEXT NOT NULL,
+    completeness_status TEXT NOT NULL,
+    editorial_status TEXT NOT NULL,
+    pages_expected INTEGER,
+    pages_read INTEGER,
+    observations INTEGER NOT NULL DEFAULT 0,
+    candidates INTEGER NOT NULL DEFAULT 0,
+    rejected INTEGER NOT NULL DEFAULT 0,
+    published INTEGER NOT NULL DEFAULT 0,
+    withdrawn INTEGER NOT NULL DEFAULT 0,
+    message TEXT NOT NULL DEFAULT '',
+    checked_at REAL NOT NULL,
+    PRIMARY KEY(run_id,source_url),
+    FOREIGN KEY(run_id) REFERENCES collection_runs(run_id) ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_collection_source_runs_url
+    ON collection_source_runs(source_url,checked_at);
 """
 
 
@@ -220,6 +251,93 @@ def source_status() -> list[dict]:
     return [dict(r) for r in rows]
 
 
+def start_collection_run(sources_expected: int) -> str:
+    run_id = uuid.uuid4().hex
+    with get_conn() as conn:
+        conn.execute(
+            "INSERT INTO collection_runs(run_id,started_at,status,sources_expected) VALUES(?,?,?,?)",
+            (run_id, time.time(), "running", sources_expected),
+        )
+    return run_id
+
+
+def log_source_run(run_id: str, source_url: str, **values) -> None:
+    fields = {
+        "source_id": None, "access_status": "unknown", "parse_status": "unknown",
+        "completeness_status": "unknown", "editorial_status": "unknown",
+        "pages_expected": None, "pages_read": None, "observations": 0,
+        "candidates": 0, "rejected": 0, "published": 0, "withdrawn": 0,
+        "message": "", "checked_at": time.time(),
+    }
+    fields.update(values)
+    with get_conn() as conn:
+        conn.execute("""
+            INSERT INTO collection_source_runs(
+                run_id,source_url,source_id,access_status,parse_status,
+                completeness_status,editorial_status,pages_expected,pages_read,
+                observations,candidates,rejected,published,withdrawn,message,checked_at
+            ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            ON CONFLICT(run_id,source_url) DO UPDATE SET
+                source_id=excluded.source_id,access_status=excluded.access_status,
+                parse_status=excluded.parse_status,completeness_status=excluded.completeness_status,
+                editorial_status=excluded.editorial_status,pages_expected=excluded.pages_expected,
+                pages_read=excluded.pages_read,observations=excluded.observations,
+                candidates=excluded.candidates,rejected=excluded.rejected,
+                published=excluded.published,withdrawn=excluded.withdrawn,
+                message=excluded.message,checked_at=excluded.checked_at
+        """, (run_id, source_url, *(fields[key] for key in fields)))
+
+
+def finish_collection_run(run_id: str, status: str, message: str = "") -> None:
+    with get_conn() as conn:
+        checked = conn.execute(
+            "SELECT COUNT(*) AS n FROM collection_source_runs WHERE run_id=?", (run_id,)
+        ).fetchone()["n"]
+        conn.execute("""
+            UPDATE collection_runs SET finished_at=?,status=?,sources_checked=?,message=?
+            WHERE run_id=?
+        """, (time.time(), status, checked, message, run_id))
+
+
+def latest_collection_run() -> dict | None:
+    with get_conn() as conn:
+        row = conn.execute(
+            "SELECT * FROM collection_runs ORDER BY started_at DESC LIMIT 1"
+        ).fetchone()
+    return dict(row) if row else None
+
+
+def source_run_diagnostics(run_id: str | None = None) -> list[dict]:
+    if run_id is None:
+        latest = latest_collection_run()
+        if not latest:
+            return []
+        run_id = latest["run_id"]
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM collection_source_runs WHERE run_id=? ORDER BY source_url", (run_id,)
+        ).fetchall()
+    return [dict(row) for row in rows]
+
+
+def public_count_for_source(source_url: str) -> int:
+    return sum(event.get("source_url") == source_url for event in list_public_events())
+
+
+def prune_collection_diagnostics(retention_days: int) -> dict:
+    """Expire technical logs while preserving event evidence and observations."""
+    cutoff = time.time() - retention_days * 86400
+    with get_conn() as conn:
+        logs = conn.execute("DELETE FROM scrape_log WHERE timestamp<?", (cutoff,)).rowcount
+        source_runs = conn.execute("""
+            DELETE FROM collection_source_runs
+            WHERE run_id IN (SELECT run_id FROM collection_runs WHERE started_at<?)
+        """, (cutoff,)).rowcount
+        runs = conn.execute("DELETE FROM collection_runs WHERE started_at<?", (cutoff,)).rowcount
+    return {"scrape_logs": logs, "source_runs": source_runs,
+            "collection_runs": runs, "retention_days": retention_days}
+
+
 def clear_events() -> None:
     with get_conn() as conn:
         conn.execute("DELETE FROM events")
@@ -278,12 +396,13 @@ def collection_items() -> list[dict]:
              "evidence_urls": json.loads(r["evidence_urls"])} for r in rows]
 
 
-def reconcile_source_snapshot(source_url: str, seen_ids: set[str]) -> None:
+def reconcile_source_snapshot(source_url: str, seen_ids: set[str]) -> int:
     """Withdraw only after two consecutive successful, complete snapshots.
 
     Partial listings, request failures and capped pagination never call this.
     A disappearance is not labelled cancellation: the reason remains explicit.
     """
+    withdrawn = 0
     with get_conn() as conn:
         rows = conn.execute("SELECT event_id FROM collection_observations WHERE source_url=?", (source_url,)).fetchall()
         for row in rows:
@@ -305,9 +424,11 @@ def reconcile_source_snapshot(source_url: str, seen_ids: set[str]) -> None:
             if missing < 2:
                 continue
             conn.execute("UPDATE collection_observations SET status='withdrawn',reason='absent_two_complete_snapshots' WHERE source_url=? AND event_id=?", (source_url,event_id))
+            withdrawn += 1
             current = conn.execute("SELECT payload FROM collection_items WHERE id=?", (event_id,)).fetchone()
             if current and json.loads(current["payload"]).get("source_url") == source_url:
                 conn.execute("UPDATE collection_items SET status='withdrawn',reason='absent_two_complete_snapshots' WHERE id=?", (event_id,))
+    return withdrawn
 
 
 def approve_collection(event_id: str) -> None:

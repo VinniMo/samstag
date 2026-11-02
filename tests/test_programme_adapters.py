@@ -8,7 +8,8 @@ from bs4 import BeautifulSoup
 from agenda import TZ
 from collection_quality import assess, venue_for
 from expanded_adapters import collect_grange, parse_pulloff
-from programme_adapters import parse_vidy, collect_programme, confirm_vidy, vidy_kind
+from programme_adapters import collect_programme
+from samstag.collection.adapters.vidy import parse_vidy, confirm_vidy, vidy_kind
 from source_registry import active_sources
 
 
@@ -36,6 +37,28 @@ def vidy_detail(sessions, genres=('Théâtre',)):
 
 
 class ProgrammeTest(unittest.TestCase):
+    def test_vidy_legacy_imports_share_the_packaged_implementation(self):
+        import programme_adapters as legacy
+        from samstag.collection.adapters import vidy
+        self.assertIs(legacy.parse_vidy, vidy.parse_vidy)
+        self.assertIs(legacy.confirm_vidy, vidy.confirm_vidy)
+        self.assertIs(legacy.VIDY_ROOMS, vidy.VIDY_ROOMS)
+
+    def test_dispatch_confirms_daytime_session_using_the_packaged_reader(self):
+        class Clock(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return cls(2026,10,17,tzinfo=TZ)
+        day = '2026-11-01 14:00:00'
+        fetch = Mock(return_value=vidy_detail([{'date':day, 'location':'Salle 17, Le Pavillon'}]))
+        with patch('samstag.collection.adapters.vidy.datetime', Clock):
+            result = collect_programme('https://www.vidy.ch/fr/calendrier/', vidy_page([vidy_row(day)]), fetch)
+        fetch.assert_called_once_with('https://www.vidy.ch/fr/evenement/test/')
+        self.assertTrue(result.partial)
+        self.assertTrue(result.events[0]['detail_confirmed'])
+        self.assertEqual(result.events[0]['time'], '14:00')
+        self.assertEqual(assess(result.events[0], 'https://www.vidy.ch/fr/calendrier/', datetime(2026,10,17,tzinfo=TZ))['status'], 'candidate')
+
     def test_vidy_single_session_header_is_valid_but_a_date_range_is_not(self):
         for label,expected in [('Le 1 novembre 2026 <span>• 19:30</span>',True),('Du 1 au 3 novembre 2026',False)]:
             data={'props':{'pageProps':{'node':{'blocksJSON':json.dumps([{'name':'supt/header-metas','attributes':{
@@ -54,6 +77,16 @@ class ProgrammeTest(unittest.TestCase):
         self.assertEqual([d['status'] for d in decisions],['candidate','review'])
         self.assertEqual(decisions[1]['reason'],'conflicting_published_dates')
         self.assertTrue(result.events[0]['evidence_url'].endswith('/fr/evenement/test/'))
+
+    def test_vidy_daytime_session_requires_matching_official_detail(self):
+        day = '2026-11-01 14:00:00'
+        for confirmed_day, expected in [(day, 'candidate'), ('2026-11-01 14:30:00', 'review')]:
+            result = parse_vidy(vidy_page([vidy_row(day)]), 'https://www.vidy.ch/fr/calendrier/')
+            fetch = Mock(return_value=vidy_detail([{'date':confirmed_day, 'location':'Salle 17, Le Pavillon'}]))
+            now = datetime(2026,10,17,tzinfo=TZ)
+            confirm_vidy(result, fetch, now)
+            fetch.assert_called_once()
+            self.assertEqual(assess(result.events[0], 'https://www.vidy.ch/fr/calendrier/', now)['status'], expected)
 
     def test_vidy_failed_detail_cannot_publish_an_unconfirmed_calendar_row(self):
         from scraper import FetchError

@@ -27,6 +27,16 @@ class QualityTest(unittest.TestCase):
     def assess(self, **changes):
         return quality.assess(event(**changes), "https://tacos-bar.ch/events", NOW)
 
+    def test_daytime_boundaries_preserve_publication_guards(self):
+        for hour in ['06:00', '09:00', '12:00', '16:59', '17:00']:
+            with self.subTest(hour=hour):
+                fields = dict(time=hour, start_at=f'2026-10-17T{hour}:00+02:00')
+                self.assertEqual(self.assess(**fields)['status'], 'candidate')
+                self.assertEqual(self.assess(**fields, event_status='EventCancelled')['reason'], 'cancelled')
+                self.assertEqual(self.assess(**fields, time_role='unverified')['reason'], 'unverified_start_time')
+                self.assertEqual(self.assess(**fields, event_kind='ExhibitionEvent')['reason'], 'editorial_type_requires_review')
+                self.assertEqual(self.assess(**fields, end_at='2026-10-19T18:00:00+02:00')['reason'], 'multi_day_programme_needs_occurrences')
+
     def test_good_data_stays_pending(self):
         item = self.assess()
         self.assertEqual(item["status"], "candidate")
@@ -151,6 +161,21 @@ class PersistenceTest(unittest.TestCase):
 
 
 class NightTest(unittest.TestCase):
+    def test_today_includes_daytime_and_next_night_but_not_tomorrow_morning(self):
+        rows = [event(id=key, time=hour, date=day, start_at=f'{day}T{hour}:00+02:00')
+                for key, day, hour in [('morning','2026-10-17','06:00'),
+                                       ('matinee','2026-10-17','14:00'),
+                                       ('evening','2026-10-17','20:00'),
+                                       ('night','2026-10-18','01:00'),
+                                       ('tomorrow','2026-10-18','06:00')]]
+        programme = agenda.build_night_programme(rows, datetime.fromisoformat('2026-10-17T06:00:00+02:00'))
+        today = programme['moments'][0]
+        self.assertEqual(today['label'], 'Aujourd’hui')
+        self.assertEqual(today['days'][0]['ids'], ['morning','matinee','evening','night'])
+        programme = agenda.build_night_programme(rows, datetime.fromisoformat('2026-10-17T15:00:00+02:00'))
+        self.assertEqual(programme['moments'][0]['days'][0]['ids'], ['evening','night'])
+
+
     def test_after_midnight_is_same_night_until_six(self):
         raw = event(id="late", date="2026-10-17", time="01:00", start_at="2026-10-17T01:00:00+02:00",
                     end_at="2026-10-17T04:00:00+02:00")

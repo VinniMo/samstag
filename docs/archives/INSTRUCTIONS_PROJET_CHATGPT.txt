@@ -1,3 +1,6 @@
+ARCHIVE HISTORIQUE — consignes initiales d’octobre 2026.
+Pour l’état courant, lire docs/ETAT_ACTUEL.md et les consignes AGENTS.md.
+
 Projet : Lausanne Samstag
 
 Développer un agenda de sorties à Lausanne et dans les communes immédiatement voisines : culture, concerts, spectacles, cinéma, bars et clubs. Interface rapide et simple ; plusieurs périodes (ce soir, ce week-end, semaine prochaine et au-delà).

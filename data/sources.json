@@ -47,11 +47,11 @@
     "nom": "MAD Club",
     "canal": "https://www.mad.club/agenda/",
     "preuve": "https://www.mad.club/contact/",
-    "auto_publish": true,
+    "auto_publish": false,
     "priority": 10,
     "enabled": true,
     "type": "official",
-    "notes": "Séparer les espaces Mainfloor et Jetlag si la fiche événement le précise. Lecteur v3 : seuls les événements avec lieu admis, date et horaire explicites passent automatiquement. Données incomplètes conservées en revue.",
+    "notes": "Diagnostic ciblé du 02.11.2026 : agenda officiel accessible, mais les six fiches de billetterie liées ont toutes échoué (404 ou structure absente). Publication automatique désactivée jusqu’au rétablissement de fiches officielles lisibles. Séparer Mainfloor et Jetlag si la fiche le précise ; conserver les données incomplètes en revue.",
     "allowed_kinds": [
       "ClubNight"
     ]
@@ -93,7 +93,7 @@
     "priority": 10,
     "enabled": true,
     "type": "official",
-    "notes": "Lecteur du programme officiel testé. Année issue de la période publiée, séances du soir uniquement, pas de durée de spectacle inventée."
+    "notes": "Lecteur du programme officiel testé. Année issue de la période publiée, séances datées avec horaire explicite, en journée comme en soirée ; pas de durée de spectacle inventée."
   },
   {
     "id": "SRC_L009",
@@ -183,7 +183,7 @@
     "priority": 10,
     "enabled": true,
     "type": "official",
-    "notes": "Lecteur du programme officiel testé. Année issue de la période publiée, séances du soir uniquement, pas de durée de spectacle inventée."
+    "notes": "Lecteur du programme officiel testé. Année issue de la période publiée, séances datées avec horaire explicite, en journée comme en soirée ; pas de durée de spectacle inventée."
   },
   {
     "id": "SRC_B001",
@@ -451,7 +451,7 @@
     "priority": 10,
     "enabled": true,
     "type": "official",
-    "notes": "Qualification du 17.10.2026 : fiches officielles, séances explicites, lieu La Grange ; commune Ecublens confirmée par tableau cantonal des bâtiments. Ateliers exclus, séances diurnes et au-delà de 90 jours non publiées.",
+    "notes": "Qualification du 17.10.2026 : fiches officielles, séances explicites, lieu La Grange ; commune Ecublens confirmée par tableau cantonal des bâtiments. Ateliers exclus, séances au-delà de 90 jours non publiées. Événements diurnes admis depuis la décision du 1er novembre 2026.",
     "allowed_kinds": [
       "TheaterEvent",
       "DanceEvent",

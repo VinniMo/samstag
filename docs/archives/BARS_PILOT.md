@@ -1,5 +1,7 @@
 # Premier lot bars — préparation locale
 
+> **Archive historique du 16 octobre 2026.** Ce document ne décrit pas l’état courant. Voir [ETAT_ACTUEL.md](../ETAT_ACTUEL.md).
+
 > Archive de la première version. Le moteur élargi et ses résultats actuels sont
 > décrits dans `RECAP_COLLECTE.md` ; les restrictions à sept bars ci-dessous ne
 > sont plus celles de la version courante.

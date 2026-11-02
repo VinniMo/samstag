@@ -28,16 +28,30 @@ def run_cycle():
             return {"status": "skipped", "reason": "collection_already_running"}
         events = scraper.scrape_sources()
     urls = {s["canal"] for s in active_sources()}
-    checked = [s for s in db.source_status() if s["url"] in urls and s["timestamp"] >= started]
-    failed = [s["url"] for s in checked if s["status"] == "error"]
-    incomplete = [s["url"] for s in checked if s["status"] == "needs_adapter"]
-    partial = [s["url"] for s in checked if s["status"] == "partial"]
-    return {"status": "degraded" if failed or incomplete or partial or len(checked) < len(urls) else "ok",
+    run = db.latest_collection_run()
+    diagnostics = db.source_run_diagnostics(run["run_id"]) if run and run["started_at"] >= started else []
+    checked_urls = {row["source_url"] for row in diagnostics}
+    failed = [row["source_url"] for row in diagnostics
+              if row["access_status"] == "error" or row["parse_status"] in {"error", "not_run"}]
+    incomplete = [row["source_url"] for row in diagnostics if row["parse_status"] == "unsupported"]
+    partial = [row["source_url"] for row in diagnostics
+               if row["completeness_status"] in {"partial", "limited"}]
+    if not diagnostics:
+        legacy = [s for s in db.source_status() if s["url"] in urls and s["timestamp"] >= started]
+        checked_urls = {s["url"] for s in legacy}
+        failed = [s["url"] for s in legacy if s["status"] == "error"]
+        incomplete = [s["url"] for s in legacy if s["status"] == "needs_adapter"]
+        partial = [s["url"] for s in legacy if s["status"] == "partial"]
+    totals = {key: sum(row[key] for row in diagnostics) for key in (
+        "observations", "candidates", "rejected", "published", "withdrawn"
+    )}
+    return {"status": "degraded" if failed or len(checked_urls) < len(urls) else "ok",
             "finished_at": datetime.now(TZ).isoformat(),
             "duration_seconds": round(time.time()-started, 2),
-            "sources_checked": len(checked), "sources_expected": len(urls),
+            "run_id": run["run_id"] if run and diagnostics else None,
+            "sources_checked": len(checked_urls), "sources_expected": len(urls),
             "errors": failed, "needs_adapter": incomplete, "partial": partial,
-            "collected": len(events), "public": len(db.list_public_events())}
+            "counts": totals, "collected": len(events), "public": len(db.list_public_events())}
 
 
 def serve(interval, stop, cycle=run_cycle):

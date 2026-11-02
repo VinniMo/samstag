@@ -2,38 +2,43 @@
 
 ## Décision
 
-Le produit public s'appelle **Samstag**. La version Flask servie sur le VPS
-Infomaniak constitue la référence fonctionnelle. Cette branche réconcilie cette
-version avec l'historique du dépôt Git `VinniMo/samstag`.
+**Samstag** est l'unique nom du produit, du dépôt, du code et de
+l'exploitation. Le dossier `/Users/lauresenechal/Documents/ChatGPT/Samstag`
+est la seule base locale active.
 
-Les noms techniques historiques (`samstag.service`, `/opt/samstag` et les
-variables `SAMSTAG_*`) restent en place pour préserver l'exploitation.
+## Références
 
-## Source reprise
-
-- Source locale correspondant au déploiement : `samstag-v3/samstag/`.
-- Dépôt de destination : `samstag/`.
-- Branche locale : `chore/samstag-reconciliation-20261101`.
-- Fichiers exclus : environnements Python, bases SQLite, journaux, secrets,
-  résultats de validation, captures, dépendances JavaScript et caches.
-
-Le projet `lausanne-events`, associé à Vercel, reste une tentative distincte et
-n'est pas fusionné dans Samstag.
+- Dépôt : `https://github.com/VinniMo/samstag`.
+- Branche : `chore/samstag-full-rename-20261101`.
+- Commit déployé : `ed42492`.
+- Pull request : `https://github.com/VinniMo/samstag/pull/7`.
+- Service VPS : `samstag.service`.
+- Code VPS : `/opt/samstag/app`.
+- Base VPS : `/var/lib/samstag/samstag.sqlite3`.
+- Configuration VPS : `/etc/samstag/samstag.env`.
 
 ## Vérifications réalisées
 
-- Compilation Python : réussie.
-- Tests Python : **102 réussis**.
-- Parcours Playwright sur Chromium ordinateur et mobile : **34 réussis**.
-- Contrôle Git des espaces et marqueurs de conflit : réussi.
+- Compilation Python locale et sur le VPS : réussie.
+- Tests Python locaux et sur le VPS : **102 réussis**.
+- Tests Playwright sur Chromium, Firefox, WebKit et vues mobiles :
+  **85 réussis**.
+- Base SQLite après migration : intégrité `ok`.
+- Accueil VPS : HTTP 200.
+- API de santé : statut `ok` ; collecte encore `degraded`.
+- Services `samstag.service`, `samstag-backup.timer` et
+  `cockpit-immobilier.service` : actifs.
+- Démarrage automatique du service et de la sauvegarde : activé.
 
-Les tests navigateur ont permis de corriger un cas où une fiche sans
-description ni lien source affichait à tort qu'une description était disponible
-sur le site de l'événement.
+## Sauvegarde et retour arrière
 
-## État de publication
+La migration a créé une base cohérente et une archive du code et de la
+configuration dans `/var/backups/samstag-migration-20261101T101511Z/`.
+La copie applicative de retour arrière est conservée sur le VPS jusqu'à une
+décision explicite de suppression.
 
-Cette réconciliation est locale. Elle n'a déclenché ni envoi vers GitHub, ni
-renommage du dépôt, ni déploiement sur Infomaniak. La publication devra passer
-par une revue de cette branche, puis un envoi contrôlé sur GitHub. Le renommage
-du dépôt en `VinniMo/samstag` pourra suivre après validation.
+## Publication
+
+Le dépôt GitHub a été renommé et la branche a été publiée. La pull request reste
+ouverte afin que la fusion sur `main` soit décidée après revue. Le commit testé
+est déjà installé sur Infomaniak.

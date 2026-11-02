@@ -1,16 +1,16 @@
 {
-  "name": "Lausanne Samstag",
-  "image": "mcr.microsoft.com/devcontainers/python:3.11",
-  "postCreateCommand": "pip install --upgrade pip && pip install -r requirements.txt",
+  "name": "Samstag",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "postCreateCommand": "SAMSTAG_SKIP_BROWSER_INSTALL=1 make setup PYTHON=python3",
   "postAttachCommand": {
-    "server": "python app.py"
+    "server": "make dev"
   },
   "forwardPorts": [5000],
   "portsAttributes": {
     "5000": {
-      "label": "Lausanne Samstag",
+      "label": "Samstag",
       "onAutoForward": "openPreview",
-      "visibility": "public"
+      "visibility": "private"
     }
   },
   "customizations": {

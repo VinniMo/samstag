@@ -1,0 +1,68 @@
+# Suivi d’implémentation Samstag
+
+Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPLEMENTATION.md). Il doit rester court. Les détails techniques appartiennent aux PR, audits et documents de validation.
+
+## État global
+
+| Lot | Responsable | État | Prochaine action | Dernière preuve |
+|---|---|---|---|---|
+| L0 — Documentation | Codex | Terminé | Maintenir l’état actuel à chaque lot | Contrôle documentaire du 1er novembre 2026 |
+| L1 — Développement et CI | Codex | Terminé | Maintenir les verrous et la CI | `make check` et 85 E2E réussis le 1er novembre 2026 |
+| L2 — Diagnostics collecte | Codex | Terminé | Maintenir le tableau lors des évolutions de lecteurs | 114 tests et contrôle MAD ciblé du 2 novembre 2026 |
+| L3 — Qualité et doublons | À attribuer | À faire | Transformer Mike D en test de régression | Doublon public observé le 1er novembre 2026 |
+| L4 — Exploitation | À attribuer | À faire | Préparer le contrôle VPS et la restauration | Procédures versionnées, état distant non audité par SSH |
+| L5 — Architecture interne | Codex | Pilote local terminé | R2 : CityClub ; suite globale dépend de L2–L4 | Bilan R0–R1 du 2 novembre, 109 tests |
+| L6 — Produit et performance | À attribuer | À faire | Livrer et mesurer la couverture diurne (`L6.1`) | Décision utilisateur du 1er novembre 2026 |
+
+## En cours
+
+- Aucun lot en cours. Prochaine priorité du plan : L3, qualité et doublons.
+
+## Prêt à démarrer
+
+- [ ] `L3.1` Transformer le doublon Mike D en test de régression avant toute fusion de données.
+
+## Bloqué ou soumis à décision
+
+- [ ] `L4.1` à `L4.9` — les vérifications et changements sur le VPS restent soumis à l’autorisation applicable.
+- Décision `L6.1` actée : inclure les événements diurnes ; code local implémenté, livraison et mesure réelle à faire.
+
+## Terminé
+
+- [x] `L0.1` Audit complet du site, de l’architecture, des collecteurs et du dossier local.
+- [x] `L0.2` Plan d’implémentation, tableau de suivi et diagrammes Mermaid.
+- [x] `L0.3` État courant unique créé.
+- [x] `L0.4` Documents actifs révisés.
+- [x] `L0.5` Documents anciens classés comme historiques.
+- [x] `L0.6` Preuves présentes et absentes indexées.
+- [x] `L1.1` à `L1.7` Environnement Python 3.12, commandes, verrous, E2E portable, CI et schémas JSON.
+- [x] `L2.0` à `L2.7` Tableau de santé des 39 canaux, compteurs par passe, incidents séparés des limites et MAD sécurisé.
+
+## Journal
+
+| Date | Changement | Vérifications | Limites |
+|---|---|---|---|
+| 2026-11-01 | Audit et planification initiale | 102 tests Python ; syntaxe JS ; lecture des API publiques | Pas de SSH, nouvelle campagne E2E, mobile complet ni restauration |
+| 2026-11-01 | Lot L0 finalisé : état courant, index, exploitation et archives | Liens relatifs, statuts, JSON, cohérence documentaire et diff contrôlés | Aucun code ni service distant modifié |
+| 2026-11-01 | Lot L1 finalisé : développement reproductible et CI | Installation neuve ; suite finale de 107 tests Python ; 85 E2E sur cinq profils ; schémas JSON ; syntaxe JS ; démarrage local | Workflow GitHub ajouté mais pas encore exécuté à distance |
+| 2026-11-02 | Lot L2 finalisé : santé globale des collecteurs | 114 tests ; matrice synthétique des 37 actifs ; 39 canaux visibles ; deux contrôles ciblés MAD | Aucun autre site relancé, aucun déploiement |
+
+## Modèle d’entrée de journal
+
+Copier une ligne et remplir uniquement des faits vérifiés :
+
+```text
+| AAAA-MM-JJ | Tâches Lx.y ; résultat concret | Tests, mesures et preuves | Ce qui reste non vérifié |
+```
+
+
+- 1er novembre 2026 : événements diurnes ajoutés au périmètre et à L6.1 ; documentation seulement, aucun changement de collecte ou de production.
+
+- 1er novembre 2026 : L6.1 implémenté localement ; 107 tests Python réussis, registres et syntaxe JS valides. Livraison et couverture réelle restent à faire.
+- Validation finale du lot diurne : 17/17 E2E Chromium réussis sur fixture isolée ; rapport `/private/tmp/samstag-diurne-e2e/report/index.html`.
+
+- 1er novembre 2026 : rangement documentaire et nettoyage local terminés ; guide SE_REPERER et fiche COLLECTEURS ajoutés, dix archives regroupées, caches régénérables supprimés. Aucun code applicatif déplacé.
+
+- 1er novembre 2026 : plan détaillé L5 enregistré dans `PLAN_REORGANISATION_CODE.md` (R0–R7). Planification seulement ; prochaine action R0, prérequis L2–L4 conservés.
+
+- 2 novembre 2026 : R0 et R1 terminés localement (référence propre `3f57d9b`, Vidy extrait, réexports conservés, 109 tests et comparaison avant/après identique). R2–R7 restent à faire ; aucun déploiement.

@@ -114,12 +114,9 @@ def assess(raw, source, now=None):
         return decision("review", "unverified_end_time")
     if event.get("time_role") == "doors" and event.get("event_kind") != "ClubNight":
         return decision("review", "doors_not_artistic_start")
-    # Keep daytime screenings/workshops out of a nightlife feed. A dated
-    # multi-day festival needs individual evening occurrences, not an interval.
+    # A multi-day programme needs individual dated occurrences, not an interval.
     if end and end - start > timedelta(hours=18):
         return decision("review", "multi_day_programme_needs_occurrences")
-    if 6 <= start.hour < 17:
-        return decision("excluded", "daytime_event")
     if (end and end <= now) or (not end and start.date() < now.date()):
         return decision("excluded", "past")
     if start < now and not end:

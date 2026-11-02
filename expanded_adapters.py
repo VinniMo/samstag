@@ -334,7 +334,7 @@ def collect_jazzonze(soup, url, fetch):
     for event in events:
         if not event.get('date') or not today <= date.fromisoformat(event['date']) <= today + timedelta(days=config.COLLECTION_HORIZON_DAYS):
             continue
-        if event.get('event_status') == 'EventCancelled' or not event.get('time') or event['time'] < '17:00':
+        if event.get('event_status') == 'EventCancelled' or not event.get('time'):
             continue
         if checked >= config.MAX_DETAIL_PAGES or urlparse(event['url']).hostname != urlparse(url).hostname:
             partial = True
@@ -489,7 +489,7 @@ def collect_grange(soup, url, fetch):
             continue
         kind, category = (('DanceEvent','Danse') if 'danse' in genres else
                           ('MusicEvent','Musique') if 'musique' in genres else ('TheaterEvent','Théâtre'))
-        # Workshops are outside the selected evening programme.
+        # Workshops remain outside the admitted event types.
         if 'atelier' in genres:
             continue
         days = [dotted_day(value) for value in re.findall(r'\d{1,2}\.\d{1,2}\.\d{4}', text(card,'.card-footer'))]
@@ -651,8 +651,16 @@ def collect_expanded(url, soup, fetch):
                 import logging
                 logging.getLogger(__name__).warning("Detail failed %s: %s", target, exc)
                 failures += 1
-        if failures == min(len(targets), config.MAX_DETAIL_PAGES):
-            raise ValueError("Toutes les fiches événement ont échoué")
-        return CollectionResult(events, f"{host}-v3: {len(targets)} liens, {min(len(targets), config.MAX_DETAIL_PAGES)} contrôlés, {failures} erreurs",
-                                partial=bool(failures or len(targets) > config.MAX_DETAIL_PAGES))
+        checked = min(len(targets), config.MAX_DETAIL_PAGES)
+        read = checked - failures
+        parse_status = "error" if failures == checked else "partial" if failures else "ok"
+        completeness = "limited" if len(targets) > checked else "partial" if failures else "complete"
+        return CollectionResult(
+            events,
+            f"{host}-v3: {len(targets)} liens, {checked} contrôlés, {failures} erreurs",
+            complete_snapshot=not failures and len(targets) <= checked,
+            partial=bool(failures or len(targets) > checked),
+            pages_expected=len(targets), pages_read=read,
+            parse_status=parse_status, completeness_status=completeness,
+        )
     return None

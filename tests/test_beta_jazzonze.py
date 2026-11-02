@@ -23,6 +23,14 @@ class JazzOnzeBetaTest(unittest.TestCase):
         listing=self.listing();listing.p.decompose()
         self.assertFalse(parse_jazzonze(listing,'https://jazzonzeplus.ch/')[0].get('address'))
 
+    def test_daytime_concert_gets_official_description(self):
+        listing = self.listing()
+        node = listing.select_one('.program')
+        node.string = node.get_text().replace('20h', '14h')
+        result = collect_jazzonze(listing, 'https://jazzonzeplus.ch/', lambda _: '<h1 class="entry-title">Concert de test</h1><article><div class="entry-content"><p>Concert en journée.</p></div></article>')
+        self.assertEqual(result.events[0]['time'], '14:00')
+        self.assertEqual(result.events[0]['description'], 'Concert en journée.')
+
     def test_description_requires_matching_artist(self):
         def detail(title):return f'<h1 class="entry-title">{title}</h1><article><div class="entry-content"><p>Biographie officielle du concert.</p></div></article>'
         good=collect_jazzonze(self.listing(),'https://jazzonzeplus.ch/',lambda _:detail('Concert de test'))

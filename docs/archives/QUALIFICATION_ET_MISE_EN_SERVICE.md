@@ -1,5 +1,7 @@
 # Samstag — qualification et préparation de mise en service
 
+> **Archive historique du 17 octobre 2026.** La mise en service a évolué depuis ce bilan. Voir [ETAT_ACTUEL.md](../ETAT_ACTUEL.md) et [EXPLOITATION.md](../EXPLOITATION.md).
+
 État du 17 octobre 2026, après le premier bilan de corrections locales.
 
 ## Résultat
@@ -50,7 +52,7 @@ La santé de la collecte reste dégradée : 24 sources techniquement `ok`, 2 cal
 
 ## Proposition d’hébergement et action nécessaire
 
-La proposition détaillée est dans [deploy/README.md](../deploy/README.md) : conserver Render, avec un seul service toujours actif et un disque persistant de 1 Go. Base tarifaire publique relevée le 17 octobre : **7 USD de calcul + 0,25 USD de disque = 7,25 USD/mois**, hors taxes, conversion, autres services et dépassements. [Tarifs Render](https://render.com/pricing).
+La proposition détaillée est dans [deploy/README.md](../../deploy/README.md) : conserver Render, avec un seul service toujours actif et un disque persistant de 1 Go. Base tarifaire publique relevée le 17 octobre : **7 USD de calcul + 0,25 USD de disque = 7,25 USD/mois**, hors taxes, conversion, autres services et dépassements. [Tarifs Render](https://render.com/pricing).
 
 Le code et les réglages proposés sont préparés. Le fichier `render.yaml` historique n’a pas été modifié ; aucun abonnement, push GitHub ou déploiement n’a été effectué.
 

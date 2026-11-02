@@ -28,7 +28,7 @@ _RUBRIC_BY_CATEGORY = {cat.lower(): name for name, cats in RUBRICS for cat in ca
 SMALL_PRICE_CHF = 15
 
 MOMENTS: tuple[tuple[str, str], ...] = (
-    ("tonight", "Ce soir"),
+    ("tonight", "Aujourd’hui"),
     ("tomorrow", "Demain"),
     ("weekend", "Week-end"),
     ("later", "Plus tard"),
@@ -130,7 +130,7 @@ def build_programme(events: list[dict], today: date) -> dict:
 
     An event is past when its end date (or its start date when it has no end)
     is before today. A multi-day event appears on each of its days inside the
-    Ce soir / Demain / Week-end windows; "Plus tard" lists, by start date,
+    Aujourd’hui / Demain / Week-end windows; "Plus tard" lists, by start date,
     what starts after tomorrow outside the week-end, so long exhibitions
     already running are not repeated there.
     Events without a readable date are kept in "Plus tard", flagged undated.
@@ -204,12 +204,15 @@ def build_programme(events: list[dict], today: date) -> dict:
 
 
 def build_night_programme(events: list[dict], now: datetime | None = None) -> dict:
-    """Ce soir spans 17:00–06:00; before 06:00 keep the previous evening."""
+    """Today spans 06:00–06:00, preserving the previous night before 06:00.
+
+    The historical API key ``tonight`` remains stable for saved preferences.
+    """
     now = now or datetime.now(TZ)
     now = now.replace(tzinfo=TZ) if now.tzinfo is None else now.astimezone(TZ)
     anchor = now.date() - timedelta(days=1) if now.hour < 6 else now.date()
     programme = build_programme(events, anchor)
-    lo = datetime.combine(anchor, time(17), TZ)
+    lo = datetime.combine(anchor, time(6), TZ)
     hi = datetime.combine(anchor + timedelta(days=1), time(6), TZ)
     hits = []
     for event in programme["events"]:
