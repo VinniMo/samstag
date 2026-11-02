@@ -431,3 +431,10 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Politique locale : copie quotidienne chiffrée avant transfert vers un stockage objet privé distinct du VPS, 30 quotidiennes et 12 mensuelles ; boîte e-mail d'exploitation privée et second canal à confirmer avant activation.
 - Retours : accès administratif seulement, lecture hebdomadaire, suppression sous 90 jours après résolution, réévaluation à 12 mois. L'automatisation de purge attend une migration SQLite versionnée ; aucune donnée supprimée.
 - Tests entièrement synthétiques ; `make check` réussit avec 129 tests, registres et syntaxe JavaScript valides. Aucun message envoyé, transfert externe, fournisseur, compte privé, accès VPS ou déploiement. Prochaine action : contrôle final local et pull request des étapes A–C.
+
+
+## 2 novembre 2026 — contrôle final local L4 A–C
+- Branche comparée à `main` : quatre commits cohérents couvrent la préparation, la route administrative, la reprise isolée et les alertes. Arbre de travail propre avant publication de la pull request.
+- `make check` rejoué : 129 tests réussis, registres et syntaxe JavaScript valides. Différences sans erreur de format ; recherche ciblée sans clé privée, jeton réel, mot de passe ou base versionnée.
+- Revue manuelle : route refusée avant toute collecte, restauration sans écrasement, rapport d'alerte sans envoi ni collecte. Aucune anomalie bloquante trouvée.
+- Aucun accès VPS, sauvegarde réelle, transfert, message ou déploiement. Après fusion et réussite GitHub, le constat VPS en lecture seule demandera une autorisation explicite distincte.

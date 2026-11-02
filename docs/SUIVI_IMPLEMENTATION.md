@@ -10,7 +10,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | L1 — Développement et CI | Codex | Terminé | Maintenir les verrous et la CI | `make check` et 85 E2E réussis le 1er novembre 2026 |
 | L2 — Diagnostics collecte | Codex | Terminé | Maintenir le tableau lors des évolutions de lecteurs | 114 tests et contrôle MAD ciblé du 2 novembre 2026 |
 | L3 — Qualité et doublons | Codex | Terminé | Maintenir les règles et preuves lors des évolutions | Taco's contrôlé à la source et 119 tests le 2 novembre 2026 |
-| L4 — Exploitation | Codex | En cours | Faire contrôler les travaux locaux avant tout accès VPS | Alertes préparées et 129 tests réussis le 2 novembre 2026 |
+| L4 — Exploitation | Codex | En cours | Attendre les contrôles GitHub puis fusionner avant tout accès VPS | Étapes A–C contrôlées avec 129 tests le 2 novembre 2026 |
 | L5 — Architecture interne | Codex | Pilote local terminé | R2 : CityClub ; suite globale dépend de L2–L4 | Bilan R0–R1 du 2 novembre, 109 tests |
 | L6 — Produit et performance | À attribuer | À faire | Livrer et mesurer la couverture diurne (`L6.1`) | Décision utilisateur du 1er novembre 2026 |
 
@@ -20,7 +20,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 
 ## Prêt à démarrer
 
-- [ ] Contrôler les étapes locales A–C et préparer leur pull request avant tout accès VPS.
+- [ ] Fusionner la pull request si les contrôles GitHub réussissent, puis demander séparément l'autorisation d'un constat VPS en lecture seule.
 
 ## Bloqué ou soumis à décision
 
@@ -62,6 +62,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | 2026-11-02 | Étape A L4 : sécurité locale | Route manuelle refusée par défaut ; 122 tests réussis sans réseau réel | Code non livré sur le VPS ; session et cookie distants non contrôlés |
 | 2026-11-02 | Étape B L4 : reprise locale | Sauvegarde/restauration fictives, intégrité, comptages, lecture et refus d'écrasement ; 125 tests | Aucune sauvegarde de production ni durée distante mesurée |
 | 2026-11-02 | Étape C L4 : surveillance locale | Seuils de sources/sauvegardes, copie chiffrée et rétention des retours définis ; 129 tests | Aucun message envoyé, fournisseur ou compte privé configuré |
+| 2026-11-02 | Contrôle final local L4 A–C | 129 tests, registres, syntaxe, secrets et différences contrôlés | Aucun accès VPS, transfert, alerte réelle ou déploiement |
 
 ## Modèle d’entrée de journal
 
