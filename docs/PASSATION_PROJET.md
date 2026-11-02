@@ -438,3 +438,12 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - `make check` rejoué : 129 tests réussis, registres et syntaxe JavaScript valides. Différences sans erreur de format ; recherche ciblée sans clé privée, jeton réel, mot de passe ou base versionnée.
 - Revue manuelle : route refusée avant toute collecte, restauration sans écrasement, rapport d'alerte sans envoi ni collecte. Aucune anomalie bloquante trouvée.
 - Aucun accès VPS, sauvegarde réelle, transfert, message ou déploiement. Après fusion et réussite GitHub, le constat VPS en lecture seule demandera une autorisation explicite distincte.
+
+
+## 2 novembre 2026 — étape D L4, contrôle VPS en lecture seule
+- Autorisation explicite reçue pour un constat distant strictement en lecture seule. Aucun fichier, service, minuteur, secret, certificat, base ou donnée n'a été modifié ; aucune collecte n'a été lancée.
+- Service Samstag actif et activé au démarrage ; page publique et santé HTTP 200, état `ok`, aucun incident déclaré. Python 3.12.3, debug/démo/collecte à la visite désactivés. Clé de session persistante présente et cookie sécurisé activé, sans lecture ni consignation du secret.
+- La copie active ne contient pas Git, mais les empreintes de `app.py`, du script de sauvegarde, du JavaScript et du CSS correspondent toutes au commit `ed42492`. La production n'intègre donc pas encore les lots fusionnés ensuite. Elle annonce 37 sources actives et 24 automatiques, contre 23 dans le code actuel après désactivation du MAD.
+- Nginx refuse publiquement `/api/refresh` en HTTP 403. Flask utilise encore l'ancienne route GET/POST si le proxy est contourné ; la défense locale fusionnée en L4 A doit être livrée dans un lot autorisé.
+- Minuteur quotidien actif : dernier passage réussi le 2 novembre à 04:16 UTC. Sept copies locales, dernière copie SQLite intègre et permissions privées. Aucune copie chiffrée hors VPS, restauration chronométrée ou alerte reçue n'a été prouvée.
+- Rapport : `docs/audits/L4_VPS_LECTURE_SEULE_2026-11-02.md`. Prochaine session bornée : préparer localement le lot de livraison, ses contrôles et son retour arrière. Toute application sur le VPS exige une nouvelle autorisation explicite.

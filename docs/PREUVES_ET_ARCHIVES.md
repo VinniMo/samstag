@@ -7,6 +7,7 @@
 | Preuve | Emplacement | Portée |
 |---|---|---|
 | Audit public et local | `docs/audits/AUDIT_2026-11-01.md` | architecture, site, collecteurs, organisation |
+| Contrôle VPS L4 | `docs/audits/L4_VPS_LECTURE_SEULE_2026-11-02.md` | services, version, options non secrètes, sauvegarde et santé en lecture seule |
 | Mesures publiques | `docs/audits/2026-11-01-mesures.json` | comptages et santé au 1er novembre |
 | Diagnostics de collecte | `docs/archives/collecte_diagnostic.json`, `docs/archives/diagnostic_collecte_v2.json` | instantanés historiques |
 | Validation locale v2 | `docs/archives/validation_locale_v2.json` | validation historique |
@@ -17,11 +18,11 @@
 
 Les anciens comptes rendus mentionnent des dossiers `validation/`, `reprise/`, `sauvegardes/` et `apercus/`. Ils ne sont pas présents dans le checkout contrôlé le 1er novembre 2026 et peuvent avoir été ignorés par Git, conservés sur une autre machine ou supprimés. Leur contenu ne doit pas être considéré comme disponible tant qu’il n’a pas été retrouvé et vérifié.
 
-## Preuves distantes non revérifiées
+## Preuves distantes
 
-La passation documente une installation Infomaniak, des unités systemd et le commit déployé `ed42492`. Cette session n’a pas ouvert de connexion SSH et ne confirme donc ni l’empreinte réellement servie, ni les variables, ni les sauvegardes du VPS.
+Le contrôle SSH en lecture seule du 2 novembre confirme l'installation Infomaniak, les services, les options non secrètes, la sauvegarde quotidienne et la version `ed42492` par empreintes. Le rapport ne contient aucun secret ni donnée de production.
 
-La restauration d’une sauvegarde, l’observation sur 24 heures et un audit mobile complet restent à produire dans les lots correspondants. Les campagnes E2E locales récentes sont consignées dans la passation ; elles ne certifient pas le fonctionnement de la production.
+La copie hors VPS, la restauration d’une sauvegarde, l'observation sur 24 heures, la réception d'une alerte et un audit mobile complet restent à produire dans les lots correspondants. Les campagnes E2E locales récentes sont consignées dans la passation ; elles ne certifient pas le fonctionnement de la production.
 
 ## Données à ne pas versionner
 
