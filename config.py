@@ -24,6 +24,9 @@ class Config:
 
     SCRAPE_INTERVAL_SECONDS: int = int(os.environ.get("SCRAPE_INTERVAL", "3600"))
     SCRAPE_TIMEOUT_SECONDS: int = int(os.environ.get("SCRAPE_TIMEOUT", "12"))
+    COLLECTION_LOG_RETENTION_DAYS: int = max(
+        7, min(365, int(os.environ.get("COLLECTION_LOG_RETENTION_DAYS", "90")))
+    )
     SCRAPE_USER_AGENT: str = os.environ.get(
         "SCRAPE_USER_AGENT",
         "Mozilla/5.0 (compatible; Samstag/1.0; +https://github.com/VinniMo/samstag)",

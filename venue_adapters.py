@@ -365,6 +365,7 @@ def parse_bellevaux(soup, url):
 
 def collect_venue(url, soup, fetch):
     from scraper import _extract_jsonld_events, FetchError
+    from collection_result import CollectionResult
     host = (urlparse(url).hostname or "").removeprefix("www.")
     if host == "chorus.ch":
         return parse_chorus(soup, url), "chorus-programme-v1 (mois et année publiés)"
@@ -415,5 +416,18 @@ def collect_venue(url, soup, fetch):
             except (FetchError, ValueError, TypeError) as exc:
                 failures += 1
                 log.warning("Programme detail failed %s: %s", target, exc)
-        return events, f"{host}: {len(links)} liens, {min(len(links),config.MAX_DETAIL_PAGES)} contrôlés, {failures} erreurs"
+        checked = min(len(links), config.MAX_DETAIL_PAGES)
+        read = checked - failures
+        parse_status = "error" if checked and failures == checked else "partial" if failures else "ok"
+        completeness = "limited" if len(links) > checked else "partial" if failures else "complete"
+        return CollectionResult(
+            events,
+            f"{host}: {len(links)} liens, {checked} contrôlés, {failures} erreurs",
+            complete_snapshot=not failures and len(links) <= checked,
+            partial=bool(failures or len(links) > checked),
+            pages_expected=len(links),
+            pages_read=read,
+            parse_status=parse_status,
+            completeness_status=completeness,
+        )
     return None

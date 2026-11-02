@@ -398,6 +398,10 @@ class FetchError(Exception):
     pass
 
 
+class ParseError(Exception):
+    pass
+
+
 def _fetch(url: str, extra_headers: dict | None = None) -> str:
     headers = {
         "User-Agent": config.SCRAPE_USER_AGENT,
@@ -437,8 +441,8 @@ def scrape_one(url: str) -> tuple[list[dict], str] | CollectionResult:
             specialized = collect_hango(url, soup, _fetch)
         if specialized is None:
             specialized = collect_bar(url, soup, _fetch)
-    except (ValueError, TypeError) as exc:
-        raise FetchError(str(exc)) from exc
+    except (ValueError, TypeError, KeyError) as exc:
+        raise ParseError(str(exc)) from exc
     if specialized is not None:
         return specialized
     found = _extract_jsonld_events(soup, url)
@@ -477,27 +481,43 @@ def scrape_one(url: str) -> tuple[list[dict], str] | CollectionResult:
     return _extract_html_events(soup, base_url=url), "html (validation requise)"
 
 
-def scrape_sources(sources: Iterable[str] | None = None) -> list[dict]:
+def scrape_sources(sources: Iterable[str] | None = None, run_id: str | None = None) -> list[dict]:
     """Scrape every source URL and return a deduplicated list of events."""
     from collection_quality import assess
-    sources = config.SCRAPE_SOURCES if sources is None else sources
+    from source_registry import source_for
+    sources = tuple(dict.fromkeys(config.SCRAPE_SOURCES if sources is None else sources))
     aggregated: dict[str, dict] = {}
+    own_run = run_id is None
+    run_id = run_id or db.start_collection_run(len(sources))
+    run_degraded = False
 
     # Fetch sources concurrently; persist on this thread for deterministic,
     # short SQLite transactions. One failing parser cannot stop the pass.
     with ThreadPoolExecutor(max_workers=config.COLLECTION_WORKERS) as pool:
-        jobs = {pool.submit(scrape_one, url): url for url in dict.fromkeys(sources)}
+        jobs = {pool.submit(scrape_one, url): url for url in sources}
         for job in as_completed(jobs):
             url = jobs[job]
+            source = source_for(url)
+            editorial = ("automatic" if source and source.get("auto_publish") else
+                         "review_required" if source else "unregistered")
             try:
-                result = job.result()
+                result = CollectionResult.normalize(job.result())
                 found, method = result
             except Exception as exc:
                 logger.warning("Collection failed for %s: %s", url, exc)
                 db.log_scrape("scraper", url, "error", 0, str(exc)[:300])
+                access = "error" if isinstance(exc, FetchError) else "ok"
+                parse = "not_run" if isinstance(exc, FetchError) else "error"
+                db.log_source_run(
+                    run_id, url, source_id=source.get("id") if source else None,
+                    access_status=access, parse_status=parse,
+                    completeness_status="unknown", editorial_status=editorial,
+                    message=str(exc)[:300],
+                )
+                run_degraded = True
                 continue
             seen_ids = set()
-            malformed = 0
+            malformed = candidates = rejected = 0
             for evt in found:
                 try:
                     item = assess(evt, url)
@@ -505,17 +525,45 @@ def scrape_sources(sources: Iterable[str] | None = None) -> list[dict]:
                     logger.warning("Malformed record from %s: %s", url, exc)
                     malformed += 1
                     continue
+                if item["status"] == "candidate":
+                    candidates += 1
+                else:
+                    rejected += 1
                 db.stage_collection(item)
                 seen_ids.add(item["event"]["id"])
                 aggregated[item["event"]["id"]] = item["event"]
-            partial = bool(getattr(result, "partial", False) or malformed)
-            if getattr(result, "complete_snapshot", False) and not partial:
-                db.reconcile_source_snapshot(url, seen_ids)
+            partial = bool(result.partial or malformed)
+            withdrawn = 0
+            if result.complete_snapshot and not partial:
+                withdrawn = db.reconcile_source_snapshot(url, seen_ids)
+            parse_status = result.parse_status
+            if malformed and parse_status == "ok":
+                parse_status = "partial"
+            unsupported = method.startswith(("html", "embedded-calendar"))
+            if unsupported:
+                parse_status = "unsupported"
             status = ("partial" if partial else "ok" if found else
-                      "needs_adapter" if method.startswith(("html", "embedded-calendar")) else "empty")
+                      "needs_adapter" if unsupported else "empty")
             db.log_scrape("scraper", url, status, len(found), method)
+            db.log_source_run(
+                run_id, url, source_id=source.get("id") if source else None,
+                access_status=result.access_status, parse_status=parse_status,
+                completeness_status=result.completeness_status,
+                editorial_status=editorial, pages_expected=result.pages_expected,
+                pages_read=result.pages_read, observations=len(found),
+                candidates=candidates, rejected=rejected,
+                published=db.public_count_for_source(url), withdrawn=withdrawn,
+                message=method,
+            )
+            run_degraded = run_degraded or status in {"error", "partial"}
             logger.info("Scraped %d events from %s (%s)", len(found), url, method)
 
+    diagnostics = db.source_run_diagnostics(run_id)
+    if len(diagnostics) < len(sources):
+        run_degraded = True
+    db.finish_collection_run(run_id, "degraded" if run_degraded else "ok")
+    if own_run:
+        db.prune_collection_diagnostics(config.COLLECTION_LOG_RETENTION_DAYS)
     return list(aggregated.values())
 
 

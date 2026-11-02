@@ -21,7 +21,7 @@ Ce plan découle de l’[audit du 1er novembre](audits/AUDIT_2026-11-01.md). Il 
 |---|---|---|---|
 | L0 | Référence documentaire et suivi communs | Audit | Terminé |
 | L1 | Environnement local et CI reproductibles | L0 | Terminé |
-| L2 | Diagnostics de collecte fiables | L1 | À faire |
+| L2 | Diagnostics de collecte fiables | L1 | Terminé |
 | L3 | Qualité des événements et dédoublonnage | L2 | À faire |
 | L4 | Exploitation, sauvegardes et alertes prouvées | L1, L2 | À faire |
 | L5 | Architecture interne progressivement clarifiée | L1 à L4 | À faire |
@@ -81,13 +81,14 @@ Faire en sorte qu’un statut de source dise précisément si la source répond,
 
 ### Tâches
 
-- [ ] `L2.1` Remplacer les retours tuple résiduels Docks/Romandie par `CollectionResult`.
-- [ ] `L2.2` Ajouter les tests « toutes les fiches échouent » et « une partie des fiches échoue ».
-- [ ] `L2.3` Distinguer quatre dimensions : accès, parsing, complétude de la passe, qualification éditoriale.
-- [ ] `L2.4` Ajouter un identifiant de passe et des compteurs par source : pages attendues/lues, observations, candidats, refus, publications et retraits.
-- [ ] `L2.5` Rendre `/api/health` actionnable : incident réel séparé d’une limitation connue et permanente.
-- [ ] `L2.6` Diagnostiquer uniquement le MAD, préserver les preuves et corriger son lecteur si la source officielle le permet.
-- [ ] `L2.7` Définir la rétention des journaux et observations techniques.
+- [x] `L2.0` Couvrir les 39 canaux du registre : diagnostic des 37 actifs et visibilité explicite des 2 désactivés, sans confondre canaux, lieux et bars inventoriés.
+- [x] `L2.1` Remplacer les retours tuple résiduels Docks/Romandie par `CollectionResult`.
+- [x] `L2.2` Ajouter les tests « toutes les fiches échouent » et « une partie des fiches échoue ».
+- [x] `L2.3` Distinguer quatre dimensions : accès, parsing, complétude de la passe, qualification éditoriale.
+- [x] `L2.4` Ajouter un identifiant de passe et des compteurs par source : pages attendues/lues, observations, candidats, refus, publications et retraits.
+- [x] `L2.5` Rendre `/api/health` actionnable : incident réel séparé d’une limitation connue et permanente.
+- [x] `L2.6` Diagnostiquer uniquement le MAD, préserver les preuves et corriger son lecteur si la source officielle le permet.
+- [x] `L2.7` Définir la rétention des journaux et observations techniques.
 
 ### Critères de fin
 

@@ -4,6 +4,7 @@ import json
 
 import db
 import scraper
+from config import config
 from source_registry import SOURCES
 
 
@@ -39,6 +40,9 @@ def main():
                           "configured_sources":len(SOURCES), "enabled_sources":sum(s["enabled"] for s in SOURCES),
                           "automatic_channels":sum(s["enabled"] and s["auto_publish"] for s in SOURCES),
                           "sources": [s for s in statuses if s["url"] in enabled_urls],
+                          "latest_run": db.latest_collection_run(),
+                          "source_diagnostics": db.source_run_diagnostics(),
+                          "technical_log_retention_days": config.COLLECTION_LOG_RETENTION_DAYS,
                           "historical_checks": [s for s in statuses if s["url"] not in enabled_urls],
                           "decisions_at_collection": dict(Counter(i["status"] for i in db.collection_items())),
                           "public": len(db.list_public_events()), "reasons": dict(Counter(i["reason"] for i in db.collection_items())),

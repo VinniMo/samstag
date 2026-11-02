@@ -651,8 +651,16 @@ def collect_expanded(url, soup, fetch):
                 import logging
                 logging.getLogger(__name__).warning("Detail failed %s: %s", target, exc)
                 failures += 1
-        if failures == min(len(targets), config.MAX_DETAIL_PAGES):
-            raise ValueError("Toutes les fiches événement ont échoué")
-        return CollectionResult(events, f"{host}-v3: {len(targets)} liens, {min(len(targets), config.MAX_DETAIL_PAGES)} contrôlés, {failures} erreurs",
-                                partial=bool(failures or len(targets) > config.MAX_DETAIL_PAGES))
+        checked = min(len(targets), config.MAX_DETAIL_PAGES)
+        read = checked - failures
+        parse_status = "error" if failures == checked else "partial" if failures else "ok"
+        completeness = "limited" if len(targets) > checked else "partial" if failures else "complete"
+        return CollectionResult(
+            events,
+            f"{host}-v3: {len(targets)} liens, {checked} contrôlés, {failures} erreurs",
+            complete_snapshot=not failures and len(targets) <= checked,
+            partial=bool(failures or len(targets) > checked),
+            pages_expected=len(targets), pages_read=read,
+            parse_status=parse_status, completeness_status=completeness,
+        )
     return None

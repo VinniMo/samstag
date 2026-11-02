@@ -8,7 +8,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 |---|---|---|---|---|
 | L0 — Documentation | Codex | Terminé | Maintenir l’état actuel à chaque lot | Contrôle documentaire du 1er novembre 2026 |
 | L1 — Développement et CI | Codex | Terminé | Maintenir les verrous et la CI | `make check` et 85 E2E réussis le 1er novembre 2026 |
-| L2 — Diagnostics collecte | À attribuer | À faire | Corriger le statut partiel Docks/Romandie | Reproduction isolée du statut `empty` erroné |
+| L2 — Diagnostics collecte | Codex | Terminé | Maintenir le tableau lors des évolutions de lecteurs | 114 tests et contrôle MAD ciblé du 2 novembre 2026 |
 | L3 — Qualité et doublons | À attribuer | À faire | Transformer Mike D en test de régression | Doublon public observé le 1er novembre 2026 |
 | L4 — Exploitation | À attribuer | À faire | Préparer le contrôle VPS et la restauration | Procédures versionnées, état distant non audité par SSH |
 | L5 — Architecture interne | Codex | Pilote local terminé | R2 : CityClub ; suite globale dépend de L2–L4 | Bilan R0–R1 du 2 novembre, 109 tests |
@@ -16,12 +16,11 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 
 ## En cours
 
-- Aucun lot en cours. Prochaine session bornée : `L2.1` et `L2.2`.
+- Aucun lot en cours. Prochaine priorité du plan : L3, qualité et doublons.
 
 ## Prêt à démarrer
 
-- [ ] `L2.1` Remplacer les retours tuple résiduels Docks/Romandie par `CollectionResult`.
-- [ ] `L2.2` Ajouter les tests des échecs complets et partiels de fiches.
+- [ ] `L3.1` Transformer le doublon Mike D en test de régression avant toute fusion de données.
 
 ## Bloqué ou soumis à décision
 
@@ -37,6 +36,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 - [x] `L0.5` Documents anciens classés comme historiques.
 - [x] `L0.6` Preuves présentes et absentes indexées.
 - [x] `L1.1` à `L1.7` Environnement Python 3.12, commandes, verrous, E2E portable, CI et schémas JSON.
+- [x] `L2.0` à `L2.7` Tableau de santé des 39 canaux, compteurs par passe, incidents séparés des limites et MAD sécurisé.
 
 ## Journal
 
@@ -45,6 +45,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | 2026-11-01 | Audit et planification initiale | 102 tests Python ; syntaxe JS ; lecture des API publiques | Pas de SSH, nouvelle campagne E2E, mobile complet ni restauration |
 | 2026-11-01 | Lot L0 finalisé : état courant, index, exploitation et archives | Liens relatifs, statuts, JSON, cohérence documentaire et diff contrôlés | Aucun code ni service distant modifié |
 | 2026-11-01 | Lot L1 finalisé : développement reproductible et CI | Installation neuve ; suite finale de 107 tests Python ; 85 E2E sur cinq profils ; schémas JSON ; syntaxe JS ; démarrage local | Workflow GitHub ajouté mais pas encore exécuté à distance |
+| 2026-11-02 | Lot L2 finalisé : santé globale des collecteurs | 114 tests ; matrice synthétique des 37 actifs ; 39 canaux visibles ; deux contrôles ciblés MAD | Aucun autre site relancé, aucun déploiement |
 
 ## Modèle d’entrée de journal
 

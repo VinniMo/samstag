@@ -4,7 +4,7 @@ from unittest.mock import Mock, patch
 
 from bs4 import BeautifulSoup
 
-from expanded_adapters import parse_folklor, parse_cityclub, parse_naftule, parse_boulimie, parse_mad_ticket, parse_pulloff, collect_grange, collect_lagenda
+from expanded_adapters import parse_folklor, parse_cityclub, parse_naftule, parse_boulimie, parse_mad_ticket, parse_pulloff, collect_grange, collect_lagenda, collect_expanded
 from collection_worker import serve
 
 
@@ -71,6 +71,18 @@ class ExpandedReadersTest(unittest.TestCase):
         self.assertEqual((row['time'],row['time_role']), ('23:00','doors'))
         [row] = parse_mad_ticket(soup(page.replace('Test,','Montreux,')), 'https://www.mad-shop.ch/?product=ticket-test')
         self.assertEqual(row['location'], '')
+
+    def test_mad_all_failed_details_are_an_error_not_an_empty_calendar(self):
+        agenda = soup('''<section><h3>6 novembre 2026</h3><h3>Soirée</h3>
+            <a href="https://www.mad-shop.ch/?product=ticket-test">Billets</a></section>''')
+        result = collect_expanded(
+            'https://www.mad.club/agenda/', agenda,
+            Mock(side_effect=RuntimeError('offline')),
+        )
+        self.assertTrue(result.partial)
+        self.assertEqual(result.parse_status, 'error')
+        self.assertEqual((result.pages_expected, result.pages_read), (1, 0))
+        self.assertEqual(result.events, [])
 
 
 class WorkerTest(unittest.TestCase):

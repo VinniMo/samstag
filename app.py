@@ -17,7 +17,7 @@ import db
 import scraper
 from config import config
 from seed_data import build_demo_events
-from source_registry import source_for
+from source_registry import SOURCES, source_for
 
 logging.basicConfig(
     level=logging.INFO,
@@ -186,15 +186,18 @@ def create_app() -> Flask:
     def api_sources():
         """Which sources answer and how many events each one gives."""
         latest = {row["url"]: row for row in db.source_status()}
+        diagnostics = {row["source_url"]: row for row in db.source_run_diagnostics()}
         items = db.collection_items()
         public_events = db.list_public_events()
         sources = []
-        for url in config.SCRAPE_SOURCES:
-            source = source_for(url)
+        for source in SOURCES:
+            url = source["canal"]
             row = latest.get(url)
+            diagnostic = diagnostics.get(url)
             stages = [i for i in items if i["event"].get("source_url") == url]
             sources.append({
                 "url": url,
+                "enabled": source["enabled"],
                 "venue_id": source["venue_id"] if source else None,
                 "venue": source["nom"] if source else None,
                 "publication": "automatique après contrôles" if source and source["auto_publish"] else "validation requise",
@@ -214,24 +217,32 @@ def create_app() -> Flask:
                     datetime.fromtimestamp(row["last_success"], agenda.TZ).isoformat(timespec="minutes")
                     if row and row.get("last_success") else None
                 ),
+                "dimensions": ({key: diagnostic[key] for key in (
+                    "access_status", "parse_status", "completeness_status", "editorial_status"
+                )} if diagnostic else None),
+                "counts": ({key: diagnostic[key] for key in (
+                    "pages_expected", "pages_read", "observations", "candidates",
+                    "rejected", "published", "withdrawn"
+                )} if diagnostic else None),
             })
-        working = sum(1 for s in sources if s["status"] == "ok")
+        working = sum(1 for s in sources if s["enabled"] and s["status"] == "ok")
         return jsonify({
-            "summary": f"{working} source(s) sur {len(sources)} livrent des entrées ; {len(public_events)} sortie(s) validée(s) affichable(s)",
+            "summary": f"{working} source(s) actives sur {len(sources)} canaux configurés livrent des entrées ; {len(public_events)} sortie(s) validée(s) affichable(s)",
             "sources": sorted(sources, key=lambda s: (s["status"] != "ok", -s["events"], s["url"])),
         })
 
     @app.route("/api/health")
     def api_health():
         from collection_health import health
+        collection = health()
         return jsonify({
-            "status": "ok",
+            "status": collection["status"],
             "events_in_db": len(db.collection_items()),
             "legacy_events": db.count_events(),
             "public_events": len(db.list_public_events()),
             "collection_items": len(db.collection_items()),
             "last_scrape": db.last_scrape_time(),
-            "collection": health(),
+            "collection": collection,
         })
 
     @app.errorhandler(404)

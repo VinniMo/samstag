@@ -367,3 +367,10 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Création de `samstag/collection/adapters/vidy.py` et des paquets sans effet de bord. Cinq fonctions et VIDY_ROOMS déplacés ; réexports explicites et dispatch conservés dans `programme_adapters.py`.
 - Équivalence : AST des fonctions identique à HEAD ; deux scénarios / dix observations, tous les champs et statuts identiques. 109 tests réussis après déplacement, registres et syntaxe JS valides. Bilan versionné `docs/audits/REORGANISATION_R0_R1_2026-11-02.md`, preuves locales `.artifacts/reorganisation-2026-11-02/`.
 - Guide, collecteurs, état et plan actualisés. Prochaine séance R2 : CityClub uniquement. L2–L4 restent ouverts ; aucun autre lecteur déplacé, aucune collecte réelle, accès VPS ou livraison. Aucune nouvelle campagne E2E, interface inchangée.
+
+
+## 2 novembre 2026 — lot L2 finalisé
+- Le suivi couvre les 39 canaux configurés : 37 actifs contrôlés à chaque passe et 2 désactivés toujours visibles. Chaque source distingue désormais accès, lecture, couverture et autorisation éditoriale, avec les principaux compteurs expliquant le passage des pages aux sorties publiques.
+- Les limites connues sont séparées des pannes nouvelles dans `/api/health`. Les journaux techniques sont conservés 90 jours ; les preuves liées aux événements sont préservées.
+- Contrôle réseau limité au MAD sur une base isolée : agenda accessible, six liens détectés, six fiches en échec, aucune sortie publiée. Le MAD reste actif dans le suivi mais sa publication automatique locale est désactivée et justifiée dans le registre.
+- Docks et Romandie signalent correctement un échec total ou partiel des fiches. 114 tests Python réussis ; registres et syntaxe JavaScript valides. Contrôle navigateur : 83/85 réussis dans la série complète, puis les deux scénarios ralentis réussis séparément ; aucun défaut fonctionnel reproduit. Aucun autre site relancé, aucun accès VPS, aucun déploiement.

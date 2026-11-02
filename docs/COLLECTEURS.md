@@ -4,7 +4,7 @@ Référence documentaire au 1er novembre 2026. Ce tableau rapproche le registre 
 
 ## Comprendre les chiffres
 
-39 canaux configurés, 37 actifs, 24 autorisés à publier après contrôles. Cinq canaux actifs sont sans adaptateur : une inscription dans le registre ne constitue pas un collecteur opérationnel. L’instantané public contient 322 sorties sur 19 lieux, sans garantie d’exhaustivité.
+39 canaux configurés, 37 actifs et 23 autorisés à publier après contrôles dans le code local. Le total était de 24 dans l’instantané public précédent ; le MAD a été retiré de la publication automatique le 2 novembre après un contrôle ciblé. Cinq canaux actifs sont sans adaptateur : une inscription dans le registre ne constitue pas un collecteur opérationnel. L’instantané public contient 322 sorties sur 19 lieux, sans garantie d’exhaustivité.
 
 ## Fréquence et périmètre
 
@@ -66,7 +66,7 @@ Aucune publication automatique attribuée à ces canaux dans l’instantané.
 ## Limites à connaître
 
 - Romandie : automatisation limitée aux soirées club. Vidy : sélection partielle avec confirmation des fiches.
-- MAD : en erreur au dernier contrôle. Bellevaux, Gosses du Québec et Bleu Lézard : programmes lus vides, sans conclusion de fermeture.
+- MAD : agenda accessible, mais les six fiches liées ont toutes échoué au contrôle ciblé du 2 novembre ; publication automatique locale désactivée. Bellevaux, Gosses du Québec et Bleu Lézard : programmes lus vides, sans conclusion de fermeture.
 - Lausanne Tourisme : seulement 40 fiches lues sur 1 148 liens repérés. L’Agenda : sélection filtrée et pagination bornée.
 - Barberousse : données structurées anciennes. Datcha, Captain Cook, Bruxelles Café, Ta Cave, Holy Monkey et Hungry Bear : qualification incomplète.
 - JazzOnze+ est un programme multi-lieux ; les agrégateurs ne représentent pas une salle physique unique.

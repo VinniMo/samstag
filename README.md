@@ -18,7 +18,7 @@ Samstag est un agenda public des sorties à Lausanne et dans les communes imméd
 
 La référence opérationnelle et les limites connues sont consignées dans [docs/ETAT_ACTUEL.md](docs/ETAT_ACTUEL.md). Le plan de travail se trouve dans [docs/PLAN_IMPLEMENTATION.md](docs/PLAN_IMPLEMENTATION.md) et son avancement dans [docs/SUIVI_IMPLEMENTATION.md](docs/SUIVI_IMPLEMENTATION.md).
 
-Au 1er novembre 2026, l’instantané public contrôlé contient 322 événements répartis sur 19 lieux. Le registre comprend 39 sources, dont 37 actives et 24 autorisées à publier sous conditions. Ces nombres décrivent un instantané, pas une garantie de couverture ni de fonctionnement futur.
+Au 1er novembre 2026, l’instantané public contrôlé contient 322 événements répartis sur 19 lieux. Le registre comprend 39 sources, dont 37 actives. Le code local autorise actuellement 23 canaux à publier sous conditions, après la désactivation automatique du MAD le 2 novembre. Ces nombres décrivent un instantané, pas une garantie de couverture ni de fonctionnement futur.
 
 ## Architecture actuelle
 

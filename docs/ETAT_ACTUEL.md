@@ -16,7 +16,7 @@
 
 ## Instantané public contrôlé
 
-Le 1er novembre 2026, les API publiques ont renvoyé 322 événements, 19 lieux représentés et 2 675 éléments de collecte. La configuration comprend 39 sources, dont 37 actives et 24 autorisées à publier sous conditions.
+Le 1er novembre 2026, les API publiques ont renvoyé 322 événements, 19 lieux représentés et 2 675 éléments de collecte. La configuration publique comprenait 39 sources, dont 37 actives et 24 autorisées à publier sous conditions. Le code local en autorise désormais 23 après la désactivation automatique du MAD.
 
 La santé déclarée était dégradée : 23 sources `ok`, 5 `partial`, 5 `needs_adapter`, 3 `empty` et 1 `error` pour le MAD. Ces états sont provisoires : l’inventaire ne prouve pas le bon fonctionnement d’un lecteur et les drapeaux v3 demandent encore validation.
 
@@ -60,7 +60,7 @@ Python 3.12 est la référence reproductible. Les commandes `make setup`, `dev`,
 
 ## Prochaine étape
 
-Les lots L0 et L1 sont terminés. La prochaine session bornée est `L2.1` et `L2.2` : corriger le contrat de résultat Docks/Romandie et couvrir les échecs complets ou partiels par des tests. Aucun autre collecteur ne doit être relancé dans cette session.
+Les lots L0, L1 et L2 sont terminés. Le tableau de santé couvre les 39 canaux configurés et diagnostique les 37 actifs à chaque passe. La prochaine priorité du plan est L3 : commencer par le doublon Mike D sous forme de test, sans fusion générale préalable.
 
 Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLAN_IMPLEMENTATION.md). Le statut court se trouve dans [SUIVI_IMPLEMENTATION.md](SUIVI_IMPLEMENTATION.md).
 

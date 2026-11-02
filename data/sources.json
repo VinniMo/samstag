@@ -47,11 +47,11 @@
     "nom": "MAD Club",
     "canal": "https://www.mad.club/agenda/",
     "preuve": "https://www.mad.club/contact/",
-    "auto_publish": true,
+    "auto_publish": false,
     "priority": 10,
     "enabled": true,
     "type": "official",
-    "notes": "Séparer les espaces Mainfloor et Jetlag si la fiche événement le précise. Lecteur v3 : seuls les événements avec lieu admis, date et horaire explicites passent automatiquement. Données incomplètes conservées en revue.",
+    "notes": "Diagnostic ciblé du 02.11.2026 : agenda officiel accessible, mais les six fiches de billetterie liées ont toutes échoué (404 ou structure absente). Publication automatique désactivée jusqu’au rétablissement de fiches officielles lisibles. Séparer Mainfloor et Jetlag si la fiche le précise ; conserver les données incomplètes en revue.",
     "allowed_kinds": [
       "ClubNight"
     ]

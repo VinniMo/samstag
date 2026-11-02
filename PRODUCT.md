@@ -24,7 +24,7 @@ Le service est en français, utilise les prix en francs suisses lorsqu’ils son
 
 ## Données et qualité
 
-Au 1er novembre 2026, le registre contient 39 sources, dont 37 actives et 24 autorisées à publier sous conditions. L’instantané public contrôlé contient 322 événements sur 19 lieux. Ces chiffres varient avec les programmes et la fraîcheur des sources.
+Le registre contient 39 sources, dont 37 actives et 23 autorisées à publier sous conditions dans le code local depuis le contrôle MAD du 2 novembre 2026. L’instantané public précédent contient 322 événements sur 19 lieux. Ces chiffres varient avec les programmes et la fraîcheur des sources.
 
 Les données manquantes restent manquantes. Aucune date, heure, adresse ou sortie n’est complétée par supposition. Les preuves doivent être conservées et les lieux physiques distingués des programmateurs et agrégateurs.
 
