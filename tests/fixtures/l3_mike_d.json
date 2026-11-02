@@ -1,0 +1,38 @@
+{
+  "items": [
+    {
+      "status": "approved",
+      "reason": "qualified_source_complete_event",
+      "evidence_urls": [
+        "https://www.docks.ch/evenement/concerts/20261103/mike-d-5d/"
+      ],
+      "event": {
+        "id": "mike-d-official",
+        "title": "Mike D 5D",
+        "venue_id": "L001",
+        "location": "Les Docks",
+        "date": "2026-11-03",
+        "time": "20:30",
+        "source_url": "https://www.docks.ch/programme/",
+        "evidence_url": "https://www.docks.ch/evenement/concerts/20261103/mike-d-5d/"
+      }
+    },
+    {
+      "status": "approved",
+      "reason": "qualified_source_complete_event",
+      "evidence_urls": [
+        "https://www.l-agenda.ch/evenements/mike-d/"
+      ],
+      "event": {
+        "id": "mike-d-aggregator",
+        "title": "Mike D",
+        "venue_id": "L001",
+        "location": "Docks - Lausanne",
+        "date": "2026-11-03",
+        "time": "20:30",
+        "source_url": "https://www.l-agenda.ch/evenements/",
+        "evidence_url": "https://www.l-agenda.ch/evenements/mike-d/"
+      }
+    }
+  ]
+}

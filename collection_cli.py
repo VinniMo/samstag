@@ -10,7 +10,8 @@ from source_registry import SOURCES
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["collect", "list", "approve", "sources", "report"])
+    parser.add_argument("command", choices=["collect", "list", "approve", "sources", "report",
+                                             "match-duplicates", "unmatch-duplicate"])
     parser.add_argument("event_id", nargs="?")
     parser.add_argument("--source", action="append", default=[], help="Identifiant configuré, répétable (ex. SRC_L001)")
     args = parser.parse_args()
@@ -33,7 +34,7 @@ def main():
         from collections import Counter
         from datetime import datetime
         from agenda import TZ
-        from collection_report import coverage
+        from collection_report import coverage, duplicate_candidates
         enabled_urls = {s["canal"] for s in SOURCES if s["enabled"]}
         statuses = db.source_status()
         print(json.dumps({"generated_at":datetime.now(TZ).isoformat(),
@@ -46,7 +47,16 @@ def main():
                           "historical_checks": [s for s in statuses if s["url"] not in enabled_urls],
                           "decisions_at_collection": dict(Counter(i["status"] for i in db.collection_items())),
                           "public": len(db.list_public_events()), "reasons": dict(Counter(i["reason"] for i in db.collection_items())),
-                          "coverage": coverage()}, ensure_ascii=False, indent=2))
+                          "coverage": coverage(),
+                          "possible_duplicates": duplicate_candidates(),
+                          "active_duplicate_matches": db.duplicate_matches()}, ensure_ascii=False, indent=2))
+    elif args.command == "match-duplicates":
+        print(json.dumps(db.apply_safe_duplicate_matches(), ensure_ascii=False, indent=2))
+    elif args.command == "unmatch-duplicate":
+        if not args.event_id:
+            parser.error("unmatch-duplicate requiert l'identifiant de la fiche rapprochée")
+        print(json.dumps({"restored": db.undo_duplicate_match(args.event_id),
+                          "event_id": args.event_id}, ensure_ascii=False))
     elif not args.event_id:
         parser.error("approve requiert l'identifiant de l'événement")
     else:

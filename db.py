@@ -79,6 +79,17 @@ CREATE TABLE IF NOT EXISTS collection_presence (
     missing_runs INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY(source_url,event_id)
 );
+CREATE TABLE IF NOT EXISTS collection_matches (
+    member_id TEXT PRIMARY KEY,
+    canonical_id TEXT NOT NULL,
+    decision TEXT NOT NULL,
+    reason TEXT NOT NULL,
+    evidence_urls TEXT NOT NULL,
+    active INTEGER NOT NULL DEFAULT 1,
+    created_at REAL NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_collection_matches_canonical
+    ON collection_matches(canonical_id,active);
 CREATE TABLE IF NOT EXISTS collection_runs (
     run_id TEXT PRIMARY KEY,
     started_at REAL NOT NULL,
@@ -396,6 +407,62 @@ def collection_items() -> list[dict]:
              "evidence_urls": json.loads(r["evidence_urls"])} for r in rows]
 
 
+def duplicate_matches(active_only: bool = True) -> list[dict]:
+    sql = "SELECT * FROM collection_matches"
+    if active_only:
+        sql += " WHERE active=1"
+    sql += " ORDER BY canonical_id,member_id"
+    with get_conn() as conn:
+        rows = conn.execute(sql).fetchall()
+    return [{**dict(row), "active": bool(row["active"]),
+             "evidence_urls": json.loads(row["evidence_urls"])} for row in rows]
+
+
+def apply_safe_duplicate_matches(report=None) -> dict:
+    """Record only conservative L3 decisions; original items stay untouched."""
+    from collection_report import duplicate_candidates
+    report = duplicate_candidates() if report is None else report
+    matched_groups = matched_records = 0
+    with get_conn() as conn:
+        # Re-evaluate automatic decisions on every pass so a changed programme
+        # can restore formerly grouped records without deleting history.
+        conn.execute("UPDATE collection_matches SET active=0 WHERE decision='automatic'")
+        for group in report["candidates"]:
+            if group.get("decision") != "safe_match":
+                continue
+            canonical_id = group["canonical_id"]
+            evidence = []
+            for record in group["records"]:
+                for url in record.get("evidence_urls", []):
+                    if url and url not in evidence:
+                        evidence.append(url)
+            members = [record["id"] for record in group["records"] if record["id"] != canonical_id]
+            if not members:
+                continue
+            for member_id in members:
+                conn.execute("""
+                    INSERT INTO collection_matches(member_id,canonical_id,decision,reason,evidence_urls,active,created_at)
+                    VALUES(?,?,?,?,?,1,?)
+                    ON CONFLICT(member_id) DO UPDATE SET canonical_id=excluded.canonical_id,
+                        decision=excluded.decision,reason=excluded.reason,
+                        evidence_urls=excluded.evidence_urls,active=1,created_at=excluded.created_at
+                """, (member_id, canonical_id, "automatic", group["decision_reason"],
+                      json.dumps(evidence, ensure_ascii=False), time.time()))
+                matched_records += 1
+            matched_groups += 1
+    return {"matched_groups": matched_groups, "matched_records": matched_records,
+            "review_groups": report["summary"]["review_groups"]}
+
+
+def undo_duplicate_match(member_id: str) -> bool:
+    """Re-enable a member without deleting its record or decision history."""
+    with get_conn() as conn:
+        changed = conn.execute(
+            "UPDATE collection_matches SET active=0 WHERE member_id=? AND active=1", (member_id,)
+        ).rowcount
+    return bool(changed)
+
+
 def reconcile_source_snapshot(source_url: str, seen_ids: set[str]) -> int:
     """Withdraw only after two consecutive successful, complete snapshots.
 
@@ -446,7 +513,29 @@ def approve_collection(event_id: str) -> None:
 
 def list_public_events() -> list[dict]:
     from collection_quality import publicly_visible
-    return [{**i["event"], "evidence_urls": i["evidence_urls"]} for i in collection_items() if publicly_visible(i)]
+    visible = {item["event"]["id"]: item for item in collection_items() if publicly_visible(item)}
+    suppressed = set()
+    extra_evidence = {}
+    for match in duplicate_matches():
+        canonical_id, member_id = match["canonical_id"], match["member_id"]
+        # Never hide the member if the preferred official record is not public.
+        if canonical_id not in visible or member_id not in visible:
+            continue
+        suppressed.add(member_id)
+        target = extra_evidence.setdefault(canonical_id, [])
+        for url in match["evidence_urls"]:
+            if url not in target:
+                target.append(url)
+    result = []
+    for event_id, item in visible.items():
+        if event_id in suppressed:
+            continue
+        evidence = list(item["evidence_urls"])
+        for url in extra_evidence.get(event_id, []):
+            if url not in evidence:
+                evidence.append(url)
+        result.append({**item["event"], "evidence_urls": evidence})
+    return result
 
 
 @contextmanager

@@ -22,7 +22,7 @@ Ce plan découle de l’[audit du 1er novembre](audits/AUDIT_2026-11-01.md). Il 
 | L0 | Référence documentaire et suivi communs | Audit | Terminé |
 | L1 | Environnement local et CI reproductibles | L0 | Terminé |
 | L2 | Diagnostics de collecte fiables | L1 | Terminé |
-| L3 | Qualité des événements et dédoublonnage | L2 | À faire |
+| L3 | Qualité des événements et dédoublonnage | L2 | Prêt |
 | L4 | Exploitation, sauvegardes et alertes prouvées | L1, L2 | À faire |
 | L5 | Architecture interne progressivement clarifiée | L1 à L4 | À faire |
 | L6 | Performance, SEO et accessibilité mesurés | L3 | À faire |
@@ -105,13 +105,14 @@ Réduire les doublons sans fusionner des représentations distinctes ni perdre l
 
 ### Tâches
 
-- [ ] `L3.1` Transformer le cas « Mike D / Mike D 5D » en fixture et test de régression.
-- [ ] `L3.2` Calculer des candidats au rapprochement sur lieu canonique, date et heure.
-- [ ] `L3.3` Donner priorité à la source officielle lorsque les occurrences sont confirmées comme identiques.
-- [ ] `L3.4` Mettre en revue les rapprochements ambigus au lieu de les fusionner automatiquement.
-- [ ] `L3.5` Conserver toutes les URL de preuve après rapprochement.
-- [ ] `L3.6` Ajouter un rapport des doublons probables sans modifier les données.
-- [ ] `L3.7` Contrôler à la source les horaires atypiques de Taco’s avant toute correction.
+- [x] `L3.0` Préparer l'ordre d'exécution, les règles de sécurité et les contrôles dans [PLAN_L3_QUALITE_DOUBLONS.md](PLAN_L3_QUALITE_DOUBLONS.md).
+- [x] `L3.1` Transformer le cas « Mike D / Mike D 5D » en fixture et test de régression.
+- [x] `L3.2` Calculer des candidats au rapprochement sur lieu canonique, date et heure.
+- [x] `L3.3` Donner priorité à la source officielle lorsque les occurrences sont confirmées comme identiques.
+- [x] `L3.4` Mettre en revue les rapprochements ambigus au lieu de les fusionner automatiquement.
+- [x] `L3.5` Conserver toutes les URL de preuve après rapprochement.
+- [x] `L3.6` Ajouter un rapport des doublons probables sans modifier les données.
+- [x] `L3.7` Contrôler à la source les horaires atypiques de Taco’s avant toute correction.
 
 ### Critères de fin
 
@@ -220,7 +221,7 @@ Traiter `L2.6` uniquement. Lire d’abord le diagnostic public, puis consulter l
 
 ### Session E — Dédoublonnage conservateur
 
-Traiter `L3.1` à `L3.6` sur fixtures et base isolée. Sortie attendue : rapport de rapprochement et correction du cas Mike D sans fusion risquée.
+Commencer par `L3.1`, `L3.2` et `L3.6` sur des données de test et une base isolée, sans modifier les données. Traiter ensuite `L3.3` à `L3.5` seulement après contrôle du rapport. Sortie attendue : correction du cas Mike D sans fusion risquée. Le contrôle Taco's `L3.7` reste une session ciblée distincte.
 
 ## Règle de mise à jour du suivi
 

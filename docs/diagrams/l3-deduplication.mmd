@@ -1,0 +1,19 @@
+flowchart TD
+    A[Deux fiches semblent décrire la même sortie] --> B{Même lieu reconnu, date et heure ?}
+    B -- Non --> C[Conserver deux sorties]
+    B -- Oui --> D[Ajouter au rapport des doublons probables]
+    D --> E{Source officielle et identité confirmée sans concurrent ?}
+    E -- Non ou doute --> F[Conserver séparé et demander un contrôle]
+    E -- Oui --> G[Choisir la fiche officielle]
+    G --> H[Réunir tous les liens de preuve]
+    H --> I[Afficher une seule sortie]
+    I --> J[Décision conservée et annulable]
+
+    classDef safe fill:#d9f2e6,stroke:#176449,color:#151515
+    classDef review fill:#fff0b3,stroke:#8a6d00,color:#151515
+    classDef neutral fill:#f1f0ec,stroke:#77736a,color:#151515
+
+    class C,G,H,I,J safe
+    class D,E,F review
+    class A,B neutral
+

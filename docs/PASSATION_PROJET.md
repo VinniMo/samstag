@@ -375,3 +375,31 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Contrôle réseau limité au MAD sur une base isolée : agenda accessible, six liens détectés, six fiches en échec, aucune sortie publiée. Le MAD reste actif dans le suivi mais sa publication automatique locale est désactivée et justifiée dans le registre.
 - Docks et Romandie signalent correctement un échec total ou partiel des fiches. 114 tests Python réussis ; registres et syntaxe JavaScript valides. Contrôle navigateur : 83/85 réussis dans la série complète, puis les deux scénarios ralentis réussis séparément ; aucun défaut fonctionnel reproduit. Aucun autre site relancé, aucun accès VPS, aucun déploiement.
 - Après publication, le premier contrôle GitHub a échoué avant les scénarios navigateur à cause d’un séparateur d’arguments superflu dans le workflow. Commande corrigée et reproduite localement dans les mêmes conditions : 17/17 scénarios Chromium réussis. Correctif livré séparément ; le nouveau contrôle GitHub est entièrement réussi.
+
+
+## 2 novembre 2026 — fusion L0–L2 et préparation L3
+- Pull request GitHub no 8 fusionnée dans `main` au commit `ba95f158`, après réussite du contrôle GitHub. Aucun déploiement ni intervention sur le VPS ou Render.
+- Nouvelle branche locale `codex/l3-quality-dedup-plan` créée depuis la branche principale fusionnée.
+- L3 préparé sans modification métier : plan en trois étapes, règles conservatrices, contrôles obligatoires et diagramme de décision. Première session bornée à la reproduction Mike D, la détection et un rapport en lecture seule sur une base isolée.
+- Le contrôle ciblé des horaires Taco's reste une session distincte. Aucun site contacté, aucune donnée d'événement modifiée.
+
+
+## 2 novembre 2026 — première étape L3 terminée
+- Fixture minimale ajoutée pour le doublon « Mike D » / « Mike D 5D ». Le détecteur regroupe les fiches distinctes qui partagent un lieu canonique, une date et une heure explicite ; il ne rapproche pas les horaires incomplets.
+- Rapport en lecture seule ajouté à la commande de diagnostic. Le cas Mike D apparaît comme un groupe officiel + agrégateur avec les deux liens de preuve. Deux spectacles distincts au même créneau sont seulement signalés pour revue et restent inchangés.
+- Contrôle sur base SQLite isolée : contenu strictement identique avant et après le rapport. `make check` réussi avec 116 tests, registres conformes et syntaxe JavaScript valide.
+- Tâches `L3.1`, `L3.2` et `L3.6` terminées. Prochaine session bornée : `L3.3` à `L3.5`. Aucun site contacté, aucune collecte réelle, aucun accès VPS, aucun déploiement.
+
+
+## 2 novembre 2026 — deuxième étape L3 terminée
+- Rapprochement conservateur ajouté : exactement une fiche officielle et une fiche d'agrégateur validées, même lieu canonique/date/heure et titres compatibles selon une règle étroite. Les autres groupes restent séparés pour contrôle.
+- Les rapprochements sont enregistrés à côté des fiches d'origine, jamais à leur place. La sortie publique privilégie l'officiel et réunit tous les liens de preuve. Si l'officiel n'est plus publiable ou si la décision n'est plus confirmée, l'autre fiche redevient visible.
+- Base SQLite isolée : Mike D passe de deux sorties à une fiche Docks, les deux observations restent présentes, puis le retour arrière restaure deux sorties. Titres incompatibles et concurrence officielle non rapprochés.
+- `make check` réussi avec 118 tests ; registres et syntaxe JavaScript valides. Tâches `L3.3` à `L3.5` terminées. Prochaine session bornée : `L3.7` Taco's, sans campagne générale. Aucun site contacté, accès VPS ou déploiement.
+
+
+## 2 novembre 2026 — troisième étape et clôture L3
+- Contrôle réseau limité à Taco's sur une base SQLite isolée. Une seule source a été appelée ; 64 entrées lues, 9 publiables selon les règles locales et aucun candidat au doublon. Aucun autre site n'a été relancé.
+- La preuve officielle `events-data.js?v=2026-10-06b` contient trois « Combat de chiens », les 18 novembre 2026, 16 décembre 2026 et 20 janvier 2027, avec `time: '20:26'`. Chaque description précise aussi « Début des matchs à 20h26 ».
+- Conclusion : l'horaire atypique est volontaire. Aucune correction ni arrondi appliqué. Un test synthétique protège la conservation exacte des minutes et la note du registre documente la décision.
+- `make check` réussi avec 119 tests ; registres et syntaxe JavaScript valides. L3 est terminé localement. Aucun accès VPS, changement de production, Render ou déploiement.

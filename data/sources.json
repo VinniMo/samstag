@@ -195,7 +195,7 @@
     "priority": 10,
     "enabled": true,
     "type": "official",
-    "notes": "Qualifier les tags inconnus ; première validation des candidats. Conserver le conflit avec les adresses d’annuaires."
+    "notes": "Contrôle ciblé du 02.11.2026 : la source officielle publie explicitement les trois occurrences de « Combat de chiens » à 20:26 et précise « Début des matchs à 20h26 ». Conserver cet horaire sans l’arrondir. Qualifier les tags inconnus ; première validation des candidats. Conserver le conflit avec les adresses d’annuaires."
   },
   {
     "id": "SRC_B002",
