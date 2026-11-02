@@ -447,3 +447,12 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Nginx refuse publiquement `/api/refresh` en HTTP 403. Flask utilise encore l'ancienne route GET/POST si le proxy est contourné ; la défense locale fusionnée en L4 A doit être livrée dans un lot autorisé.
 - Minuteur quotidien actif : dernier passage réussi le 2 novembre à 04:16 UTC. Sept copies locales, dernière copie SQLite intègre et permissions privées. Aucune copie chiffrée hors VPS, restauration chronométrée ou alerte reçue n'a été prouvée.
 - Rapport : `docs/audits/L4_VPS_LECTURE_SEULE_2026-11-02.md`. Prochaine session bornée : préparer localement le lot de livraison, ses contrôles et son retour arrière. Toute application sur le VPS exige une nouvelle autorisation explicite.
+
+
+## 2 novembre 2026 — lot applicatif L4 préparé localement
+- Branche `codex/l4-deployment-preparation` créée depuis `main` après fusion de la PR no 11. Aucun accès VPS, Render, transfert externe ou modification de production.
+- Outils ajoutés : construction d'une archive depuis un commit Git revu et vérification de chaque empreinte après extraction. Sélection limitée au moteur Flask, ressources, registres, paquet `samstag/`, dépendances verrouillées et outils d'exploitation ; bases, secrets, environnement, journaux, tests, E2E et documentation exclus.
+- Paquet local `.artifacts/releases/samstag-b593dc6fea28.tar.gz`, commit `b593dc6fea28eb7072e785f8d4cb3a833fd3bad3`, 415 933 octets, 42 fichiers d'exécution, empreinte SHA-256 `2134ec6293c810baf21daf09d3d2d564a6512d3368918888a24b695f966ed686`. L'archive reste locale et ignorée par Git.
+- Contrôles : 131 tests réussis, registres et JavaScript valides ; archive et 43 fichiers internes vérifiés ; compilation Python ; simulation sur base isolée avec accueil/santé/sources, 39 canaux, 23 automatiques, GET refresh 405 et POST sans autorisation 404. Aucun réseau de collecte.
+- Procédure `docs/L4_LOT_LIVRAISON.md` : sauvegarde et restauration isolée avant changement, conservation entière de `ed42492`, échange du dossier applicatif, critères de maintien sur dix minutes et retour applicatif sans restauration automatique de la base. Les ajouts de schéma sont uniquement additifs.
+- Le premier sous-lot ne modifie ni dépendances, ni Nginx, ni unités, ni secrets. La copie chiffrée hors VPS et l'envoi d'alertes restent séparés faute de fournisseur et destinataires privés configurés. Toute application du paquet exige une nouvelle autorisation explicite.

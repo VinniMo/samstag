@@ -31,7 +31,18 @@
 - la route de rafraîchissement ne doit pas être exposée publiquement ;
 - les données doivent être sauvegardées avec une méthode cohérente SQLite avant une livraison.
 
-Le dépôt documente cette topologie, mais la session du 1er novembre 2026 n’a pas vérifié par SSH les chemins, les unités, les variables ni les versions effectivement actives. Suivre [docs/EXPLOITATION.md](../../docs/EXPLOITATION.md) et consigner les preuves dans la [passation](../../docs/PASSATION_PROJET.md).
+Le contrôle en lecture seule du 2 novembre a confirmé cette topologie et la version active. Suivre [docs/EXPLOITATION.md](../../docs/EXPLOITATION.md), le [lot L4 préparé](../../docs/L4_LOT_LIVRAISON.md) et consigner les preuves dans la [passation](../../docs/PASSATION_PROJET.md).
+
+## Préparation locale d'une version
+
+`prepare_release.py` construit une archive depuis un commit Git revu. Il sélectionne le moteur Flask complet, les ressources et les outils nécessaires, puis écrit une empreinte par fichier et une empreinte de l'archive. `verify_release.py` contrôle un dossier extrait sans le modifier.
+
+```sh
+.venv/bin/python deploy/infomaniak/prepare_release.py --revision COMMIT --output-dir .artifacts/releases
+.venv/bin/python deploy/infomaniak/verify_release.py /chemin/version-extraite
+```
+
+La présence d'une archive ne constitue pas une autorisation de livraison. L'environnement privé, la base et les journaux ne sont jamais inclus.
 
 ## Exercice local isolé
 

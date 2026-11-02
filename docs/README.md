@@ -12,6 +12,7 @@ Commencer par [Se repérer](SE_REPERER.md), [État actuel](ETAT_ACTUEL.md) ou [C
 | [PLAN_IMPLEMENTATION.md](PLAN_IMPLEMENTATION.md) | lots, tâches et critères de fin |
 | [PLAN_L3_QUALITE_DOUBLONS.md](PLAN_L3_QUALITE_DOUBLONS.md) | déroulement simple et contrôles du lot L3 |
 | [PLAN_L4_EXPLOITATION.md](PLAN_L4_EXPLOITATION.md) | sauvegardes, restauration, alertes et autorisations du lot L4 |
+| [L4_LOT_LIVRAISON.md](L4_LOT_LIVRAISON.md) | paquet applicatif prêt, contrôles et retour arrière avant autorisation VPS |
 | [SUIVI_IMPLEMENTATION.md](SUIVI_IMPLEMENTATION.md) | avancement court et journal des lots |
 | [EXPLOITATION.md](EXPLOITATION.md) | contrôles, livraison et retour arrière |
 | [JOURNAL_LIVRAISON_MODELE.md](JOURNAL_LIVRAISON_MODELE.md) | preuve à remplir pour chaque livraison autorisée |
