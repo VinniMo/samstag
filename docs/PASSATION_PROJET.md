@@ -424,3 +424,10 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - `restore_check.py` restaure uniquement vers un nouveau fichier, refuse tout écrasement et vérifie la copie. Une base fictive contenant un événement synthétique est sauvegardée, restaurée puis relue par `db.py` ; aucune base réelle utilisée. `make check` réussit avec 125 tests, registres et syntaxe JavaScript valides.
 - Objectifs de travail fixés à RPO 24 h et RTO 4 h, à confirmer par un exercice distant chronométré. Modèle de journal ajouté pour relier commit, sauvegarde, vérifications et retour arrière.
 - Prochaine session : étape C, alertes, copie externe chiffrée et conservation des retours. Aucun accès VPS, sauvegarde de production, transfert externe ou déploiement.
+
+
+## 2 novembre 2026 — étape C L4 terminée localement
+- `operations_report.py` calcule sans réseau les alertes des sources automatiques : erreur courante, attention après 18 heures sans réussite, critique à 24 heures. La dernière sauvegarde passe en attention à 20 heures et critique à 24 heures.
+- Politique locale : copie quotidienne chiffrée avant transfert vers un stockage objet privé distinct du VPS, 30 quotidiennes et 12 mensuelles ; boîte e-mail d'exploitation privée et second canal à confirmer avant activation.
+- Retours : accès administratif seulement, lecture hebdomadaire, suppression sous 90 jours après résolution, réévaluation à 12 mois. L'automatisation de purge attend une migration SQLite versionnée ; aucune donnée supprimée.
+- Tests entièrement synthétiques ; `make check` réussit avec 129 tests, registres et syntaxe JavaScript valides. Aucun message envoyé, transfert externe, fournisseur, compte privé, accès VPS ou déploiement. Prochaine action : contrôle final local et pull request des étapes A–C.

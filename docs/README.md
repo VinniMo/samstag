@@ -15,6 +15,7 @@ Commencer par [Se repérer](SE_REPERER.md), [État actuel](ETAT_ACTUEL.md) ou [C
 | [SUIVI_IMPLEMENTATION.md](SUIVI_IMPLEMENTATION.md) | avancement court et journal des lots |
 | [EXPLOITATION.md](EXPLOITATION.md) | contrôles, livraison et retour arrière |
 | [JOURNAL_LIVRAISON_MODELE.md](JOURNAL_LIVRAISON_MODELE.md) | preuve à remplir pour chaque livraison autorisée |
+| [POLITIQUE_ALERTES_ET_DONNEES.md](POLITIQUE_ALERTES_ET_DONNEES.md) | seuils d'alerte, copie externe et conservation des retours |
 | [DEVELOPPEMENT.md](DEVELOPPEMENT.md) | environnement local, commandes, verrous et CI |
 | [PREUVES_ET_ARCHIVES.md](PREUVES_ET_ARCHIVES.md) | preuves présentes, externes ou absentes |
 | [PASSATION_PROJET.md](PASSATION_PROJET.md) | journal chronologique de reprise |

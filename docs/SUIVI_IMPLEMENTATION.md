@@ -10,17 +10,17 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | L1 — Développement et CI | Codex | Terminé | Maintenir les verrous et la CI | `make check` et 85 E2E réussis le 1er novembre 2026 |
 | L2 — Diagnostics collecte | Codex | Terminé | Maintenir le tableau lors des évolutions de lecteurs | 114 tests et contrôle MAD ciblé du 2 novembre 2026 |
 | L3 — Qualité et doublons | Codex | Terminé | Maintenir les règles et preuves lors des évolutions | Taco's contrôlé à la source et 119 tests le 2 novembre 2026 |
-| L4 — Exploitation | Codex | En cours | Définir alertes, copie externe et rétention des retours | Restauration isolée et 125 tests réussis le 2 novembre 2026 |
+| L4 — Exploitation | Codex | En cours | Faire contrôler les travaux locaux avant tout accès VPS | Alertes préparées et 129 tests réussis le 2 novembre 2026 |
 | L5 — Architecture interne | Codex | Pilote local terminé | R2 : CityClub ; suite globale dépend de L2–L4 | Bilan R0–R1 du 2 novembre, 109 tests |
 | L6 — Produit et performance | À attribuer | À faire | Livrer et mesurer la couverture diurne (`L6.1`) | Décision utilisateur du 1er novembre 2026 |
 
 ## En cours
 
-- Les étapes A et B de L4 sont terminées localement : route administrative protégée, sauvegarde et restauration isolées testables.
+- Les étapes A à C de L4 sont terminées localement : sécurité, reprise et surveillance sont préparées sans activation distante.
 
 ## Prêt à démarrer
 
-- [ ] Étape C de L4 : définir alertes, destination chiffrée et conservation des retours.
+- [ ] Contrôler les étapes locales A–C et préparer leur pull request avant tout accès VPS.
 
 ## Bloqué ou soumis à décision
 
@@ -44,6 +44,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 - [x] `L4.0` Plan d'exploitation, preuves attendues et points d'autorisation préparés sans accès VPS.
 - [x] `L4.3` Route de collecte manuelle désactivée par défaut, limitée à POST et protégée par un secret dédié.
 - [x] `L4.5`, `L4.6` et `L4.9` Restauration locale isolée, objectifs de reprise et journal de livraison préparés.
+- [x] `L4.8` Politique d'accès et de conservation des retours définie ; migration de purge reportée.
 
 ## Journal
 
@@ -60,6 +61,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | 2026-11-02 | Préparation L4 : reprise et exploitation | Risques, six étapes, preuves et autorisations séparées documentés | Aucun accès VPS, restauration réelle, alerte ou déploiement |
 | 2026-11-02 | Étape A L4 : sécurité locale | Route manuelle refusée par défaut ; 122 tests réussis sans réseau réel | Code non livré sur le VPS ; session et cookie distants non contrôlés |
 | 2026-11-02 | Étape B L4 : reprise locale | Sauvegarde/restauration fictives, intégrité, comptages, lecture et refus d'écrasement ; 125 tests | Aucune sauvegarde de production ni durée distante mesurée |
+| 2026-11-02 | Étape C L4 : surveillance locale | Seuils de sources/sauvegardes, copie chiffrée et rétention des retours définis ; 129 tests | Aucun message envoyé, fournisseur ou compte privé configuré |
 
 ## Modèle d’entrée de journal
 

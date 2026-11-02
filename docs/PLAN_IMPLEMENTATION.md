@@ -137,7 +137,7 @@ Prouver que le service peut être surveillé, sauvegardé et restauré sans dép
 - [x] `L4.5` Tester localement une restauration dans un fichier isolé : intégrité, comptages et lecture applicative. Exercice distant encore requis.
 - [x] `L4.6` Définir RPO 24 h, RTO 4 h et procédure de retour arrière ; mesure distante encore requise.
 - [ ] `L4.7` Alerter avant que les événements d’une source importante deviennent invisibles après 24 heures.
-- [ ] `L4.8` Définir la conservation et l’accès aux retours utilisateurs.
+- [x] `L4.8` Définir la conservation et l’accès aux retours utilisateurs. Automatisation après migration SQLite versionnée.
 - [x] `L4.9` Documenter un journal de livraison : commit, sauvegarde, vérifications et rollback.
 
 ### Critères de fin
