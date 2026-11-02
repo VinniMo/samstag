@@ -11,7 +11,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | L2 — Diagnostics collecte | À attribuer | À faire | Corriger le statut partiel Docks/Romandie | Reproduction isolée du statut `empty` erroné |
 | L3 — Qualité et doublons | À attribuer | À faire | Transformer Mike D en test de régression | Doublon public observé le 1er novembre 2026 |
 | L4 — Exploitation | À attribuer | À faire | Préparer le contrôle VPS et la restauration | Procédures versionnées, état distant non audité par SSH |
-| L5 — Architecture interne | À attribuer | À faire | Attendre la stabilisation L1 à L4 | Architecture cible documentée |
+| L5 — Architecture interne | Codex | Pilote local terminé | R2 : CityClub ; suite globale dépend de L2–L4 | Bilan R0–R1 du 2 novembre, 109 tests |
 | L6 — Produit et performance | À attribuer | À faire | Livrer et mesurer la couverture diurne (`L6.1`) | Décision utilisateur du 1er novembre 2026 |
 
 ## En cours
@@ -63,3 +63,5 @@ Copier une ligne et remplir uniquement des faits vérifiés :
 - 1er novembre 2026 : rangement documentaire et nettoyage local terminés ; guide SE_REPERER et fiche COLLECTEURS ajoutés, dix archives regroupées, caches régénérables supprimés. Aucun code applicatif déplacé.
 
 - 1er novembre 2026 : plan détaillé L5 enregistré dans `PLAN_REORGANISATION_CODE.md` (R0–R7). Planification seulement ; prochaine action R0, prérequis L2–L4 conservés.
+
+- 2 novembre 2026 : R0 et R1 terminés localement (référence propre `3f57d9b`, Vidy extrait, réexports conservés, 109 tests et comparaison avant/après identique). R2–R7 restent à faire ; aucun déploiement.

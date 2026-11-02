@@ -1,12 +1,12 @@
 # Plan d’action — réorganisation du code Samstag
 
-**Préparé le 1er novembre 2026. Statut : plan à exécuter, aucun déplacement de code réalisé.**
+**Préparé le 1er novembre 2026, actualisé le 2 novembre. Statut : R0 et pilote R1 terminés localement ; R2 à R7 restent à faire.**
 
 ## Objectif pour vous
 
 Pouvoir retrouver un collecteur par son nom, distinguer le site des règles de publication et comprendre où intervenir. Le [guide du dossier](SE_REPERER.md) restera l’entrée simple ; ce document décrit les travaux techniques du troisième point.
 
-Les deux premières étapes de rangement sont faites : documentation accessible et archives regroupées. Le code Python est encore à la racine.
+Les deux premières étapes de rangement sont faites : documentation accessible et archives regroupées. La plupart du code Python reste à la racine ; le lecteur Vidy est maintenant dans `samstag/collection/adapters/vidy.py`.
 
 ## Périmètre et ordre de départ
 
@@ -14,7 +14,7 @@ Le rangement doit conserver les événements extraits, les URL, les règles qual
 
 Avant de commencer, terminer les corrections de fiabilité identifiées dans L2/L3 et les vérifications d’exploitation L4 prévues par le plan global. La préparation locale (cartographie et référence de tests) peut avancer indépendamment. Une extraction pilote anticipée reste possible comme lot local explicitement séparé, sans annoncer que tout L5 est débloqué.
 
-Le dossier contient de nombreux travaux locaux non commités : les inventorier et établir un point de reprise Git identifiable avant d’ajouter une migration. Ne pas les écraser ni les attribuer à la réorganisation.
+Au début du lot R0 le 2 novembre, l’arbre Git était propre au commit `3f57d9b`. À chaque reprise, réexaminer les travaux locaux et établir une référence identifiable ; ne pas écraser des changements intervenus depuis.
 
 ## Architecture cible
 
@@ -109,8 +109,8 @@ R1 à R6 ne nécessitent aucune modification du VPS. Pour R7, sauvegarder code e
 | Étape | État | Preuve |
 |---|---|---|
 | Plan | Prêt | Document relu, liens locaux vérifiés |
-| R0 | À faire | — |
-| R1 | À faire | — |
+| R0 | Terminé localement | [Bilan R0–R1](audits/REORGANISATION_R0_R1_2026-11-02.md) |
+| R1 | Terminé localement | 109 tests ; équivalence Vidy avant/après |
 | R2 | À faire, par petits lots | — |
 | R3 | À faire | — |
 | R4 | À faire | — |
@@ -118,4 +118,4 @@ R1 à R6 ne nécessitent aucune modification du VPS. Pour R7, sauvegarder code e
 | R6 | À faire | — |
 | R7 | À faire, autorisation requise | — |
 
-**Prochaine action recommandée : R0.** Le pilote Vidy vient ensuite, quand la référence est stabilisée et que les prérequis du plan global sont levés ou qu’un lot pilote anticipé a été explicitement retenu.
+**Prochaine action : R2, sous-lot CityClub.** R0 et le pilote anticipé Vidy sont terminés. Les prérequis L2–L4 du chantier global ne sont pas déclarés levés par cette extraction locale. Chaque prochaine séance reste bornée à un lecteur ou un petit lot explicite.

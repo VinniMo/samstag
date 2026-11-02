@@ -360,3 +360,10 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Plan demandé enregistré dans `docs/PLAN_REORGANISATION_CODE.md`, relié au plan L5, à l’index et au guide SE_REPERER. Sessions R0 à R7 : référence Git/tests, pilote Vidy, autres lecteurs, collecte, domaine/stockage, web, finalisation, livraison séparée.
 - Dépendances globales L2–L4 conservées ; préparation locale possible. Migrations de schéma, nouveaux contrats et changement de dispatch distingués du simple rangement.
 - Aucun code déplacé, test applicatif relancé, collecteur ou serveur utilisé. Vérification des liens documentaires uniquement.
+
+
+## 2 novembre 2026 — réorganisation locale, R0 et pilote R1
+- Demande utilisateur de réorganiser le code : premier lot borné du plan appliqué, R0 puis R1 Vidy. Référence initiale propre `3f57d9b`, 107 tests réussis avant modification.
+- Création de `samstag/collection/adapters/vidy.py` et des paquets sans effet de bord. Cinq fonctions et VIDY_ROOMS déplacés ; réexports explicites et dispatch conservés dans `programme_adapters.py`.
+- Équivalence : AST des fonctions identique à HEAD ; deux scénarios / dix observations, tous les champs et statuts identiques. 109 tests réussis après déplacement, registres et syntaxe JS valides. Bilan versionné `docs/audits/REORGANISATION_R0_R1_2026-11-02.md`, preuves locales `.artifacts/reorganisation-2026-11-02/`.
+- Guide, collecteurs, état et plan actualisés. Prochaine séance R2 : CityClub uniquement. L2–L4 restent ouverts ; aucun autre lecteur déplacé, aucune collecte réelle, accès VPS ou livraison. Aucune nouvelle campagne E2E, interface inchangée.

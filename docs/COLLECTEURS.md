@@ -79,3 +79,7 @@ Le [registre des sources](../data/sources.json) contient les URL et autorisation
 Pour consulter un rapport local sans contacter les sites : `make report`. Pour développer : [guide de développement](DEVELOPPEMENT.md). Pour les constats détaillés : [audit](audits/AUDIT_2026-11-01.md) et [mesures datées](audits/2026-11-01-mesures.json).
 
 La priorité reste de fiabiliser les diagnostics, réparer les sources en panne et mesurer les programmes réellement couverts avant d’annoncer une couverture exhaustive.
+
+## Où trouver le lecteur Vidy ?
+
+Depuis le 2 novembre 2026, son implémentation est dans [samstag/collection/adapters/vidy.py](../samstag/collection/adapters/vidy.py). Les autres lecteurs restent dans les modules racine. Voir le [bilan du déplacement](audits/REORGANISATION_R0_R1_2026-11-02.md). Aucun changement de programme extrait ni livraison en production.

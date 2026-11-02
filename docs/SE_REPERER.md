@@ -12,7 +12,8 @@ Commencez par le [README principal](../README.md). Pour suivre le projet au quot
 | `docs/diagrams/` | schémas de travail et architecture cible | pour voir la suite prévue |
 | `data/` | listes des lieux, bars et sources | pour savoir ce qui est recensé |
 | `templates/` et `static/` | page, textes, styles, images et interactions | pour comprendre l’interface |
-| fichiers Python à la racine | moteur de l’application | pour les modifications techniques |
+| `samstag/collection/adapters/` | collecteurs déjà réorganisés (Vidy pour le moment) | pour trouver leur implémentation |
+| fichiers Python à la racine | reste du moteur, migration progressive | pour les modifications techniques |
 | `tests/` | vérifications du moteur | pour contrôler les règles et collecteurs |
 | `e2e/` | parcours automatiques dans un navigateur | pour vérifier l’utilisation du site |
 | `deploy/infomaniak/` | installation et exploitation du serveur | lors d’une livraison autorisée |
@@ -28,7 +29,7 @@ Commencez par le [README principal](../README.md). Pour suivre le projet au quot
 - `feedback.py` et `feedback_cli.py` gèrent les retours des utilisateurs.
 - `PRODUCT.md` décrit le produit ; `DESIGN.md` documente son apparence ; `AGENTS.md` donne les consignes de travail.
 
-Les noms techniques historiques sont conservés pour éviter de casser le fonctionnement. Le déplacement du code dans un dossier `samstag/` sera un lot séparé.
+Les noms techniques historiques sont conservés pour éviter de casser le fonctionnement. La migration a commencé le 2 novembre : Vidy est dans `samstag/collection/adapters/vidy.py`. Les autres modules restent à la racine ; `programme_adapters.py` garde les imports compatibles et le dispatch.
 
 ## Dossiers masqués : généralement rien à faire
 
@@ -47,7 +48,7 @@ Les sauvegardes serveur ne sont pas gérées depuis ce guide. Voir [Exploitation
 
 ## La vision d’ensemble proposée
 
-Le rangement documentaire est en place. Le dossier `samstag/` ci-dessous représente la prochaine étape possible : les fichiers Python restent actuellement à la racine.
+Le rangement documentaire est en place. Le paquet `samstag/` est créé et contient le lecteur Vidy ; les autres branches ci-dessous restent une cible progressive.
 
 ```text
 Samstag/
@@ -64,7 +65,7 @@ Samstag/
 │   ├── PASSATION_PROJET.md ← journal des sessions
 │   ├── audits/           ← constats et mesures datés
 │   └── archives/         ← anciens bilans et diagnostics
-├── samstag/              ← cible future, pas encore créée
+├── samstag/              ← créé ; seul le lecteur Vidy est déplacé
 │   ├── web/              ← pages et API
 │   ├── collection/       ← moteur et collecteurs par source
 │   ├── domain/           ← règles des événements et périodes
@@ -80,4 +81,4 @@ Samstag/
 
 Les trois étapes conseillées : rendre la documentation lisible, nettoyer seulement ce qui est confirmé inutile, puis réorganiser progressivement le code avec des tests à chaque déplacement. Les deux premières sont le périmètre de cette session ; la troisième reste un chantier distinct.
 
-Le [plan d’action de réorganisation du code](PLAN_REORGANISATION_CODE.md) détaille le troisième point : étapes R0 à R7, fichiers à déplacer, tests et livraison séparée. Aucun déplacement de code n’a encore été effectué.
+Le [plan d’action de réorganisation du code](PLAN_REORGANISATION_CODE.md) détaille le troisième point : étapes R0 à R7, fichiers à déplacer, tests et livraison séparée. Le pilote Vidy est déplacé ; les autres étapes restent à réaliser.

@@ -63,3 +63,7 @@ Python 3.12 est la référence reproductible. Les commandes `make setup`, `dev`,
 Les lots L0 et L1 sont terminés. La prochaine session bornée est `L2.1` et `L2.2` : corriger le contrat de résultat Docks/Romandie et couvrir les échecs complets ou partiels par des tests. Aucun autre collecteur ne doit être relancé dans cette session.
 
 Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLAN_IMPLEMENTATION.md). Le statut court se trouve dans [SUIVI_IMPLEMENTATION.md](SUIVI_IMPLEMENTATION.md).
+
+## Réorganisation locale — 2 novembre 2026
+
+R0 et R1 sont terminés : le lecteur Vidy est dans `samstag/collection/adapters/vidy.py`, avec anciens imports compatibles. Les autres modules restent à la racine. 109 tests passent et les scénarios Vidy donnent des résultats identiques avant/après. Suite : R2, CityClub. Aucun changement serveur ; les prérequis L2–L4 ne sont pas déclarés achevés. Voir le [bilan](audits/REORGANISATION_R0_R1_2026-11-02.md).

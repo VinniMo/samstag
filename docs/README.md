@@ -29,4 +29,4 @@ Les anciens bilans et diagnostics sont regroupés dans [archives/](archives/READ
 
 La [passation](PASSATION_PROJET.md) reste à son emplacement stable : c’est le journal de reprise, pas un tableau de bord courant. Les rapports générés et preuves locales sont expliqués dans [Preuves et archives](PREUVES_ET_ARCHIVES.md).
 
-Le [plan d’action de réorganisation du code](PLAN_REORGANISATION_CODE.md) détaille le troisième point : étapes R0 à R7, fichiers à déplacer, tests et livraison séparée. Aucun déplacement de code n’a encore été effectué.
+Le [plan d’action de réorganisation du code](PLAN_REORGANISATION_CODE.md) détaille le troisième point : étapes R0 à R7, fichiers à déplacer, tests et livraison séparée. R0 et le pilote R1 Vidy sont terminés localement ; R2 à R7 restent à faire.
