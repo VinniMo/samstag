@@ -9,18 +9,17 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | L0 — Documentation | Codex | Terminé | Maintenir l’état actuel à chaque lot | Contrôle documentaire du 1er novembre 2026 |
 | L1 — Développement et CI | Codex | Terminé | Maintenir les verrous et la CI | `make check` et 85 E2E réussis le 1er novembre 2026 |
 | L2 — Diagnostics collecte | Codex | Terminé | Maintenir le tableau lors des évolutions de lecteurs | 114 tests et contrôle MAD ciblé du 2 novembre 2026 |
-| L3 — Qualité et doublons | Codex | En cours | Décider les rapprochements sûrs et conserver les preuves | Détecteur en lecture seule et 116 tests le 2 novembre 2026 |
+| L3 — Qualité et doublons | Codex | En cours | Contrôler Taco's séparément puis faire le bilan L3 | Rapprochements réversibles et 118 tests le 2 novembre 2026 |
 | L4 — Exploitation | À attribuer | À faire | Préparer le contrôle VPS et la restauration | Procédures versionnées, état distant non audité par SSH |
 | L5 — Architecture interne | Codex | Pilote local terminé | R2 : CityClub ; suite globale dépend de L2–L4 | Bilan R0–R1 du 2 novembre, 109 tests |
 | L6 — Produit et performance | À attribuer | À faire | Livrer et mesurer la couverture diurne (`L6.1`) | Décision utilisateur du 1er novembre 2026 |
 
 ## En cours
 
-- La première étape de L3 est terminée : Mike D est reproduit, les candidats sont détectés et le rapport ne modifie aucune donnée.
+- Les deux premières étapes de L3 sont terminées : Mike D est détecté puis rapproché sur la base isolée, avec priorité officielle, preuves conservées et retour arrière.
 
 ## Prêt à démarrer
 
-- [ ] Deuxième session : `L3.3` à `L3.5`, rapprochements sûrs, cas ambigus séparés et preuves conservées.
 - [ ] Troisième session séparée : `L3.7`, contrôle ciblé des horaires Taco's.
 
 ## Bloqué ou soumis à décision
@@ -40,6 +39,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 - [x] `L2.0` à `L2.7` Tableau de santé des 39 canaux, compteurs par passe, incidents séparés des limites et MAD sécurisé.
 - [x] `L3.0` Plan détaillé, règles de sécurité et diagramme de décision préparés.
 - [x] `L3.1`, `L3.2` et `L3.6` Fixture Mike D, détection par lieu/date/heure et rapport en lecture seule.
+- [x] `L3.3` à `L3.5` Priorité officielle, cas ambigus séparés, preuves conservées et retour arrière.
 
 ## Journal
 
@@ -51,6 +51,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | 2026-11-02 | Lot L2 finalisé : santé globale des collecteurs | 114 tests ; matrice synthétique des 37 actifs ; 39 canaux visibles ; deux contrôles ciblés MAD | Aucun autre site relancé, aucun déploiement |
 | 2026-11-02 | Préparation L3 : séquence détection, décision et vérification | Lecture du dédoublonnage actuel et du cas Mike D ; plan et diagramme | Aucun code métier, aucune donnée et aucun site modifiés |
 | 2026-11-02 | Première étape L3 : détection sans fusion | Mike D détecté ; base isolée inchangée ; 116 tests réussis | Le rapport signale des candidats mais ne décide encore aucun rapprochement |
+| 2026-11-02 | Deuxième étape L3 : décisions conservatrices | Mike D réduit à une fiche officielle sur base isolée ; preuves et fiches d'origine conservées ; 118 tests | Aucun rapprochement appliqué aux données réelles ; Taco's reste à contrôler séparément |
 
 ## Modèle d’entrée de journal
 

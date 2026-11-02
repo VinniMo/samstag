@@ -59,7 +59,7 @@ Python 3.12 est la référence reproductible. Les commandes `make setup`, `dev`,
 
 ## Prochaine étape
 
-Les lots L0, L1 et L2 sont terminés. La pull request correspondante a été fusionnée le 2 novembre 2026. La première étape de L3 est terminée : Mike D est reproduit et le rapport détecte les doublons probables sans modifier les sorties. La prochaine étape décidera uniquement les rapprochements sûrs et conservera toutes les preuves. Voir le [plan L3](PLAN_L3_QUALITE_DOUBLONS.md).
+Les lots L0, L1 et L2 sont terminés. La pull request correspondante a été fusionnée le 2 novembre 2026. Les deux premières étapes de L3 sont terminées sur une base isolée : Mike D est détecté puis ramené à la fiche officielle, avec preuves conservées et retour arrière. Les cas ambigus restent séparés. La prochaine étape est le contrôle ciblé de Taco's, sans campagne générale. Voir le [plan L3](PLAN_L3_QUALITE_DOUBLONS.md).
 
 Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLAN_IMPLEMENTATION.md). Le statut court se trouve dans [SUIVI_IMPLEMENTATION.md](SUIVI_IMPLEMENTATION.md).
 

@@ -2,7 +2,7 @@
 from collections import defaultdict
 
 import db
-from collection_quality import assess
+from collection_quality import assess, normalized
 from source_registry import source_for
 
 
@@ -72,14 +72,26 @@ def duplicate_candidates(items=None):
         if len(unique_ids) < 2:
             continue
         records.sort(key=lambda record: (record["source_type"] != "official", record["title"], record["id"]))
-        source_types = sorted({record["source_type"] for record in records})
+        official = [record for record in records if record["source_type"] == "official"]
+        aggregators = [record for record in records if record["source_type"] == "aggregator"]
+        safe_pair = len(records) == 2 and len(official) == 1 and len(aggregators) == 1
+        if safe_pair and any(record["status"] != "approved" for record in records):
+            decision, decision_reason = "review_required", "records_not_all_approved"
+        elif safe_pair and _compatible_titles(official[0]["title"], aggregators[0]["title"]):
+            decision, decision_reason = "safe_match", "one_official_one_aggregator_compatible_titles"
+        elif safe_pair:
+            decision, decision_reason = "review_required", "titles_not_compatible"
+        else:
+            decision, decision_reason = "review_required", "requires_exactly_one_official_and_one_aggregator"
         candidates.append({
             "candidate_key": f"{venue_id}|{date}|{time}",
             "venue_id": venue_id,
             "date": date,
             "time": time,
             "location": next((record["location"] for record in records if record["location"]), ""),
-            "classification": "official_and_aggregator" if {"official", "aggregator"}.issubset(source_types) else "same_slot_review",
+            "decision": decision,
+            "decision_reason": decision_reason,
+            "canonical_id": official[0]["id"] if decision == "safe_match" else "",
             "records": records,
         })
 
@@ -88,8 +100,18 @@ def duplicate_candidates(items=None):
         "summary": {
             "candidate_groups": len(candidates),
             "candidate_records": sum(len(group["records"]) for group in candidates),
-            "official_and_aggregator_groups": sum(group["classification"] == "official_and_aggregator" for group in candidates),
-            "review_groups": sum(group["classification"] == "same_slot_review" for group in candidates),
+            "safe_match_groups": sum(group["decision"] == "safe_match" for group in candidates),
+            "review_groups": sum(group["decision"] == "review_required" for group in candidates),
         },
         "candidates": candidates,
     }
+
+
+def _compatible_titles(left, right):
+    """Allow exact titles or one short official suffix, never general fuzzy matching."""
+    left_tokens = normalized(left).split()
+    right_tokens = normalized(right).split()
+    if left_tokens == right_tokens:
+        return True
+    shorter, longer = sorted((left_tokens, right_tokens), key=len)
+    return len(shorter) >= 2 and len(longer) == len(shorter) + 1 and longer[:len(shorter)] == shorter

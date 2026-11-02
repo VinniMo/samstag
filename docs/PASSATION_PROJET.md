@@ -389,3 +389,10 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Rapport en lecture seule ajouté à la commande de diagnostic. Le cas Mike D apparaît comme un groupe officiel + agrégateur avec les deux liens de preuve. Deux spectacles distincts au même créneau sont seulement signalés pour revue et restent inchangés.
 - Contrôle sur base SQLite isolée : contenu strictement identique avant et après le rapport. `make check` réussi avec 116 tests, registres conformes et syntaxe JavaScript valide.
 - Tâches `L3.1`, `L3.2` et `L3.6` terminées. Prochaine session bornée : `L3.3` à `L3.5`. Aucun site contacté, aucune collecte réelle, aucun accès VPS, aucun déploiement.
+
+
+## 2 novembre 2026 — deuxième étape L3 terminée
+- Rapprochement conservateur ajouté : exactement une fiche officielle et une fiche d'agrégateur validées, même lieu canonique/date/heure et titres compatibles selon une règle étroite. Les autres groupes restent séparés pour contrôle.
+- Les rapprochements sont enregistrés à côté des fiches d'origine, jamais à leur place. La sortie publique privilégie l'officiel et réunit tous les liens de preuve. Si l'officiel n'est plus publiable ou si la décision n'est plus confirmée, l'autre fiche redevient visible.
+- Base SQLite isolée : Mike D passe de deux sorties à une fiche Docks, les deux observations restent présentes, puis le retour arrière restaure deux sorties. Titres incompatibles et concurrence officielle non rapprochés.
+- `make check` réussi avec 118 tests ; registres et syntaxe JavaScript valides. Tâches `L3.3` à `L3.5` terminées. Prochaine session bornée : `L3.7` Taco's, sans campagne générale. Aucun site contacté, accès VPS ou déploiement.

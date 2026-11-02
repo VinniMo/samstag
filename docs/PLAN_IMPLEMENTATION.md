@@ -108,9 +108,9 @@ Réduire les doublons sans fusionner des représentations distinctes ni perdre l
 - [x] `L3.0` Préparer l'ordre d'exécution, les règles de sécurité et les contrôles dans [PLAN_L3_QUALITE_DOUBLONS.md](PLAN_L3_QUALITE_DOUBLONS.md).
 - [x] `L3.1` Transformer le cas « Mike D / Mike D 5D » en fixture et test de régression.
 - [x] `L3.2` Calculer des candidats au rapprochement sur lieu canonique, date et heure.
-- [ ] `L3.3` Donner priorité à la source officielle lorsque les occurrences sont confirmées comme identiques.
-- [ ] `L3.4` Mettre en revue les rapprochements ambigus au lieu de les fusionner automatiquement.
-- [ ] `L3.5` Conserver toutes les URL de preuve après rapprochement.
+- [x] `L3.3` Donner priorité à la source officielle lorsque les occurrences sont confirmées comme identiques.
+- [x] `L3.4` Mettre en revue les rapprochements ambigus au lieu de les fusionner automatiquement.
+- [x] `L3.5` Conserver toutes les URL de preuve après rapprochement.
 - [x] `L3.6` Ajouter un rapport des doublons probables sans modifier les données.
 - [ ] `L3.7` Contrôler à la source les horaires atypiques de Taco’s avant toute correction.
 

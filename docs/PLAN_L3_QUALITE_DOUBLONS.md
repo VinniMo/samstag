@@ -1,6 +1,6 @@
 # L3 — qualité et doublons
 
-**État au 2 novembre 2026 : étape A terminée, étape B à démarrer.** Le détecteur et son rapport sont en lecture seule ; aucune sortie n'a été fusionnée.
+**État au 2 novembre 2026 : étapes A et B terminées, étape C à démarrer.** Les rapprochements certains sont réversibles et les fiches d'origine restent conservées.
 
 ## Résultat attendu
 
@@ -22,7 +22,7 @@ Le cas de départ est le concert publié sous deux titres, « Mike D » par L'Ag
 | Étape | Travail | Résultat contrôlable |
 |---|---|---|
 | A — Détecter — terminée | Reproduire Mike D avec une petite donnée de test, repérer les candidats qui partagent lieu, date et heure, produire un rapport sans modifier les données | Mike D détecté comme un groupe de deux fiches ; base isolée inchangée |
-| B — Décider | Identifier les cas certains, privilégier la source officielle, classer les cas ambigus et conserver tous les liens | Mike D n'apparaît plus deux fois ; les exemples ambigus restent séparés |
+| B — Décider — terminée | Identifier les cas certains, privilégier la source officielle, classer les cas ambigus et conserver tous les liens | Mike D n'apparaît plus deux fois sur la base isolée ; les exemples ambigus restent séparés |
 | C — Vérifier | Rejouer les contrôles sur une base isolée, mesurer les décisions automatiques et manuelles, puis contrôler Taco's séparément | Rapport final compréhensible, aucune perte de preuve, aucune fusion risquée |
 
 ## Décision pour un candidat
@@ -47,5 +47,11 @@ Le rapprochement sera enregistré à côté des fiches d'origine. Il ne supprime
 
 Le cas Mike D produit un groupe contenant deux fiches et leurs preuves. Un exemple de deux spectacles distincts au même créneau reste intact et est seulement signalé. 116 tests réussissent. Aucun site n'a été contacté.
 
-La prochaine session couvre `L3.3` à `L3.5` : décider quels candidats peuvent être rapprochés, privilégier la source officielle et conserver toutes les preuves. Le contrôle Taco's (`L3.7`) reste séparé.
+## Résultat de la deuxième session
+
+`L3.3`, `L3.4` et `L3.5` sont terminés sur une base isolée. Un rapprochement automatique exige exactement une fiche officielle et une fiche d'agrégateur déjà validées, au même lieu, à la même date et à la même heure, avec des titres compatibles selon une règle volontairement étroite.
+
+La fiche officielle reste visible et récupère les liens de preuve des deux fiches. Les données d'origine ne sont ni modifiées ni supprimées. Si la fiche officielle n'est plus publiable ou si une passe ultérieure ne confirme plus la décision, l'autre fiche redevient visible. Les titres incompatibles, plusieurs fiches officielles ou tout autre doute restent séparés.
+
+118 tests réussissent. La prochaine session est l'étape C : contrôler Taco's séparément (`L3.7`), puis effectuer le bilan final L3. Aucun site n'a été contacté pendant les étapes A et B.
 
