@@ -11,7 +11,7 @@
 | Dépôt | `https://github.com/VinniMo/samstag.git` |
 | Branche locale auditée | `codex/l4-vps-readonly-audit` |
 | HEAD de départ | `5722569`, fusion de la PR L4 A–C |
-| Commit déployé vérifié | `ed42492`, confirmé par quatre empreintes le 2 novembre |
+| Commit déployé vérifié | `b593dc6`, livré et contrôlé le 2 novembre |
 | Autre application | `VinniMo/lausanne-events` / Vercel, hors production Samstag |
 
 ## Instantané public contrôlé
@@ -55,13 +55,13 @@ Python 3.12 est la référence reproductible. Les commandes `make setup`, `dev`,
 
 - le MAD reste suivi mais sa publication automatique locale est désactivée tant que ses fiches liées sont illisibles ;
 - la sauvegarde locale est intègre, mais la copie hors VPS et la restauration distante ne sont pas encore prouvées ;
-- la production exécute encore `ed42492` : la protection Flask et les changements L2–L4 fusionnés ne sont pas encore livrés.
+- le calcul d'alerte considère encore trois lecteurs partiels réussis comme « jamais réussis » ; aucun envoi n'est activé tant que ce point n'est pas corrigé.
 
 ## Prochaine étape
 
 Les lots L0 à L3 sont terminés localement. L3 rapproche le cas Mike D vers la fiche officielle sur une base isolée, conserve toutes les preuves et laisse les cas ambigus séparés. Le contrôle ciblé de Taco's confirme que l'horaire 20:26 est explicitement publié par la source officielle ; aucune correction n'est nécessaire.
 
-L4 est préparé, ses étapes A–C sont fusionnées et l'étape D est contrôlée en lecture seule. La production est saine, mais elle utilise encore l'ancienne version : Nginx bloque la route administrative, tandis que la protection Flask fusionnée n'est pas déployée. Le [lot de livraison](L4_LOT_LIVRAISON.md) et son retour arrière sont maintenant préparés et testés localement. Les sauvegardes locales sont actives et intègres ; la copie externe, la restauration chronométrée et l'alerte reçue restent à prouver. Toute modification du serveur demandera une nouvelle autorisation. Voir aussi le [plan L4](PLAN_L4_EXPLOITATION.md) et le [rapport VPS](audits/L4_VPS_LECTURE_SEULE_2026-11-02.md).
+L4 a livré son sous-lot applicatif le 2 novembre après sauvegarde et restauration isolée. La production exécute `b593dc6` : Nginx et Flask protègent la route administrative, 39 canaux sont visibles, 37 actifs et 23 automatiques. Le premier cycle complet a publié 414 sorties et la version est restée stable sans redémarrage pendant dix minutes. L'ancien dossier `ed42492` reste disponible pour retour arrière. Les sauvegardes locales sont actives et intègres ; la copie externe, l'alerte corrigée et sa réception restent à prouver. Voir le [rapport de livraison](audits/L4_LIVRAISON_VPS_2026-11-02.md) et le [plan L4](PLAN_L4_EXPLOITATION.md).
 
 Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLAN_IMPLEMENTATION.md). Le statut court se trouve dans [SUIVI_IMPLEMENTATION.md](SUIVI_IMPLEMENTATION.md).
 

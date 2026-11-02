@@ -456,3 +456,14 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Contrôles : 131 tests réussis, registres et JavaScript valides ; archive et 43 fichiers internes vérifiés ; compilation Python ; simulation sur base isolée avec accueil/santé/sources, 39 canaux, 23 automatiques, GET refresh 405 et POST sans autorisation 404. Aucun réseau de collecte.
 - Procédure `docs/L4_LOT_LIVRAISON.md` : sauvegarde et restauration isolée avant changement, conservation entière de `ed42492`, échange du dossier applicatif, critères de maintien sur dix minutes et retour applicatif sans restauration automatique de la base. Les ajouts de schéma sont uniquement additifs.
 - Le premier sous-lot ne modifie ni dépendances, ni Nginx, ni unités, ni secrets. La copie chiffrée hors VPS et l'envoi d'alertes restent séparés faute de fournisseur et destinataires privés configurés. Toute application du paquet exige une nouvelle autorisation explicite.
+
+
+## 2 novembre 2026 — sous-lot applicatif L4 livré sur le VPS
+- Autorisation explicite reçue pour appliquer le sous-lot avec sauvegarde et retour arrière. Précontrôle conforme : `ed42492` confirmé par quatre empreintes, service et minuteur actifs, dépendances saines, santé `ok`, 37 sources actives et 24 automatiques.
+- Archive `b593dc6` vérifiée extérieurement puis sur 43 fichiers internes. Configuration contrôlée sans afficher de secret. Aucun changement de dépendance, Nginx, unité systemd, environnement privé, Render ou service voisin.
+- Sauvegarde préalable `samstag-20261102T210014737231Z.sqlite3`, restaurée dans `pre-20261102T210014Z.sqlite3` : intégrité `ok`, empreinte `1af51781aaa521d30d0a7631fc686130c324b5c150b89f088f7a1c23c343fc6e`. Base active non remplacée. Ancienne application conservée dans `/opt/samstag/rollback/app-20261102T210014Z-ed42492`.
+- Application remplacée puis démarrée sans retour arrière. Contrôles : accueil, événements, santé et sources HTTP 200 ; public refresh 403 ; Flask direct GET 405 et POST sans autorisation 404 ; 39 canaux configurés, 37 actifs, 23 automatiques ; aucun lieu Buzz Club, Satellite ou bibliothèque dans les 414 sorties.
+- Premier cycle en 45 secondes : 37/37 sources, 1 093 observations, 428 candidates, 665 refusées, 414 sorties, un seul échec MAD. Le MAD est non automatique. État : 20 ok, 16 limités, 1 erreur de lecture connue.
+- Observation 21:00:15–21:11:06 UTC : 414 sorties constantes, service actif, zéro redémarrage et aucune erreur système. Version maintenue ; rollback disponible.
+- Limite : le rapport d'alerte classe à tort Lausanne Tourisme, Vidy et Château Music Club comme « jamais réussis » alors que leur accès et leur lecture sont corrects mais partiels. Aucun envoi n'est activé. Prochaine session bornée : corriger ce calcul localement sur données isolées avant activation. Copie externe toujours absente.
+- Preuve : `docs/audits/L4_LIVRAISON_VPS_2026-11-02.md`.
