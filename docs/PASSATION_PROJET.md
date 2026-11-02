@@ -375,3 +375,10 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Contrôle réseau limité au MAD sur une base isolée : agenda accessible, six liens détectés, six fiches en échec, aucune sortie publiée. Le MAD reste actif dans le suivi mais sa publication automatique locale est désactivée et justifiée dans le registre.
 - Docks et Romandie signalent correctement un échec total ou partiel des fiches. 114 tests Python réussis ; registres et syntaxe JavaScript valides. Contrôle navigateur : 83/85 réussis dans la série complète, puis les deux scénarios ralentis réussis séparément ; aucun défaut fonctionnel reproduit. Aucun autre site relancé, aucun accès VPS, aucun déploiement.
 - Après publication, le premier contrôle GitHub a échoué avant les scénarios navigateur à cause d’un séparateur d’arguments superflu dans le workflow. Commande corrigée et reproduite localement dans les mêmes conditions : 17/17 scénarios Chromium réussis. Correctif livré séparément ; le nouveau contrôle GitHub est entièrement réussi.
+
+
+## 2 novembre 2026 — fusion L0–L2 et préparation L3
+- Pull request GitHub no 8 fusionnée dans `main` au commit `ba95f158`, après réussite du contrôle GitHub. Aucun déploiement ni intervention sur le VPS ou Render.
+- Nouvelle branche locale `codex/l3-quality-dedup-plan` créée depuis la branche principale fusionnée.
+- L3 préparé sans modification métier : plan en trois étapes, règles conservatrices, contrôles obligatoires et diagramme de décision. Première session bornée à la reproduction Mike D, la détection et un rapport en lecture seule sur une base isolée.
+- Le contrôle ciblé des horaires Taco's reste une session distincte. Aucun site contacté, aucune donnée d'événement modifiée.

@@ -53,14 +53,13 @@ Python 3.12 est la référence reproductible. Les commandes `make setup`, `dev`,
 
 ## Défauts confirmés ou à reproduire
 
-- certaines erreurs de détail Docks/Romandie peuvent être enregistrées comme `empty` au lieu d’un échec partiel ;
 - un doublon visible « Mike D » / « Mike D 5D » demande une règle conservatrice et un test ;
-- le MAD était en erreur dans l’instantané public ;
+- le MAD reste suivi mais sa publication automatique locale est désactivée tant que ses fiches liées sont illisibles ;
 - la sauvegarde hors VPS et la restauration ne sont pas encore prouvées.
 
 ## Prochaine étape
 
-Les lots L0, L1 et L2 sont terminés. Le tableau de santé couvre les 39 canaux configurés et diagnostique les 37 actifs à chaque passe. La prochaine priorité du plan est L3 : commencer par le doublon Mike D sous forme de test, sans fusion générale préalable.
+Les lots L0, L1 et L2 sont terminés. La pull request correspondante a été fusionnée le 2 novembre 2026. L3 est préparé : la première session reproduira Mike D, détectera les doublons probables et produira un rapport sans modifier les sorties. Voir le [plan L3](PLAN_L3_QUALITE_DOUBLONS.md).
 
 Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLAN_IMPLEMENTATION.md). Le statut court se trouve dans [SUIVI_IMPLEMENTATION.md](SUIVI_IMPLEMENTATION.md).
 
