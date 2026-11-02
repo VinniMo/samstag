@@ -51,15 +51,14 @@ Bars, clubs, concerts, spectacles et cinéma ; Lausanne et communes immédiateme
 
 Python 3.12 est la référence reproductible. Les commandes `make setup`, `dev`, `test`, `e2e`, `check` et `report` utilisent un environnement local protégé. Le workflow GitHub a été ajouté mais n’a pas encore été exécuté à distance. Aucune vérification SSH, restauration de sauvegarde, observation sur 24 heures ni audit mobile complet n’a été réalisée pendant cette session.
 
-## Défauts confirmés ou à reproduire
+## Points restant à traiter
 
-- un doublon visible « Mike D » / « Mike D 5D » demande une règle conservatrice et un test ;
 - le MAD reste suivi mais sa publication automatique locale est désactivée tant que ses fiches liées sont illisibles ;
 - la sauvegarde hors VPS et la restauration ne sont pas encore prouvées.
 
 ## Prochaine étape
 
-Les lots L0, L1 et L2 sont terminés. La pull request correspondante a été fusionnée le 2 novembre 2026. Les deux premières étapes de L3 sont terminées sur une base isolée : Mike D est détecté puis ramené à la fiche officielle, avec preuves conservées et retour arrière. Les cas ambigus restent séparés. La prochaine étape est le contrôle ciblé de Taco's, sans campagne générale. Voir le [plan L3](PLAN_L3_QUALITE_DOUBLONS.md).
+Les lots L0 à L3 sont terminés localement. L3 rapproche le cas Mike D vers la fiche officielle sur une base isolée, conserve toutes les preuves et laisse les cas ambigus séparés. Le contrôle ciblé de Taco's confirme que l'horaire 20:26 est explicitement publié par la source officielle ; aucune correction n'est nécessaire. La prochaine préparation est L4, sans intervention sur le VPS avant autorisation explicite. Voir le [plan L3](PLAN_L3_QUALITE_DOUBLONS.md).
 
 Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLAN_IMPLEMENTATION.md). Le statut court se trouve dans [SUIVI_IMPLEMENTATION.md](SUIVI_IMPLEMENTATION.md).
 

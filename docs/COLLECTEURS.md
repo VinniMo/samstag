@@ -66,6 +66,7 @@ Aucune publication automatique attribuée à ces canaux dans l’instantané.
 ## Limites à connaître
 
 - Romandie : automatisation limitée aux soirées club. Vidy : sélection partielle avec confirmation des fiches.
+- Taco's : contrôle ciblé du 2 novembre 2026, les trois horaires 20:26 de « Combat de chiens » sont écrits ainsi dans la source officielle et sa description ; ils ne doivent pas être arrondis.
 - MAD : agenda accessible, mais les six fiches liées ont toutes échoué au contrôle ciblé du 2 novembre ; publication automatique locale désactivée. Bellevaux, Gosses du Québec et Bleu Lézard : programmes lus vides, sans conclusion de fermeture.
 - Lausanne Tourisme : seulement 40 fiches lues sur 1 148 liens repérés. L’Agenda : sélection filtrée et pagination bornée.
 - Barberousse : données structurées anciennes. Datcha, Captain Cook, Bruxelles Café, Ta Cave, Holy Monkey et Hungry Bear : qualification incomplète.

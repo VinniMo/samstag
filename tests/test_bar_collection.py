@@ -71,6 +71,12 @@ class QualityTest(unittest.TestCase):
 
 
 class AdapterTest(unittest.TestCase):
+    def test_tacos_preserves_explicit_atypical_source_time(self):
+        raw = "window.TACOS_EVENTS=[{date:'2026-11-18',time:'20:26',title:'Test synthétique',tag:'Impro'}];"
+        [row] = bar_adapters.parse_tacos(raw, "https://tacos-bar.ch/events", "https://tacos-bar.ch/events-data.js")
+        self.assertEqual(row["time"], "20:26")
+        self.assertEqual(row["start_at"], "2026-11-18T20:26:00+01:00")
+
     def test_tacos_does_not_guess_closing_offset_at_clock_change(self):
         raw = "window.TACOS_EVENTS=[{date:'2026-10-24',time:'21:00',end:'02:00',title:'Test',tag:'Live'}];"
         [row] = bar_adapters.parse_tacos(raw, "https://tacos-bar.ch/events", "https://tacos-bar.ch/events-data.js")

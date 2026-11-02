@@ -112,7 +112,7 @@ Réduire les doublons sans fusionner des représentations distinctes ni perdre l
 - [x] `L3.4` Mettre en revue les rapprochements ambigus au lieu de les fusionner automatiquement.
 - [x] `L3.5` Conserver toutes les URL de preuve après rapprochement.
 - [x] `L3.6` Ajouter un rapport des doublons probables sans modifier les données.
-- [ ] `L3.7` Contrôler à la source les horaires atypiques de Taco’s avant toute correction.
+- [x] `L3.7` Contrôler à la source les horaires atypiques de Taco’s avant toute correction.
 
 ### Critères de fin
 

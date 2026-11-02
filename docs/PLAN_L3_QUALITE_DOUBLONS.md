@@ -1,6 +1,6 @@
 # L3 — qualité et doublons
 
-**État au 2 novembre 2026 : étapes A et B terminées, étape C à démarrer.** Les rapprochements certains sont réversibles et les fiches d'origine restent conservées.
+**État au 2 novembre 2026 : L3 terminé.** Les rapprochements certains sont réversibles, les fiches d'origine restent conservées et l'horaire atypique de Taco's a été contrôlé à la source.
 
 ## Résultat attendu
 
@@ -23,7 +23,7 @@ Le cas de départ est le concert publié sous deux titres, « Mike D » par L'Ag
 |---|---|---|
 | A — Détecter — terminée | Reproduire Mike D avec une petite donnée de test, repérer les candidats qui partagent lieu, date et heure, produire un rapport sans modifier les données | Mike D détecté comme un groupe de deux fiches ; base isolée inchangée |
 | B — Décider — terminée | Identifier les cas certains, privilégier la source officielle, classer les cas ambigus et conserver tous les liens | Mike D n'apparaît plus deux fois sur la base isolée ; les exemples ambigus restent séparés |
-| C — Vérifier | Rejouer les contrôles sur une base isolée, mesurer les décisions automatiques et manuelles, puis contrôler Taco's séparément | Rapport final compréhensible, aucune perte de preuve, aucune fusion risquée |
+| C — Vérifier — terminée | Rejouer les contrôles sur une base isolée, mesurer les décisions automatiques et manuelles, puis contrôler Taco's séparément | Rapport final compréhensible, aucune perte de preuve, aucune fusion risquée |
 
 ## Décision pour un candidat
 
@@ -53,5 +53,11 @@ Le cas Mike D produit un groupe contenant deux fiches et leurs preuves. Un exemp
 
 La fiche officielle reste visible et récupère les liens de preuve des deux fiches. Les données d'origine ne sont ni modifiées ni supprimées. Si la fiche officielle n'est plus publiable ou si une passe ultérieure ne confirme plus la décision, l'autre fiche redevient visible. Les titres incompatibles, plusieurs fiches officielles ou tout autre doute restent séparés.
 
-118 tests réussissent. La prochaine session est l'étape C : contrôler Taco's séparément (`L3.7`), puis effectuer le bilan final L3. Aucun site n'a été contacté pendant les étapes A et B.
+118 tests réussissent. Aucun site n'a été contacté pendant les étapes A et B.
+
+## Résultat de la troisième session
+
+`L3.7` est terminé après une collecte limitée à Taco's dans une base isolée. La source officielle contient trois occurrences de « Combat de chiens », les 18 novembre 2026, 16 décembre 2026 et 20 janvier 2027, avec le champ `time` fixé à `20:26`. La description confirme aussi « Début des matchs à 20h26 ».
+
+L'horaire atypique est donc volontaire et reste inchangé. Un test protège désormais sa lecture exacte contre un futur arrondi. La passe ciblée a lu 64 entrées, dont 9 publiables selon les règles actuelles, sans candidat au doublon. Aucun autre site, aucune donnée réelle et aucun service distant n'ont été modifiés.
 

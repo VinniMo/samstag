@@ -396,3 +396,10 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Les rapprochements sont enregistrés à côté des fiches d'origine, jamais à leur place. La sortie publique privilégie l'officiel et réunit tous les liens de preuve. Si l'officiel n'est plus publiable ou si la décision n'est plus confirmée, l'autre fiche redevient visible.
 - Base SQLite isolée : Mike D passe de deux sorties à une fiche Docks, les deux observations restent présentes, puis le retour arrière restaure deux sorties. Titres incompatibles et concurrence officielle non rapprochés.
 - `make check` réussi avec 118 tests ; registres et syntaxe JavaScript valides. Tâches `L3.3` à `L3.5` terminées. Prochaine session bornée : `L3.7` Taco's, sans campagne générale. Aucun site contacté, accès VPS ou déploiement.
+
+
+## 2 novembre 2026 — troisième étape et clôture L3
+- Contrôle réseau limité à Taco's sur une base SQLite isolée. Une seule source a été appelée ; 64 entrées lues, 9 publiables selon les règles locales et aucun candidat au doublon. Aucun autre site n'a été relancé.
+- La preuve officielle `events-data.js?v=2026-10-06b` contient trois « Combat de chiens », les 18 novembre 2026, 16 décembre 2026 et 20 janvier 2027, avec `time: '20:26'`. Chaque description précise aussi « Début des matchs à 20h26 ».
+- Conclusion : l'horaire atypique est volontaire. Aucune correction ni arrondi appliqué. Un test synthétique protège la conservation exacte des minutes et la note du registre documente la décision.
+- `make check` réussi avec 119 tests ; registres et syntaxe JavaScript valides. L3 est terminé localement. Aucun accès VPS, changement de production, Render ou déploiement.
