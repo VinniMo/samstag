@@ -403,3 +403,38 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - La preuve officielle `events-data.js?v=2026-10-06b` contient trois « Combat de chiens », les 18 novembre 2026, 16 décembre 2026 et 20 janvier 2027, avec `time: '20:26'`. Chaque description précise aussi « Début des matchs à 20h26 ».
 - Conclusion : l'horaire atypique est volontaire. Aucune correction ni arrondi appliqué. Un test synthétique protège la conservation exacte des minutes et la note du registre documente la décision.
 - `make check` réussi avec 119 tests ; registres et syntaxe JavaScript valides. L3 est terminé localement. Aucun accès VPS, changement de production, Render ou déploiement.
+
+
+## 2 novembre 2026 — préparation L4 sans accès VPS
+- Branche `codex/l4-operations-plan` créée depuis `main` après la fusion du L3. Lecture des procédures, unités, sauvegarde locale, route `/api/refresh`, configuration de session et retours utilisateurs ; aucun état distant supposé vérifié.
+- Plan L4 découpé en six étapes : sécurité locale, reprise isolée, surveillance, constat VPS en lecture seule, application autorisée et preuve finale. Le constat distant et les modifications demandent deux autorisations distinctes.
+- Cibles proposées : RPO 24 heures et RTO 4 heures, à confirmer par restauration chronométrée. Les preuves excluent secrets, bases réelles et contenu des retours.
+- Première session recommandée : protéger `/api/refresh` dans Flask et la tester localement. Aucun accès VPS, collecte réelle, restauration de production, alerte ou déploiement effectué.
+
+
+## 2 novembre 2026 — étape A L4 terminée localement
+- `/api/refresh` n'accepte plus GET. POST répond 404 par défaut et ne peut atteindre le collecteur que si `MANUAL_REFRESH_ENABLED=1` et un secret dédié d'au moins 32 caractères correspondent en temps constant.
+- Les exemples d'environnement gardent cette route désactivée. L'exemple serveur indique `COOKIE_SECURE=1` et rappelle que la clé de session reste dans le fichier privé, sans valeur versionnée.
+- Trois tests locaux vérifient la désactivation, les configurations incomplètes, le mauvais secret et le chemin autorisé avec collecteur simulé. `make check` réussit avec 122 tests ; registres et syntaxe JavaScript valides. Aucun site n'est contacté par ces tests.
+- Prochaine session : étape B, sauvegarde et restauration dans un dossier isolé. Aucun accès VPS, changement de production, secret, collecte réelle ou déploiement.
+
+
+## 2 novembre 2026 — étape B L4 terminée localement
+- `backup.py` accepte des chemins explicites tout en conservant les chemins VPS par défaut. Copie SQLite cohérente, intégrité, comptages, empreinte, permissions 0640 et rétention ciblée sont contrôlés sans exposer de contenu privé.
+- `restore_check.py` restaure uniquement vers un nouveau fichier, refuse tout écrasement et vérifie la copie. Une base fictive contenant un événement synthétique est sauvegardée, restaurée puis relue par `db.py` ; aucune base réelle utilisée. `make check` réussit avec 125 tests, registres et syntaxe JavaScript valides.
+- Objectifs de travail fixés à RPO 24 h et RTO 4 h, à confirmer par un exercice distant chronométré. Modèle de journal ajouté pour relier commit, sauvegarde, vérifications et retour arrière.
+- Prochaine session : étape C, alertes, copie externe chiffrée et conservation des retours. Aucun accès VPS, sauvegarde de production, transfert externe ou déploiement.
+
+
+## 2 novembre 2026 — étape C L4 terminée localement
+- `operations_report.py` calcule sans réseau les alertes des sources automatiques : erreur courante, attention après 18 heures sans réussite, critique à 24 heures. La dernière sauvegarde passe en attention à 20 heures et critique à 24 heures.
+- Politique locale : copie quotidienne chiffrée avant transfert vers un stockage objet privé distinct du VPS, 30 quotidiennes et 12 mensuelles ; boîte e-mail d'exploitation privée et second canal à confirmer avant activation.
+- Retours : accès administratif seulement, lecture hebdomadaire, suppression sous 90 jours après résolution, réévaluation à 12 mois. L'automatisation de purge attend une migration SQLite versionnée ; aucune donnée supprimée.
+- Tests entièrement synthétiques ; `make check` réussit avec 129 tests, registres et syntaxe JavaScript valides. Aucun message envoyé, transfert externe, fournisseur, compte privé, accès VPS ou déploiement. Prochaine action : contrôle final local et pull request des étapes A–C.
+
+
+## 2 novembre 2026 — contrôle final local L4 A–C
+- Branche comparée à `main` : quatre commits cohérents couvrent la préparation, la route administrative, la reprise isolée et les alertes. Arbre de travail propre avant publication de la pull request.
+- `make check` rejoué : 129 tests réussis, registres et syntaxe JavaScript valides. Différences sans erreur de format ; recherche ciblée sans clé privée, jeton réel, mot de passe ou base versionnée.
+- Revue manuelle : route refusée avant toute collecte, restauration sans écrasement, rapport d'alerte sans envoi ni collecte. Aucune anomalie bloquante trouvée.
+- Aucun accès VPS, sauvegarde réelle, transfert, message ou déploiement. Après fusion et réussite GitHub, le constat VPS en lecture seule demandera une autorisation explicite distincte.

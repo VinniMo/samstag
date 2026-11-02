@@ -1,0 +1,24 @@
+flowchart TD
+    A[Préparation locale] --> B[Sécuriser la route administrative]
+    B --> C[Test de sauvegarde et restauration isolée]
+    C --> D[Définir alertes, rétention et copie chiffrée]
+    D --> P[Contrôle local et pull request]
+    P --> E{Autorisation de contrôle VPS ?}
+    E -->|Non| W[Attendre sans modifier le serveur]
+    E -->|Oui| F[Constat distant en lecture seule]
+    F --> G{Autorisation de modification ?}
+    G -->|Non| W
+    G -->|Oui| H[Sauvegarder puis appliquer]
+    H --> I[Restaurer une copie isolée]
+    I --> J[Test d'alerte reçu]
+    J --> K[Journal et bilan L4]
+
+    classDef done fill:#d9f2e6,stroke:#176449,color:#151515
+    classDef ready fill:#dce8f7,stroke:#244bc0,color:#151515
+    classDef approval fill:#fff0b3,stroke:#8a6d00,color:#151515
+    classDef future fill:#f1f0ec,stroke:#77736a,color:#151515
+
+    class A,B,C,D done
+    class P ready
+    class E,G approval
+    class F,H,I,J,K,W future

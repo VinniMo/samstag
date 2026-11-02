@@ -116,6 +116,8 @@ def create_app() -> Flask:
     auth_enabled = bool(
         os.environ.get("BASIC_AUTH_USER") and os.environ.get("BASIC_AUTH_PASS")
     )
+    manual_refresh_enabled = os.environ.get("MANUAL_REFRESH_ENABLED") == "1"
+    manual_refresh_token = os.environ.get("SAMSTAG_REFRESH_TOKEN", "")
 
     @app.before_request
     def gate():
@@ -168,8 +170,18 @@ def create_app() -> Flask:
             "all": list(config.CATEGORIES),
         })
 
-    @app.route("/api/refresh", methods=["POST", "GET"])
+    @app.post("/api/refresh")
     def api_refresh():
+        # The scheduled worker is the normal collection path. Manual refresh is
+        # disabled by default and requires a separate secret when explicitly
+        # enabled, so bypassing the reverse proxy cannot start a collection.
+        if not manual_refresh_enabled or len(manual_refresh_token) < 32:
+            return jsonify({"error": "Route indisponible."}), 404
+        supplied = request.headers.get("X-Samstag-Refresh-Token", "")
+        if not supplied or not secrets.compare_digest(
+            supplied.encode("utf-8"), manual_refresh_token.encode("utf-8")
+        ):
+            return jsonify({"error": "Accès refusé."}), 403
         try:
             count = scraper.refresh_database()
             return jsonify({

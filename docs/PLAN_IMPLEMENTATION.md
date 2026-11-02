@@ -23,7 +23,7 @@ Ce plan découle de l’[audit du 1er novembre](audits/AUDIT_2026-11-01.md). Il 
 | L1 | Environnement local et CI reproductibles | L0 | Terminé |
 | L2 | Diagnostics de collecte fiables | L1 | Terminé |
 | L3 | Qualité des événements et dédoublonnage | L2 | Prêt |
-| L4 | Exploitation, sauvegardes et alertes prouvées | L1, L2 | À faire |
+| L4 | Exploitation, sauvegardes et alertes prouvées | L1, L2 | Préparé |
 | L5 | Architecture interne progressivement clarifiée | L1 à L4 | À faire |
 | L6 | Performance, SEO et accessibilité mesurés | L3 | À faire |
 
@@ -129,15 +129,16 @@ Prouver que le service peut être surveillé, sauvegardé et restauré sans dép
 
 ### Tâches
 
+- [x] `L4.0` Préparer l'ordre d'exécution, les autorisations et les preuves dans [PLAN_L4_EXPLOITATION.md](PLAN_L4_EXPLOITATION.md).
 - [ ] `L4.1` Vérifier sur le VPS les unités, versions, variables non secrètes et empreintes réellement actives.
 - [ ] `L4.2` Confirmer une clé de session persistante et `COOKIE_SECURE=1` sans révéler les secrets.
-- [ ] `L4.3` Désactiver ou authentifier `/api/refresh` dans Flask, en plus du blocage Nginx.
+- [x] `L4.3` Désactiver et authentifier `/api/refresh` dans Flask, en plus du blocage Nginx. Code local testé ; livraison distante non effectuée.
 - [ ] `L4.4` Automatiser une copie chiffrée hors VPS avec rétention définie.
-- [ ] `L4.5` Tester une restauration dans un fichier isolé : intégrité, comptages et lecture applicative.
-- [ ] `L4.6` Définir RPO, RTO et procédure de retour arrière.
+- [x] `L4.5` Tester localement une restauration dans un fichier isolé : intégrité, comptages et lecture applicative. Exercice distant encore requis.
+- [x] `L4.6` Définir RPO 24 h, RTO 4 h et procédure de retour arrière ; mesure distante encore requise.
 - [ ] `L4.7` Alerter avant que les événements d’une source importante deviennent invisibles après 24 heures.
-- [ ] `L4.8` Définir la conservation et l’accès aux retours utilisateurs.
-- [ ] `L4.9` Documenter un journal de livraison : commit, sauvegarde, vérifications et rollback.
+- [x] `L4.8` Définir la conservation et l’accès aux retours utilisateurs. Automatisation après migration SQLite versionnée.
+- [x] `L4.9` Documenter un journal de livraison : commit, sauvegarde, vérifications et rollback.
 
 ### Critères de fin
 
