@@ -11,6 +11,7 @@ Commencer par [Se repérer](SE_REPERER.md), [État actuel](ETAT_ACTUEL.md) ou [C
 | [ETAT_ACTUEL.md](ETAT_ACTUEL.md) | état courant, limites et prochaine étape |
 | [PLAN_IMPLEMENTATION.md](PLAN_IMPLEMENTATION.md) | lots, tâches et critères de fin |
 | [PLAN_L3_QUALITE_DOUBLONS.md](PLAN_L3_QUALITE_DOUBLONS.md) | déroulement simple et contrôles du lot L3 |
+| [PLAN_L4_EXPLOITATION.md](PLAN_L4_EXPLOITATION.md) | sauvegardes, restauration, alertes et autorisations du lot L4 |
 | [SUIVI_IMPLEMENTATION.md](SUIVI_IMPLEMENTATION.md) | avancement court et journal des lots |
 | [EXPLOITATION.md](EXPLOITATION.md) | contrôles, livraison et retour arrière |
 | [DEVELOPPEMENT.md](DEVELOPPEMENT.md) | environnement local, commandes, verrous et CI |
@@ -24,6 +25,7 @@ Commencer par [Se repérer](SE_REPERER.md), [État actuel](ETAT_ACTUEL.md) ou [C
 - [development-workflow.mmd](diagrams/development-workflow.mmd) : cycle d’une tâche ;
 - [target-architecture.mmd](diagrams/target-architecture.mmd) : architecture cible progressive.
 - [l3-deduplication.mmd](diagrams/l3-deduplication.mmd) : décision prudente face à deux fiches probablement identiques.
+- [l4-operations.mmd](diagrams/l4-operations.mmd) : étapes locales, autorisations et preuves d'exploitation.
 
 ## Documents historiques
 

@@ -403,3 +403,10 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - La preuve officielle `events-data.js?v=2026-10-06b` contient trois « Combat de chiens », les 18 novembre 2026, 16 décembre 2026 et 20 janvier 2027, avec `time: '20:26'`. Chaque description précise aussi « Début des matchs à 20h26 ».
 - Conclusion : l'horaire atypique est volontaire. Aucune correction ni arrondi appliqué. Un test synthétique protège la conservation exacte des minutes et la note du registre documente la décision.
 - `make check` réussi avec 119 tests ; registres et syntaxe JavaScript valides. L3 est terminé localement. Aucun accès VPS, changement de production, Render ou déploiement.
+
+
+## 2 novembre 2026 — préparation L4 sans accès VPS
+- Branche `codex/l4-operations-plan` créée depuis `main` après la fusion du L3. Lecture des procédures, unités, sauvegarde locale, route `/api/refresh`, configuration de session et retours utilisateurs ; aucun état distant supposé vérifié.
+- Plan L4 découpé en six étapes : sécurité locale, reprise isolée, surveillance, constat VPS en lecture seule, application autorisée et preuve finale. Le constat distant et les modifications demandent deux autorisations distinctes.
+- Cibles proposées : RPO 24 heures et RTO 4 heures, à confirmer par restauration chronométrée. Les preuves excluent secrets, bases réelles et contenu des retours.
+- Première session recommandée : protéger `/api/refresh` dans Flask et la tester localement. Aucun accès VPS, collecte réelle, restauration de production, alerte ou déploiement effectué.

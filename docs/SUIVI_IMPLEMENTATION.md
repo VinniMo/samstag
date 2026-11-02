@@ -10,21 +10,21 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | L1 — Développement et CI | Codex | Terminé | Maintenir les verrous et la CI | `make check` et 85 E2E réussis le 1er novembre 2026 |
 | L2 — Diagnostics collecte | Codex | Terminé | Maintenir le tableau lors des évolutions de lecteurs | 114 tests et contrôle MAD ciblé du 2 novembre 2026 |
 | L3 — Qualité et doublons | Codex | Terminé | Maintenir les règles et preuves lors des évolutions | Taco's contrôlé à la source et 119 tests le 2 novembre 2026 |
-| L4 — Exploitation | À attribuer | À faire | Préparer le contrôle VPS et la restauration | Procédures versionnées, état distant non audité par SSH |
+| L4 — Exploitation | Codex | Préparé | Sécuriser localement la route administrative | Plan L4 et séparation des autorisations du 2 novembre 2026 |
 | L5 — Architecture interne | Codex | Pilote local terminé | R2 : CityClub ; suite globale dépend de L2–L4 | Bilan R0–R1 du 2 novembre, 109 tests |
 | L6 — Produit et performance | À attribuer | À faire | Livrer et mesurer la couverture diurne (`L6.1`) | Décision utilisateur du 1er novembre 2026 |
 
 ## En cours
 
-- Aucun lot de collecte ou de qualité n'est en cours.
+- L4 est préparé localement ; aucune action distante n'a été effectuée.
 
 ## Prêt à démarrer
 
-- [ ] Préparer L4 sans intervenir sur le VPS avant autorisation explicite.
+- [ ] Étape A de L4 : sécuriser `/api/refresh` et ajouter les tests, uniquement en local.
 
 ## Bloqué ou soumis à décision
 
-- [ ] `L4.1` à `L4.9` — les vérifications et changements sur le VPS restent soumis à l’autorisation applicable.
+- [ ] Le constat VPS en lecture seule puis toute modification distante demanderont deux autorisations séparées.
 - Décision `L6.1` actée : inclure les événements diurnes ; code local implémenté, livraison et mesure réelle à faire.
 
 ## Terminé
@@ -41,6 +41,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 - [x] `L3.1`, `L3.2` et `L3.6` Fixture Mike D, détection par lieu/date/heure et rapport en lecture seule.
 - [x] `L3.3` à `L3.5` Priorité officielle, cas ambigus séparés, preuves conservées et retour arrière.
 - [x] `L3.7` Horaire 20:26 de Taco's confirmé dans la source officielle et conservé sans correction.
+- [x] `L4.0` Plan d'exploitation, preuves attendues et points d'autorisation préparés sans accès VPS.
 
 ## Journal
 
@@ -54,6 +55,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | 2026-11-02 | Première étape L3 : détection sans fusion | Mike D détecté ; base isolée inchangée ; 116 tests réussis | Le rapport signale des candidats mais ne décide encore aucun rapprochement |
 | 2026-11-02 | Deuxième étape L3 : décisions conservatrices | Mike D réduit à une fiche officielle sur base isolée ; preuves et fiches d'origine conservées ; 118 tests | Aucun rapprochement appliqué aux données réelles ; Taco's reste à contrôler séparément |
 | 2026-11-02 | Troisième étape et clôture L3 : contrôle Taco's | Trois occurrences à 20:26 confirmées dans la source officielle ; base isolée ; 119 tests | Aucun autre site contrôlé, aucune donnée réelle ni production modifiée |
+| 2026-11-02 | Préparation L4 : reprise et exploitation | Risques, six étapes, preuves et autorisations séparées documentés | Aucun accès VPS, restauration réelle, alerte ou déploiement |
 
 ## Modèle d’entrée de journal
 

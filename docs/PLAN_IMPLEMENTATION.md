@@ -23,7 +23,7 @@ Ce plan découle de l’[audit du 1er novembre](audits/AUDIT_2026-11-01.md). Il 
 | L1 | Environnement local et CI reproductibles | L0 | Terminé |
 | L2 | Diagnostics de collecte fiables | L1 | Terminé |
 | L3 | Qualité des événements et dédoublonnage | L2 | Prêt |
-| L4 | Exploitation, sauvegardes et alertes prouvées | L1, L2 | À faire |
+| L4 | Exploitation, sauvegardes et alertes prouvées | L1, L2 | Préparé |
 | L5 | Architecture interne progressivement clarifiée | L1 à L4 | À faire |
 | L6 | Performance, SEO et accessibilité mesurés | L3 | À faire |
 
@@ -129,6 +129,7 @@ Prouver que le service peut être surveillé, sauvegardé et restauré sans dép
 
 ### Tâches
 
+- [x] `L4.0` Préparer l'ordre d'exécution, les autorisations et les preuves dans [PLAN_L4_EXPLOITATION.md](PLAN_L4_EXPLOITATION.md).
 - [ ] `L4.1` Vérifier sur le VPS les unités, versions, variables non secrètes et empreintes réellement actives.
 - [ ] `L4.2` Confirmer une clé de session persistante et `COOKIE_SECURE=1` sans révéler les secrets.
 - [ ] `L4.3` Désactiver ou authentifier `/api/refresh` dans Flask, en plus du blocage Nginx.
