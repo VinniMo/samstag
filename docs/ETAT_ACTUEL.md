@@ -1,6 +1,6 @@
 # État actuel de Samstag
 
-**Référence réécrite le 1er novembre 2026.** Ce document est le point d’entrée pour reprendre le projet. La passation conserve l’historique détaillé ; ce fichier décrit uniquement l’état courant vérifié ou explicitement limité.
+**Référence mise à jour le 2 novembre 2026.** Ce document est le point d’entrée pour reprendre le projet. La passation conserve l’historique détaillé ; ce fichier décrit uniquement l’état courant vérifié ou explicitement limité.
 
 ## Références
 
@@ -9,9 +9,9 @@
 | Site public | [samstagloz.ch](https://samstagloz.ch) |
 | Production de référence | application Flask sur VPS Infomaniak |
 | Dépôt | `https://github.com/VinniMo/samstag.git` |
-| Branche locale auditée | `chore/samstag-full-rename-20261101` |
-| HEAD local au contrôle | `dd49073` |
-| Commit déployé documenté | `ed42492` ; non revérifié par SSH dans cette session |
+| Branche locale auditée | `codex/l4-vps-readonly-audit` |
+| HEAD de départ | `5722569`, fusion de la PR L4 A–C |
+| Commit déployé vérifié | `ed42492`, confirmé par quatre empreintes le 2 novembre |
 | Autre application | `VinniMo/lausanne-events` / Vercel, hors production Samstag |
 
 ## Instantané public contrôlé
@@ -49,18 +49,19 @@ Bars, clubs, concerts, spectacles et cinéma ; Lausanne et communes immédiateme
 - CSS et JavaScript publics identiques aux fichiers locaux par empreinte ;
 - réponses publiques et comptages archivés dans l’audit.
 
-Python 3.12 est la référence reproductible. Les commandes `make setup`, `dev`, `test`, `e2e`, `check` et `report` utilisent un environnement local protégé. Le workflow GitHub a été ajouté mais n’a pas encore été exécuté à distance. Aucune vérification SSH, restauration de sauvegarde, observation sur 24 heures ni audit mobile complet n’a été réalisée pendant cette session.
+Python 3.12 est la référence reproductible. Les commandes `make setup`, `dev`, `test`, `e2e`, `check` et `report` utilisent un environnement local protégé. Le workflow GitHub est actif. Le 2 novembre, un contrôle SSH en lecture seule a confirmé Python 3.12.3, le service, HTTPS, la session, le cookie sécurisé et la sauvegarde quotidienne. Aucune restauration distante, observation sur 24 heures ni audit mobile complet n'a été réalisé.
 
 ## Points restant à traiter
 
 - le MAD reste suivi mais sa publication automatique locale est désactivée tant que ses fiches liées sont illisibles ;
-- la sauvegarde hors VPS et la restauration ne sont pas encore prouvées.
+- la sauvegarde locale est intègre, mais la copie hors VPS et la restauration distante ne sont pas encore prouvées ;
+- la production exécute encore `ed42492` : la protection Flask et les changements L2–L4 fusionnés ne sont pas encore livrés.
 
 ## Prochaine étape
 
 Les lots L0 à L3 sont terminés localement. L3 rapproche le cas Mike D vers la fiche officielle sur une base isolée, conserve toutes les preuves et laisse les cas ambigus séparés. Le contrôle ciblé de Taco's confirme que l'horaire 20:26 est explicitement publié par la source officielle ; aucune correction n'est nécessaire.
 
-L4 est préparé et ses étapes A–C sont terminées et contrôlées localement, sans intervention sur le VPS. La route administrative est protégée, la restauration isolée est testable et les seuils d'alerte ainsi que les règles de conservation sont définis. La branche est prête pour sa pull request. Le constat distant en lecture seule et les éventuelles modifications du serveur feront ensuite l'objet de deux autorisations séparées. Voir le [plan L4](PLAN_L4_EXPLOITATION.md).
+L4 est préparé, ses étapes A–C sont fusionnées et l'étape D est contrôlée en lecture seule. La production est saine, mais elle utilise encore l'ancienne version : Nginx bloque la route administrative, tandis que la protection Flask fusionnée n'est pas déployée. Les sauvegardes locales sont actives et intègres ; la copie externe, la restauration chronométrée et l'alerte reçue restent à prouver. La prochaine action est de préparer localement le lot de livraison et son retour arrière. Toute modification du serveur demandera une nouvelle autorisation. Voir le [plan L4](PLAN_L4_EXPLOITATION.md) et le [rapport VPS](audits/L4_VPS_LECTURE_SEULE_2026-11-02.md).
 
 Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLAN_IMPLEMENTATION.md). Le statut court se trouve dans [SUIVI_IMPLEMENTATION.md](SUIVI_IMPLEMENTATION.md).
 

@@ -130,8 +130,8 @@ Prouver que le service peut être surveillé, sauvegardé et restauré sans dép
 ### Tâches
 
 - [x] `L4.0` Préparer l'ordre d'exécution, les autorisations et les preuves dans [PLAN_L4_EXPLOITATION.md](PLAN_L4_EXPLOITATION.md).
-- [ ] `L4.1` Vérifier sur le VPS les unités, versions, variables non secrètes et empreintes réellement actives.
-- [ ] `L4.2` Confirmer une clé de session persistante et `COOKIE_SECURE=1` sans révéler les secrets.
+- [x] `L4.1` Vérifier sur le VPS les unités, versions, variables non secrètes et empreintes réellement actives. Contrôle en lecture seule du 2 novembre : service sain, version `ed42492` identifiée par empreintes.
+- [x] `L4.2` Confirmer une clé de session persistante et `COOKIE_SECURE=1` sans révéler les secrets. Les deux sont configurés ; aucune valeur secrète n'a été lue ni consignée.
 - [x] `L4.3` Désactiver et authentifier `/api/refresh` dans Flask, en plus du blocage Nginx. Code local testé ; livraison distante non effectuée.
 - [ ] `L4.4` Automatiser une copie chiffrée hors VPS avec rétention définie.
 - [x] `L4.5` Tester localement une restauration dans un fichier isolé : intégrité, comptages et lecture applicative. Exercice distant encore requis.
