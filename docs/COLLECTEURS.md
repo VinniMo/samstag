@@ -81,6 +81,6 @@ Pour consulter un rapport local sans contacter les sites : `make report`. Pour d
 
 La priorité reste de fiabiliser les diagnostics, réparer les sources en panne et mesurer les programmes réellement couverts avant d’annoncer une couverture exhaustive.
 
-## Où trouver le lecteur Vidy ?
+## Où trouver les lecteurs déjà réorganisés ?
 
-Depuis le 2 novembre 2026, son implémentation est dans [samstag/collection/adapters/vidy.py](../samstag/collection/adapters/vidy.py). Les autres lecteurs restent dans les modules racine. Voir le [bilan du déplacement](audits/REORGANISATION_R0_R1_2026-11-02.md). Aucun changement de programme extrait ni livraison en production.
+Vidy se trouve dans [vidy.py](../samstag/collection/adapters/vidy.py) et CityClub dans [cityclub.py](../samstag/collection/adapters/cityclub.py). Les imports historiques restent compatibles pendant la migration. Les autres lecteurs restent dans les modules racine. Voir les bilans [R0–R1](audits/REORGANISATION_R0_R1_2026-11-02.md) et [CityClub](audits/REORGANISATION_R2_CITYCLUB_2026-11-09.md). Aucun changement de programme extrait ni livraison en production.

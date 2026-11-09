@@ -5,6 +5,7 @@ from unittest.mock import Mock, patch
 from bs4 import BeautifulSoup
 
 from expanded_adapters import parse_folklor, parse_cityclub, parse_naftule, parse_boulimie, parse_mad_ticket, parse_pulloff, collect_grange, collect_lagenda, collect_expanded
+from samstag.collection.adapters.cityclub import parse_cityclub as packaged_parse_cityclub
 from collection_worker import serve
 
 
@@ -13,6 +14,9 @@ def soup(value):
 
 
 class ExpandedReadersTest(unittest.TestCase):
+    def test_cityclub_legacy_import_is_the_packaged_adapter(self):
+        self.assertIs(parse_cityclub, packaged_parse_cityclub)
+
     def test_pulloff_cross_year_schedule_only_uses_published_weekdays(self):
         page = '<div class="siteorigin-widget-tinymce"><h1>Test</h1><h2>30.12 — 03.01.2027</h2><p>me/je: 20h30</p></div>'
         rows = parse_pulloff(soup(page), 'https://www.pulloff.ch/test/')
@@ -44,11 +48,37 @@ class ExpandedReadersTest(unittest.TestCase):
             parse_folklor(soup('<h1>Site en maintenance</h1>'), 'https://www.folklor.club/events/')
 
     def test_cityclub_sessions_keep_their_year_and_identity_across_new_year(self):
-        page = '<div class="action" data-idaction="1"><h4>Film 1971</h4><div class="projections"><a href="https://cityclub.ticketack.com/screening/buy/a">ve 31.12 / 20h30</a><a href="https://cityclub.ticketack.com/screening/buy/b">sa 1.1 / 18h</a></div></div>'
+        page = '''<div class="action" data-idaction="1"><h4>Film 1971</h4>
+            <img class="localVignette" src="/images/film.jpg"><div class="description">Présentation officielle</div>
+            <div class="projections"><a href="https://cityclub.ticketack.com/screening/buy/a">ve 31.12 / 20h30</a>
+            <a href="https://cityclub.ticketack.com/screening/buy/b">sa 1.1 / 18h</a>
+            <a href="https://cityclub.ticketack.com/screening/buy/ignored">di 2.3 / 17h</a></div></div>'''
         a,b = parse_cityclub(soup(page), 'https://www.cityclubpully.ch/affiche/2026-12-00')
         self.assertEqual((a['date'],b['date']), ('2026-12-31','2027-01-01'))
         self.assertNotEqual(a['source_event_key'], b['source_event_key'])
-        self.assertEqual(a['municipality'], 'Pully')
+        self.assertEqual(
+            {key: a[key] for key in (
+                'title', 'url', 'evidence_url', 'location', 'municipality',
+                'event_kind', 'category', 'adapter', 'date', 'time',
+                'start_at', 'description', 'image', 'source_event_key',
+            )},
+            {
+                'title': 'Film 1971',
+                'url': 'https://cityclub.ticketack.com/screening/buy/a',
+                'evidence_url': 'https://www.cityclubpully.ch/affiche/2026-12-00',
+                'location': 'Cinéma CityClub', 'municipality': 'Pully',
+                'event_kind': 'ScreeningEvent', 'category': 'Cinéma',
+                'adapter': 'official-programme-v3', 'date': '2026-12-31',
+                'time': '20:30', 'start_at': '2026-12-31T20:30:00+01:00',
+                'description': 'Présentation officielle',
+                'image': 'https://www.cityclubpully.ch/images/film.jpg',
+                'source_event_key': 'https://cityclub.ticketack.com/screening/buy/a',
+            },
+        )
+
+    def test_cityclub_rejects_a_page_without_a_monthly_programme(self):
+        with self.assertRaises(ValueError):
+            parse_cityclub(soup('<h1>Maintenance</h1>'), 'https://www.cityclubpully.ch/')
 
     def test_naftule_separates_performances_on_same_ticket_page(self):
         card = '<li data-show="test" data-genres="humour"><span>20H30</span><h3><a href="https://monbillet.ch/events/test">Spectacle</a></h3></li>'

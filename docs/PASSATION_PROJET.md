@@ -482,3 +482,10 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - La règle reste bornée : accès et analyse doivent être `ok` pour renouveler la fraîcheur ; une couverture partielle est admise, une erreur réelle ne renouvelle pas l'heure de réussite. L'ancien historique réussi reste pris en compte.
 - Vérifications : 7 tests ciblés de `tests.test_operations_report`, puis `make check` avec 134 tests réussis, 39 sources/159 lieux/28 bars validés et syntaxe JavaScript valide.
 - Aucun accès VPS, collecte réelle, envoi, activation d'alerte, changement Render ou déploiement. Prochaine action : publier et fusionner la branche revue ; toute livraison VPS reste une étape séparée soumise à autorisation explicite.
+
+
+## 9 novembre 2026 — réorganisation L5/R2 CityClub
+- Branche `codex/l5-r2-cityclub` créée depuis `main` après la fusion de la PR L4 no 14. Sous-lot limité au déplacement du lecteur CityClub, sans réparation de source.
+- `parse_cityclub` vit dans `samstag/collection/adapters/cityclub.py`. `expanded_adapters.py` le réexporte et son dispatch utilise le même objet, afin de préserver les anciens consommateurs.
+- Fixtures renforcées : tous les champs d'une séance, passage décembre–janvier, identité de billetterie, mois non annoncé ignoré et structure invalide refusée. Trois tests ciblés puis `make check` réussis avec 136 tests, registres et JavaScript valides.
+- Aucun appel au site, aucune collecte réelle, base, interface, VPS, Render ou production modifiés. Prochaine étape autonome : R2 Naftule/Boulimie. Preuve : `docs/audits/REORGANISATION_R2_CITYCLUB_2026-11-09.md`.
