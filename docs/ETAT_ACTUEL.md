@@ -65,6 +65,6 @@ L4 a livré son sous-lot applicatif le 2 novembre après sauvegarde et restaurat
 
 Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLAN_IMPLEMENTATION.md). Le statut court se trouve dans [SUIVI_IMPLEMENTATION.md](SUIVI_IMPLEMENTATION.md).
 
-## Réorganisation locale — 2 novembre 2026
+## Réorganisation locale — 9 novembre 2026
 
-R0 et R1 sont terminés : le lecteur Vidy est dans `samstag/collection/adapters/vidy.py`, avec anciens imports compatibles. Les autres modules restent à la racine. 109 tests passent et les scénarios Vidy donnent des résultats identiques avant/après. Suite : R2, CityClub. Aucun changement serveur ; les prérequis L2–L4 ne sont pas déclarés achevés. Voir le [bilan](audits/REORGANISATION_R0_R1_2026-11-02.md).
+R0 et R1 sont terminés ; R2 avance par lecteur. Vidy et CityClub sont dans `samstag/collection/adapters/`, avec anciens imports compatibles. Les autres modules restent à la racine. Le sous-lot CityClub conserve les champs et refus sur fixtures ; 136 tests passent. Suite : R2, Naftule/Boulimie. Aucun changement serveur. Voir les bilans [R0–R1](audits/REORGANISATION_R0_R1_2026-11-02.md) et [CityClub](audits/REORGANISATION_R2_CITYCLUB_2026-11-09.md).

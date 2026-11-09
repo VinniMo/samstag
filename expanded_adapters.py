@@ -18,6 +18,12 @@ from collection_result import CollectionResult
 from venue_adapters import MONTHS, clock, dotted_day, set_start, text
 
 
+# Compatibility import during the incremental package migration. The dispatch
+# below and older callers use this name; the implementation now lives in the
+# named adapter module.
+from samstag.collection.adapters.cityclub import parse_cityclub
+
+
 def french_day(value):
     match = re.search(r"\b(\d{1,2})(?:er)?\s+(\w+)\s+(\d{4})\b", fold(value))
     if match and match[2] in MONTHS:
@@ -81,41 +87,6 @@ def parse_naftule(soup, url):
             # Ticket page is a series: each performance keeps its own identity.
             image = card.select_one("img[src]")
             event["image"] = urljoin(url, image["src"]) if image else ""
-            events.append(event)
-    return events
-
-
-def parse_cityclub(soup, url):
-    match = re.search(r"/affiche/(\d{4})-(\d{2})-00/?$", urlparse(url).path)
-    cards = soup.select(".action[data-idaction]")
-    if not match or not cards:
-        raise ValueError("Programme mensuel CityClub absent ou structure modifiée")
-    year, month = int(match[1]), int(match[2])
-    events = []
-    for card in cards:
-        title = text(card, "h4")
-        if not title:
-            continue
-        for session in card.select(".projections a[href]"):
-            found = re.search(r"\b(\d{1,2})\.(\d{1,2})\s*/\s*(\d{1,2}h\d{0,2})\b", session.get_text(" ", strip=True))
-            if not found:
-                continue
-            # The monthly programme can explicitly list next-month sessions.
-            session_month = int(found[2])
-            if session_month not in {month, month % 12 + 1}:
-                continue
-            try:
-                day = date(year + int(month == 12 and session_month == 1), session_month, int(found[1]))
-            except ValueError:
-                continue
-            target = urljoin(url, session["href"])
-            event = event_at(title, target, url, "Cinéma CityClub", "ScreeningEvent", "Cinéma")
-            event["municipality"] = "Pully"
-            set_start(event, day, clock(found[3]))
-            event["description"] = text(card, ".description")[:400]
-            image = card.select_one("img.localVignette[src]")
-            event["image"] = urljoin(url, image["src"]) if image else ""
-            event["source_event_key"] = target
             events.append(event)
     return events
 

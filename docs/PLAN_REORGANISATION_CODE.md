@@ -1,12 +1,12 @@
 # Plan d’action — réorganisation du code Samstag
 
-**Préparé le 1er novembre 2026, actualisé le 2 novembre. Statut : R0 et pilote R1 terminés localement ; R2 à R7 restent à faire.**
+**Préparé le 1er novembre 2026, actualisé le 9 novembre. Statut : R0, R1 et le sous-lot R2 CityClub sont terminés localement ; R2 continue par petits lots.**
 
 ## Objectif pour vous
 
 Pouvoir retrouver un collecteur par son nom, distinguer le site des règles de publication et comprendre où intervenir. Le [guide du dossier](SE_REPERER.md) restera l’entrée simple ; ce document décrit les travaux techniques du troisième point.
 
-Les deux premières étapes de rangement sont faites : documentation accessible et archives regroupées. La plupart du code Python reste à la racine ; le lecteur Vidy est maintenant dans `samstag/collection/adapters/vidy.py`.
+Les deux premières étapes de rangement sont faites : documentation accessible et archives regroupées. La plupart du code Python reste à la racine ; les lecteurs Vidy et CityClub sont maintenant dans `samstag/collection/adapters/`.
 
 ## Périmètre et ordre de départ
 
@@ -111,11 +111,11 @@ R1 à R6 ne nécessitent aucune modification du VPS. Pour R7, sauvegarder code e
 | Plan | Prêt | Document relu, liens locaux vérifiés |
 | R0 | Terminé localement | [Bilan R0–R1](audits/REORGANISATION_R0_R1_2026-11-02.md) |
 | R1 | Terminé localement | 109 tests ; équivalence Vidy avant/après |
-| R2 | À faire, par petits lots | — |
+| R2 | En cours, par petits lots | [CityClub](audits/REORGANISATION_R2_CITYCLUB_2026-11-09.md) terminé localement |
 | R3 | À faire | — |
 | R4 | À faire | — |
 | R5 | À faire | — |
 | R6 | À faire | — |
 | R7 | À faire, autorisation requise | — |
 
-**Prochaine action : R2, sous-lot CityClub.** R0 et le pilote anticipé Vidy sont terminés. Les prérequis L2–L4 du chantier global ne sont pas déclarés levés par cette extraction locale. Chaque prochaine séance reste bornée à un lecteur ou un petit lot explicite.
+**Prochaine action : R2, sous-lot Naftule/Boulimie.** R0, le pilote Vidy et CityClub sont terminés localement. Chaque prochaine séance reste bornée à un lecteur ou un petit lot explicite et ne mélange pas déplacement et réparation fonctionnelle.
