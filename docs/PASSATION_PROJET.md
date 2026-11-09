@@ -475,3 +475,10 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Correction : l'heure d'un diagnostic avec accès et analyse réussis compte comme dernière réussite, même si la couverture est partielle ou soumise à revue. Une erreur d'accès ou d'analyse ne renouvelle jamais cette heure.
 - Régressions : les trois identifiants observés ne déclenchent plus d'alerte récente ; les seuils 18 h/24 h restent appliqués ; une analyse en erreur sans réussite antérieure reste critique. `make check` réussit avec 134 tests, registres et JavaScript valides.
 - Correction locale seulement. La production reste sur `b593dc6`, le mécanisme d'envoi reste inactif et la copie externe absente. Prochaine action : contrôle et publication de cette correction, sans activation.
+
+
+## 9 novembre 2026 — correction L4 revue localement
+- Branche `codex/l4-alert-freshness-fix`, commits `3dd0ee4` et `25acef3`, comparés à `main`. Aucun défaut bloquant relevé et `git diff --check` propre.
+- La règle reste bornée : accès et analyse doivent être `ok` pour renouveler la fraîcheur ; une couverture partielle est admise, une erreur réelle ne renouvelle pas l'heure de réussite. L'ancien historique réussi reste pris en compte.
+- Vérifications : 7 tests ciblés de `tests.test_operations_report`, puis `make check` avec 134 tests réussis, 39 sources/159 lieux/28 bars validés et syntaxe JavaScript valide.
+- Aucun accès VPS, collecte réelle, envoi, activation d'alerte, changement Render ou déploiement. Prochaine action : publier et fusionner la branche revue ; toute livraison VPS reste une étape séparée soumise à autorisation explicite.
