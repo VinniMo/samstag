@@ -17,6 +17,22 @@ BACKUP_CRITICAL_SECONDS = 24 * 3600
 ERROR_STATES = {"access_error", "parse_error", "collection_error", "never_collected", "stale"}
 
 
+def latest_success(source: dict, legacy: dict) -> float | None:
+    """Newest proven read, including a partial but technically successful run."""
+    successes = []
+    legacy_success = legacy.get("last_success")
+    if legacy_success is not None:
+        successes.append(legacy_success)
+    dimensions = source.get("dimensions") or {}
+    if (
+        dimensions.get("access_status") == "ok"
+        and dimensions.get("parse_status") == "ok"
+        and source.get("checked_at") is not None
+    ):
+        successes.append(source["checked_at"])
+    return max(successes) if successes else None
+
+
 def evaluate_sources(coverage: list[dict], statuses: list[dict], now: float) -> list[dict]:
     latest = {row["url"]: row for row in statuses}
     alerts = []
@@ -24,7 +40,7 @@ def evaluate_sources(coverage: list[dict], statuses: list[dict], now: float) -> 
         if not source.get("automatic"):
             continue
         row = latest.get(source["url"], {})
-        last_success = row.get("last_success")
+        last_success = latest_success(source, row)
         if last_success is None:
             level, reason, age_hours = "critical", "never_successful", None
         else:

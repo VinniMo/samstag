@@ -1,6 +1,6 @@
 # Politique locale — alertes, sauvegardes et retours
 
-**Définie le 2 novembre 2026, sans activation distante.** Les adresses, identifiants de stockage et secrets restent dans la configuration privée.
+**Définie et corrigée localement le 2 novembre 2026, sans activation distante.** Les adresses, identifiants de stockage et secrets restent dans la configuration privée.
 
 ## Alertes de collecte
 
@@ -14,6 +14,8 @@ Les alertes concernent d'abord les sources actives autorisées à publier automa
 | Source automatique jamais collectée avec succès | Critique | empêcher qu'elle soit considérée comme opérationnelle |
 
 Le rapport local `operations_report.py` calcule ces niveaux sans lancer de collecte et sans envoyer de message. Une future activation l'exécutera au moins chaque heure. Deux alertes identiques ne devront pas être renvoyées plus d'une fois en six heures ; un message de rétablissement devra suivre le retour à la normale.
+
+Une lecture est réussie pour la fraîcheur lorsque l'accès et l'analyse sont tous deux `ok`, même si la couverture reste partielle ou exige une revue éditoriale. Une erreur d'accès ou d'analyse ne renouvelle jamais cette heure de réussite. Cette distinction évite de classer Vidy, Lausanne Tourisme et Château Music Club comme « jamais réussis » alors que leur dernier passage technique a abouti.
 
 Le canal retenu est une adresse e-mail d'exploitation privée, indépendante du VPS. L'adresse exacte ne sera stockée que dans la configuration privée. Une alerte critique non traitée sous une heure devra être transmise au propriétaire du service par un second moyen à définir avant activation.
 

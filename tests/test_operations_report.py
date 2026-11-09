@@ -17,6 +17,19 @@ class OperationsReportTest(unittest.TestCase):
             "automatic": automatic,
         }
 
+    def successful_partial(self, *, checked_at):
+        source = self.source(status="limited")
+        source.update({
+            "checked_at": checked_at,
+            "dimensions": {
+                "access_status": "ok",
+                "parse_status": "ok",
+                "completeness_status": "partial",
+                "editorial_status": "automatic",
+            },
+        })
+        return source
+
     def test_source_warning_and_critical_thresholds(self):
         now = 100 * 3600
         source = self.source()
@@ -38,6 +51,35 @@ class OperationsReportTest(unittest.TestCase):
 
     def test_never_successful_automatic_source_is_critical(self):
         [alert] = evaluate_sources([self.source()], [], 100 * 3600)
+        self.assertEqual((alert["level"], alert["reason"]), ("critical", "never_successful"))
+
+    def test_three_recent_partial_readers_count_as_successes(self):
+        now = 100 * 3600
+        sources = []
+        for source_id in ("S019", "SRC_L018", "SRC_N019"):
+            source = self.successful_partial(checked_at=now - 60)
+            source.update({
+                "source_id": source_id,
+                "name": source_id,
+                "url": f"https://example.test/{source_id}",
+            })
+            sources.append(source)
+        self.assertEqual(evaluate_sources(sources, [], now), [])
+
+    def test_partial_run_uses_the_same_freshness_thresholds(self):
+        now = 100 * 3600
+        source = self.successful_partial(checked_at=now - 18 * 3600)
+        [alert] = evaluate_sources([source], [], now)
+        self.assertEqual((alert["level"], alert["reason"]), ("warning", "last_success_18h"))
+
+    def test_failed_current_run_does_not_count_as_a_success(self):
+        now = 100 * 3600
+        source = self.source(status="parse_error")
+        source.update({
+            "checked_at": now - 60,
+            "dimensions": {"access_status": "ok", "parse_status": "error"},
+        })
+        [alert] = evaluate_sources([source], [], now)
         self.assertEqual((alert["level"], alert["reason"]), ("critical", "never_successful"))
 
     def test_backup_thresholds_and_missing_backup(self):

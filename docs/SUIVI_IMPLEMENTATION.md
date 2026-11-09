@@ -10,17 +10,17 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | L1 — Développement et CI | Codex | Terminé | Maintenir les verrous et la CI | `make check` et 85 E2E réussis le 1er novembre 2026 |
 | L2 — Diagnostics collecte | Codex | Terminé | Maintenir le tableau lors des évolutions de lecteurs | 114 tests et contrôle MAD ciblé du 2 novembre 2026 |
 | L3 — Qualité et doublons | Codex | Terminé | Maintenir les règles et preuves lors des évolutions | Taco's contrôlé à la source et 119 tests le 2 novembre 2026 |
-| L4 — Exploitation | Codex | En cours | Corriger localement les trois fausses alertes avant toute activation | Sous-lot applicatif stable, sauvegarde restaurée et 37 sources contrôlées le 2 novembre 2026 |
+| L4 — Exploitation | Codex | En cours | Publier et fusionner la correction revue, sans livraison ni activation | Revue locale, 7 tests ciblés et 134 tests complets le 9 novembre 2026 |
 | L5 — Architecture interne | Codex | Pilote local terminé | R2 : CityClub ; suite globale dépend de L2–L4 | Bilan R0–R1 du 2 novembre, 109 tests |
 | L6 — Produit et performance | À attribuer | À faire | Livrer et mesurer la couverture diurne (`L6.1`) | Décision utilisateur du 1er novembre 2026 |
 
 ## En cours
 
-- Le sous-lot applicatif de l'étape E est livré et stable. La copie externe et l'activation des alertes restent séparées.
+- Le sous-lot applicatif est stable et les trois fausses alertes sont corrigées localement. La copie externe et l'activation des alertes restent séparées.
 
 ## Prêt à démarrer
 
-- [ ] Corriger sur une base isolée la distinction entre lecteur partiel réussi et source jamais réussie, puis contrôler le rapport sans envoyer d'alerte.
+- [ ] Publier et fusionner la correction locale revue, sans la livrer ni activer les alertes.
 
 ## Bloqué ou soumis à décision
 
@@ -66,6 +66,8 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | 2026-11-02 | Étape D L4 : constat VPS en lecture seule | Service et HTTPS sains ; session/cookie confirmés ; sauvegarde quotidienne intègre ; version `ed42492` identifiée par empreintes | Flask ancien derrière Nginx ; 24 sources automatiques ; pas de copie externe, restauration distante ni alerte reçue |
 | 2026-11-02 | Préparation locale de l'étape E | Paquet complet issu de Git, 43 empreintes internes, simulation isolée et 131 tests réussis ; retour arrière documenté | Aucune livraison ; copie externe et destinataires d'alerte non configurés |
 | 2026-11-02 | Livraison applicative de l'étape E | Sauvegarde restaurée, version `b593dc6`, 37/37 sources, 414 sorties, route protégée et dix minutes sans redémarrage | MAD en échec mais non automatique ; trois fausses alertes partielles à corriger ; aucune copie externe |
+| 2026-11-02 | Correction locale des alertes partielles | Vidy, Lausanne Tourisme et Château ne sont plus « jamais réussis » après accès/analyse corrects ; erreurs réelles conservées ; 134 tests | Aucun VPS, message ou activation ; livraison et alerte reçue restent à faire |
+| 2026-11-09 | Revue locale de la correction des alertes partielles | Diff contrôlé ; 7 tests ciblés et `make check` avec 134 tests, registres et JavaScript valides | Branche non publiée ; aucun VPS, message ou mécanisme d'alerte activé |
 
 ## Modèle d’entrée de journal
 
