@@ -11,7 +11,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | L2 — Diagnostics collecte | Codex | Terminé | Maintenir le tableau lors des évolutions de lecteurs | 114 tests et contrôle MAD ciblé du 2 novembre 2026 |
 | L3 — Qualité et doublons | Codex | Terminé | Maintenir les règles et preuves lors des évolutions | Taco's contrôlé à la source et 119 tests le 2 novembre 2026 |
 | L4 — Exploitation | Codex | En cours | Préparer séparément la livraison VPS de la correction fusionnée ; autorisation requise | PR no 14 fusionnée au commit `3708ba5` le 9 novembre 2026 |
-| L5 — Architecture interne | Codex | R2 en cours localement | R2 : Grange/Pulloff | Arsenic extrait, 142 tests le 10 novembre 2026 |
+| L5 — Architecture interne | Codex | R2 en cours localement | R2 : Folklor/MAD | Grange/Pulloff extraits, 143 tests le 10 novembre 2026 |
 | L6 — Produit et performance | À attribuer | À faire | Livrer et mesurer la couverture diurne (`L6.1`) | Décision utilisateur du 1er novembre 2026 |
 
 ## En cours
@@ -20,7 +20,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 
 ## Prêt à démarrer
 
-- [ ] Poursuivre R2 avec Grange/Pulloff, sans réparation fonctionnelle ni appel réel.
+- [ ] Poursuivre R2 avec Folklor/MAD, sans réparation fonctionnelle ni appel réel.
 
 ## Bloqué ou soumis à décision
 
@@ -71,6 +71,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | 2026-11-09 | L5/R2 CityClub : lecteur extrait dans le paquet | Import historique identique ; champs et erreurs sur fixtures ; `make check` avec 136 tests | Aucun site réel, VPS, base ou comportement fonctionnel modifié |
 | 2026-11-10 | L5/R2 Naftule–Boulimie : deux lecteurs et aides minimales extraits | Imports identiques ; six scénarios ciblés ; `make check` avec 139 tests | Aucun site réel, VPS, base ou comportement fonctionnel modifié |
 | 2026-11-10 | L5/R2 Arsenic : lecteur JavaScript public extrait | Import identique ; trois scénarios ciblés ; `make check` avec 142 tests | Aucun site réel, VPS, base ou comportement fonctionnel modifié |
+| 2026-11-10 | L5/R2 Grange–Pulloff : deux lecteurs extraits | Imports identiques ; sept scénarios ciblés ; `make check` avec 143 tests | Aucun site réel, VPS, base ou comportement fonctionnel modifié |
 
 ## Modèle d’entrée de journal
 

@@ -23,6 +23,8 @@ from samstag.collection.adapters.cityclub import parse_cityclub
 from samstag.collection.adapters.common import event_at, french_day
 from samstag.collection.adapters.naftule import parse_naftule
 from samstag.collection.adapters.arsenic import parse_arsenic
+from samstag.collection.adapters.grange import collect_grange
+from samstag.collection.adapters.pulloff import parse_pulloff
 
 
 def parse_folklor(soup, url):
@@ -236,150 +238,6 @@ def collect_jazzonze(soup, url, fetch):
         except Exception:
             partial = True
     return CollectionResult(events, f'jazzonze-programme-v3: {checked} fiches contrôlées', partial=partial)
-
-
-def parse_pulloff(soup, url):
-    heading = soup.select_one('.siteorigin-widget-tinymce h1')
-    if not heading:
-        raise ValueError("Titre de spectacle Pulloff absent")
-    title = heading.get_text(' ', strip=True)
-    # A second widget may advertise an off-site exhibition with its own dates.
-    programme = heading.find_parent(class_='siteorigin-widget-tinymce')
-    # Only this show's widget; a neighbouring widget can advertise an exhibition.
-    description = '\n\n'.join(p.get_text(' ', strip=True) for p in programme.find_all('p', recursive=False)
-                                if p.get_text(strip=True))
-    dates = None
-    for heading in programme.select('h2'):
-        match = re.fullmatch(r"(\d{2})(?:\.(\d{2}))?\s*[—–-]\s*(\d{2})\.(\d{2})\.(\d{4})", heading.get_text(' ',strip=True))
-        if match:
-            year = int(match[5])
-            first_month = int(match[2] or match[4])
-            try:
-                begin = date(year-int(first_month > int(match[4])), first_month, int(match[1]))
-                end = date(year, int(match[4]), int(match[3]))
-                if timedelta(0) <= end-begin <= timedelta(days=90):
-                    dates = [begin+timedelta(days=n) for n in range((end-begin).days+1)]
-            except ValueError:
-                pass
-            break
-    content = programme.get_text(' ',strip=True)
-    exceptions = re.findall(r'relaches? exceptionnelles?[^)]*', fold(content))
-    uncertain_exception = False
-    for exception in exceptions:
-        match = re.fullmatch(r'relaches? exceptionnelles? du (\d{1,2})\.(\d{1,2}) au (\d{1,2})\.(\d{1,2})\s*', exception)
-        if not match or not dates:
-            uncertain_exception = True
-            continue
-        ranges = []
-        for year in {d.year for d in dates}:
-            try:
-                a = date(year, int(match[2]), int(match[1]))
-                b = date(year + int(int(match[4]) < int(match[2])), int(match[4]), int(match[3]))
-                if a <= b and dates[0] <= a <= b <= dates[-1]:
-                    ranges.append((a,b))
-            except ValueError:
-                pass
-        if len(ranges) == 1:
-            a,b = ranges[0]
-            dates = [d for d in dates if not a <= d <= b]
-        else:
-            uncertain_exception = True
-    hours = {}
-    weekdays = ['lu','ma','me','je','ve','sa','di']
-    for match in re.finditer(r"\b((?:lu|ma|me|je|ve|sa|di)(?:/(?:lu|ma|me|je|ve|sa|di))*)\s*:\s*(\d{1,2}[hH:]\d{0,2})\b", fold(content)):
-        hour = clock(match[2])
-        if hour:
-            for value in match[1].split('/'):
-                hours[weekdays.index(value)] = hour
-    events = []
-    for day in dates or []:
-        if day.weekday() not in hours:
-            continue
-        event = event_at(title, url, url, 'Pulloff Théâtres', 'TheaterEvent', 'Théâtre')
-        set_start(event, day, hours[day.weekday()])
-        if uncertain_exception:
-            event['schedule_conflict'] = True
-        events.append(event)
-    if not events:
-        events = [event_at(title, url, url, 'Pulloff Théâtres', 'TheaterEvent', 'Théâtre')]
-    for event in events:
-        event['description'] = description
-    return events
-
-
-def collect_grange(soup, url, fetch):
-    events = []
-    programme = soup.select_one('a[href*="/recherche-dactivites/"]')
-    if programme and urlparse(url).path.rstrip('/') != '/recherche-dactivites':
-        target = urljoin(url, programme['href'])
-        if (urlparse(target).hostname or '').removeprefix('www.') == 'grange-unil.ch':
-            soup = BeautifulSoup(fetch(target), 'lxml')
-    cards = soup.select('a.card[href]')
-    checked, failed, unread = 0, 0, 0
-    targets = set()
-    for card in cards[:config.MAX_DETAIL_PAGES]:
-        title = text(card, '.event-card-title')
-        genres = fold(text(card, '.list-inline'))
-        if not title or not any(w in genres for w in ['danse','theatre','performance','musique']):
-            continue
-        kind, category = (('DanceEvent','Danse') if 'danse' in genres else
-                          ('MusicEvent','Musique') if 'musique' in genres else ('TheaterEvent','Théâtre'))
-        # Workshops remain outside the admitted event types.
-        if 'atelier' in genres:
-            continue
-        days = [dotted_day(value) for value in re.findall(r'\d{1,2}\.\d{1,2}\.\d{4}', text(card,'.card-footer'))]
-        if not days or any(d is None for d in days):
-            continue
-        target = urljoin(url, card['href'])
-        if (urlparse(target).hostname or '').removeprefix('www.') != 'grange-unil.ch':
-            continue
-        if target in targets:
-            continue
-        targets.add(target)
-        checked += 1
-        try:
-            detail = BeautifulSoup(fetch(target),'lxml')
-            panels = detail.select('.event-right-content')
-            seen = set()
-            before = len(events)
-            for panel in panels:
-                # Venue and session times are sibling blocks within the same
-                # sidebar. Never borrow a location from the page footer.
-                if not any(re.fullmatch(r'>\s*La\s+Grange', p.get_text(' ', strip=True)) for p in panel.select('p')):
-                    continue
-                for line in panel.select('p'):
-                    match = re.match(r'^(Lu|Ma|Me|Je|Ve|Sa|Di)\s+(\d{1,2})\.(\d{1,2}),\s*(\d{1,2}h\d{0,2})\b',line.get_text(' ',strip=True))
-                    if not match:
-                        continue
-                    possibilities = []
-                    for year in range(min(days).year, max(days).year+1):
-                        try:
-                            day = date(year,int(match[3]),int(match[2]))
-                            if min(days) <= day <= max(days):
-                                possibilities.append(day)
-                        except ValueError:
-                            continue
-                    if len(possibilities) != 1:
-                        continue
-                    day = possibilities[0]
-                    key = (day,match[4])
-                    if key in seen:
-                        continue
-                    seen.add(key)
-                    event = event_at(title,target,target,'La Grange UNIL',kind,category)
-                    from source_registry import VENUES
-                    venue = next(v for v in VENUES if v['id'] == 'L029')
-                    event['municipality'] = venue['commune']
-                    event['municipality_proof'] = venue.get('preuve_commune', '')
-                    set_start(event,day,clock(match[4]))
-                    events.append(event)
-            if len(events) == before:
-                unread += 1
-        except Exception:
-            failed += 1
-    if not checked:
-        raise ValueError('Aucune fiche de spectacle datée trouvée à La Grange')
-    return CollectionResult(events,f'grange-programme-v3: {checked} fiches, {failed} erreurs, {unread} sans séance lisible',partial=bool(failed or unread or len(cards) > config.MAX_DETAIL_PAGES))
 
 
 def parse_mad_ticket(soup, url):
