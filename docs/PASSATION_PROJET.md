@@ -523,3 +523,9 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - `parse_jazzonze` et `collect_jazzonze` déplacés dans leur module nommé ; anciens imports et dispatch identiques.
 - Cinq tests ciblés et `make check` réussissent avec 145 tests, registres et JavaScript valides.
 - Aucun appel réel, collecte, base, interface, VPS, Render ou production modifiés. Suite : R2 Docks/Romandie/D!. Preuve : `docs/audits/REORGANISATION_R2_JAZZONZE_2026-11-10.md`.
+
+
+## 10 novembre 2026 — réorganisation L5/R2 Docks–Romandie–D!
+- Les lecteurs Docks et D!, ainsi que le parcours de détails Docks/Romandie, vivent dans leurs modules nommés ; réexports historiques et dispatch utilisent les mêmes objets.
+- Seize scénarios ciblés et `make check` réussissent avec 147 tests, registres et JavaScript valides.
+- Aucun appel réel, collecte, base, interface, VPS, Render ou production modifiés. Suite : R2 Jumeaux/Chorus/Bellevaux. Preuve : `docs/audits/REORGANISATION_R2_DOCKS_ROMANDIE_DCLUB_2026-11-10.md`.

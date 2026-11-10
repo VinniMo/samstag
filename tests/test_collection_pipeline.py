@@ -13,6 +13,9 @@ import db
 import scraper
 from collection_result import CollectionResult
 from venue_adapters import parse_docks, parse_jumeaux, parse_tourisme, parse_dclub, parse_chorus, parse_bellevaux, set_start
+from samstag.collection.adapters.dclub import parse_dclub as packaged_parse_dclub
+from samstag.collection.adapters.docks import parse_docks as packaged_parse_docks
+from samstag.collection.adapters.docks_romandie import collect_docks_romandie
 from tests.test_bar_collection import event, NOW
 
 
@@ -21,6 +24,16 @@ def soup(html):
 
 
 class ReaderTest(unittest.TestCase):
+    def test_docks_romandie_dclub_legacy_imports_use_packaged_adapters(self):
+        from venue_adapters import collect_dclub, collect_docks_romandie as legacy_collect_docks_romandie
+
+        from samstag.collection.adapters.dclub import collect_dclub as packaged_collect_dclub
+
+        self.assertIs(parse_docks, packaged_parse_docks)
+        self.assertIs(parse_dclub, packaged_parse_dclub)
+        self.assertIs(collect_dclub, packaged_collect_dclub)
+        self.assertIs(legacy_collect_docks_romandie, collect_docks_romandie)
+
     def test_docks_detail_failures_report_all_failed_and_partial_passes(self):
         from venue_adapters import collect_venue
         day = datetime.now(agenda.TZ).date() + timedelta(days=3)
@@ -42,6 +55,26 @@ class ReaderTest(unittest.TestCase):
         self.assertEqual(len(partial.events), 1)
         self.assertEqual((partial.pages_expected, partial.pages_read), (2, 1))
         self.assertEqual(partial.parse_status, "partial")
+
+    def test_romandie_jsonld_keeps_doors_role_and_dj_classification(self):
+        from venue_adapters import collect_venue
+
+        target = "https://leromandie.ch/event/test-event/"
+        listing = soup(f'<a href="{target}">Événement</a>')
+        detail = '''<script type="application/ld+json">{
+          "@context":"https://schema.org", "@type":"MusicEvent",
+          "name":"Soirée synthétique", "startDate":"2026-11-13T22:00:00+01:00",
+          "url":"https://leromandie.ch/event/test-event/",
+          "location":{"@type":"Place", "name":"Le Romandie", "address":"Lausanne"}
+        }</script><h2>DJ</h2>'''
+        result = collect_venue("https://leromandie.ch/programme", listing, lambda _: detail)
+
+        self.assertFalse(result.partial)
+        self.assertEqual((result.pages_expected, result.pages_read), (1, 1))
+        [row] = result.events
+        self.assertEqual(row["adapter"], "romandie-jsonld-v1")
+        self.assertEqual(row["time_role"], "doors")
+        self.assertEqual((row["event_kind"], row["category"]), ("ClubNight", "Clubbing"))
 
     def test_cinema_separates_sessions_and_uses_programme_year_not_film_year(self):
         html = '''<div class="block-default"><div class="block-default-overtitle">Di 18.10 à 20:45 | Ma 20.10 à 20:30</div>

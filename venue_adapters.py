@@ -1,6 +1,5 @@
 """Site-specific readers, based on inspected public programme pages."""
 import json
-import logging
 import re
 from datetime import date, datetime, time, timedelta, timezone
 from urllib.parse import urljoin, urlparse
@@ -9,9 +8,7 @@ from bs4 import BeautifulSoup
 
 from agenda import TZ, fold
 from bar_adapters import base_event
-from config import config
 
-log = logging.getLogger(__name__)
 MONTHS = {name: index for index, name in enumerate([
     "janvier", "fevrier", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "decembre"], 1)}
 
@@ -53,37 +50,9 @@ def metadata(soup, name):
     return node.get("content", "") if node else ""
 
 
-def parse_docks(soup, url):
-    event = base_event(text(soup, "h1"), url, url)
-    event.update(location="Les Docks", municipality="Lausanne", event_kind="MusicEvent",
-                 category="Musique", source_event_key=url, adapter="docks-v1")
-    day = dotted_day(text(soup, ".event-info-date"))
-    if day:
-        event["date"] = day.isoformat()
-    for node in soup.select(".event-info-door"):
-        label = text(node, ".event-info-label")
-        value = node.get_text(" ", strip=True).removeprefix(label).strip()
-        hour = clock(value)
-        if fold(label) == "debut":
-            set_start(event, day, hour)
-        elif fold(label) == "portes" and hour:
-            event["doors_time"] = hour.strftime("%H:%M")
-    # Read the artist's prose, excluding recommendations and ticketing copy.
-    prose = [n.get_text(" ", strip=True) for n in soup.select(".event-container .artist-content .the-content p")]
-    event["description"] = "\n\n".join(filter(None, prose)) or metadata(soup, "og:description")[:400]
-    event["image"] = metadata(soup, "og:image")
-    # Inspect event header labels only, never recommended events in the footer.
-    header = soup.select_one(".event-info-date")
-    if header:
-        ticketing = soup.select_one(".event-infos-and-ticketing")
-        labels = (ticketing or header.parent).get_text(" ", strip=True)
-        if "annule" in fold(labels):
-            event["event_status"] = "EventCancelled"
-        if "complet" in fold(labels):
-            event["availability"] = "sold_out"
-    if not event["title"]:
-        raise ValueError("Titre du concert Docks absent")
-    return event
+from samstag.collection.adapters.docks import parse_docks
+from samstag.collection.adapters.dclub import collect_dclub, parse_dclub
+from samstag.collection.adapters.docks_romandie import collect_docks_romandie
 
 
 def parse_jumeaux(soup, url):
@@ -183,104 +152,6 @@ def parse_tourisme(soup, url):
     return event
 
 
-def parse_dclub(soup, url):
-    events = []
-    for card in soup.select(".event[data-date][data-place]"):
-        places = json.loads(card["data-place"])
-        styles = json.loads(card.get("data-styles") or "[]")
-        main = card.select_one("a.main[href]")
-        if not main:
-            continue
-        title = text(card, ".dtitle")
-        artists = [n.get_text(" ", strip=True) for n in card.select(".header .name")]
-        title = (title or ", ".join(artists)) if "concert" in styles else " — ".join(filter(None, [title, ", ".join(artists)]))
-        if not title:
-            continue
-        detail = urljoin(url, main["href"])  # retain room fragment (#d-club / #abc)
-        event = base_event(title, detail, url)
-        event.update(location="D! Club" if places == ["d-club"] else "Bar Club Abc" if places == ["abc"] else "",
-                     municipality="Lausanne", time_role="doors", source_event_key=detail,
-                     adapter="dclub-v1", source_room=places, source_styles=styles, artists=artists)
-        if styles and all(s in {"electronic", "urban", "theme"} for s in styles):
-            event.update(event_kind="ClubNight", category="Clubbing")
-        elif "concert" in styles:
-            event.update(event_kind="MusicEvent", category="Musique")
-        try:
-            day = datetime.strptime(card["data-date"], "%Y%m%d").date()
-            event["date"] = day.isoformat()
-        except ValueError:
-            day = None
-        match = re.search(r"Porte:\s*(\d{1,2}:\d{2})", text(card, ".door"))
-        set_start(event, day, clock(match[1]) if match else None)
-        image = card.select_one("a.image img")
-        if image:
-            image_url = image.get("data-lazy-src") or image.get("src", "")
-            event["image"] = urljoin(url, image_url) if not image_url.startswith("data:") else ""
-        event["description"] = text(card, ".details")[:400]
-        events.append(event)
-    return events
-
-
-def collect_dclub(soup, url, fetch):
-    """Keep doors distinct; qualify concerts only with an explicit artistic time."""
-    from collection_result import CollectionResult
-    rows = parse_dclub(soup, url)
-    partial = False
-    details = 0
-    today = datetime.now(TZ).date()
-    for event in rows:
-        if event.get("event_kind") != "MusicEvent":
-            continue
-        day = date.fromisoformat(event["date"]) if event.get("date") else None
-        if not day or not today <= day <= today + timedelta(days=config.COLLECTION_HORIZON_DAYS):
-            continue
-        if details >= config.MAX_DETAIL_PAGES:
-            partial = True
-            continue
-        details += 1
-        try:
-            detail_url = event["url"].split("#")[0]
-            detail = BeautifulSoup(fetch(detail_url), "lxml")
-            room = detail.find(id=urlparse(event["url"]).fragment)
-            if not room or text(room, ".date-title") != event["title"]:
-                partial = True
-                continue
-            description = text(room, ".dclub-date-content > div")
-            event.update(description=description[:600], evidence_url=event["url"])
-            if re.search(r"\bgratuit(?:e|es|s)?\b", fold(description)):
-                event["price"] = "Gratuit sur inscription" if "inscription" in fold(description) else "Gratuit"
-            # Only the inspected registration provider, explicitly linked by
-            # this event's official detail, can supply its artistic start.
-            for anchor in room.select(".action a[href]"):
-                ticket = urljoin(detail_url, anchor["href"])
-                if urlparse(ticket).scheme != "https" or urlparse(ticket).hostname != "visaevents.swoogo.com":
-                    continue
-                registration = BeautifulSoup(fetch(ticket), "lxml")
-                for node in registration(["script", "style", "header", "footer"]):
-                    node.decompose()
-                body = fold(registration.get_text(" ", strip=True))
-                # Confirm venue, exact day/month and every advertised artist.
-                artists = [fold(a) for a in event.get("artists", [])]
-                date_label = f"{day.day} {list(MONTHS)[day.month-1]}"
-                times = set(re.findall(r"\bconcert\s*:\s*(\d{1,2}[h:]\d{2})\b", body))
-                if "d! club" not in body or date_label not in body or not artists or not all(a in body for a in artists) or len(times) != 1:
-                    continue
-                hour = clock(next(iter(times)))
-                if not hour or (event.get("time") and hour.strftime("%H:%M") < event["time"]):
-                    continue
-                event["doors_time"] = event.get("time", "")
-                set_start(event, day, hour)
-                event.update(time_role="start", artistic_time_confirmed=True,
-                             start_evidence_url=ticket, ticket_url=ticket)
-                if "gagnants sont tires au sort" in body:
-                    event["access_conditions"] = "Inscription avec tirage au sort ; entrée sur confirmation de l’organisateur."
-                break
-        except Exception as exc:
-            log.warning("D! concert detail failed %s: %s", event["url"], exc)
-            partial = True
-    return CollectionResult(rows, "dclub-official-programme-v2 (concerts confirmés, portes distinctes)", partial=partial)
-
-
 def parse_chorus(soup, url):
     events = []
     for section in soup.select("section.menu_page"):
@@ -364,8 +235,6 @@ def parse_bellevaux(soup, url):
 
 
 def collect_venue(url, soup, fetch):
-    from scraper import _extract_jsonld_events, FetchError
-    from collection_result import CollectionResult
     host = (urlparse(url).hostname or "").removeprefix("www.")
     if host == "chorus.ch":
         return parse_chorus(soup, url), "chorus-programme-v1 (mois et année publiés)"
@@ -379,55 +248,5 @@ def collect_venue(url, soup, fetch):
         event = parse_tourisme(soup, url)
         return ([event] if event else []), "tourisme-detail-v1"
     if host in {"docks.ch", "leromandie.ch"}:
-        pattern = r"^/evenement/concerts/\d{8}/[^/]+/?$" if host == "docks.ch" else r"^/event/[^/]+/?$"
-        links = []
-        for link in soup.select("a[href]"):
-            target = urljoin(url, link["href"]).split("#")[0]
-            if urlparse(target).hostname == urlparse(url).hostname and re.match(pattern, urlparse(target).path) and target not in links:
-                if host == "docks.ch":
-                    match = re.search(r"/concerts/(\d{8})/", target)
-                    try:
-                        day = datetime.strptime(match[1], "%Y%m%d").date()
-                        today = datetime.now(TZ).date()
-                        if day < today or day > today+timedelta(days=config.COLLECTION_HORIZON_DAYS):
-                            continue
-                    except (ValueError, TypeError):
-                        pass
-                links.append(target)
-        # The list is already in programme order. Limit each run, but retain
-        # the discovered count in diagnostics so limits cannot look exhaustive.
-        events, failures = [], 0
-        for target in links[:config.MAX_DETAIL_PAGES]:
-            try:
-                detail = BeautifulSoup(fetch(target), "lxml")
-                if host == "docks.ch":
-                    event = parse_docks(detail, target)
-                    events.append(event)
-                else:
-                    for event in _extract_jsonld_events(detail, target):
-                        event.update(adapter="romandie-jsonld-v1", source_event_key=target)
-                        # The official Event.startDate is explicitly labelled
-                        # portes in the visible programme: keep that distinction.
-                        event["time_role"] = "doors"
-                        artist_headings = [fold(h.get_text(" ", strip=True)) for h in detail.select("h2")]
-                        if artist_headings and set(artist_headings) == {"dj"}:
-                            event.update(event_kind="ClubNight", category="Clubbing")
-                        events.append(event)
-            except (FetchError, ValueError, TypeError) as exc:
-                failures += 1
-                log.warning("Programme detail failed %s: %s", target, exc)
-        checked = min(len(links), config.MAX_DETAIL_PAGES)
-        read = checked - failures
-        parse_status = "error" if checked and failures == checked else "partial" if failures else "ok"
-        completeness = "limited" if len(links) > checked else "partial" if failures else "complete"
-        return CollectionResult(
-            events,
-            f"{host}: {len(links)} liens, {checked} contrôlés, {failures} erreurs",
-            complete_snapshot=not failures and len(links) <= checked,
-            partial=bool(failures or len(links) > checked),
-            pages_expected=len(links),
-            pages_read=read,
-            parse_status=parse_status,
-            completeness_status=completeness,
-        )
+        return collect_docks_romandie(soup, url, fetch)
     return None

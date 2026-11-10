@@ -12,7 +12,7 @@ Commencez par le [README principal](../README.md). Pour suivre le projet au quot
 | `docs/diagrams/` | schémas de travail et architecture cible | pour voir la suite prévue |
 | `data/` | listes des lieux, bars et sources | pour savoir ce qui est recensé |
 | `templates/` et `static/` | page, textes, styles, images et interactions | pour comprendre l’interface |
-| `samstag/collection/adapters/` | collecteurs déjà réorganisés, de Vidy à Folklor/MAD | pour trouver leur implémentation |
+| `samstag/collection/adapters/` | collecteurs déjà réorganisés, de Vidy à Docks/Romandie/D! | pour trouver leur implémentation |
 | fichiers Python à la racine | reste du moteur, migration progressive | pour les modifications techniques |
 | `tests/` | vérifications du moteur | pour contrôler les règles et collecteurs |
 | `e2e/` | parcours automatiques dans un navigateur | pour vérifier l’utilisation du site |
@@ -29,7 +29,7 @@ Commencez par le [README principal](../README.md). Pour suivre le projet au quot
 - `feedback.py` et `feedback_cli.py` gèrent les retours des utilisateurs.
 - `PRODUCT.md` décrit le produit ; `DESIGN.md` documente son apparence ; `AGENTS.md` donne les consignes de travail.
 
-Les noms techniques historiques sont conservés pour éviter de casser le fonctionnement. Les lecteurs traités jusqu'à Folklor/MAD sont maintenant dans `samstag/collection/adapters/`. Les autres modules restent à la racine ; les anciens modules gardent les imports compatibles et le dispatch.
+Les noms techniques historiques sont conservés pour éviter de casser le fonctionnement. Les lecteurs traités jusqu'à Docks/Romandie/D! sont maintenant dans `samstag/collection/adapters/`. Les autres modules restent à la racine ; les anciens modules gardent les imports compatibles et le dispatch.
 
 ## Dossiers masqués : généralement rien à faire
 
@@ -81,4 +81,4 @@ Samstag/
 
 Les trois étapes conseillées : rendre la documentation lisible, nettoyer seulement ce qui est confirmé inutile, puis réorganiser progressivement le code avec des tests à chaque déplacement. Les deux premières sont le périmètre de cette session ; la troisième reste un chantier distinct.
 
-Le [plan d’action de réorganisation du code](PLAN_REORGANISATION_CODE.md) détaille le troisième point : étapes R0 à R7, fichiers à déplacer, tests et livraison séparée. Les lecteurs jusqu'à Folklor/MAD dans l'ordre R2 sont déplacés ; R2 continue par petits groupes.
+Le [plan d’action de réorganisation du code](PLAN_REORGANISATION_CODE.md) détaille le troisième point : étapes R0 à R7, fichiers à déplacer, tests et livraison séparée. Les lecteurs jusqu'à Docks/Romandie/D! dans l'ordre R2 sont déplacés ; R2 continue par petits groupes.
