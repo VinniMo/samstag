@@ -511,3 +511,9 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - `collect_grange` et `parse_pulloff` vivent dans leurs modules nommés ; anciens imports et dispatch conservent les mêmes objets. Le test de limite Grange vise désormais la configuration du module consommateur.
 - Sept scénarios ciblés puis `make check` réussissent avec 143 tests, registres et JavaScript valides.
 - Aucun appel réel, collecte, base, interface, VPS, Render ou production modifiés. Prochaine étape autonome : R2 Folklor/MAD. Preuve : `docs/audits/REORGANISATION_R2_GRANGE_PULLOFF_2026-11-10.md`.
+
+
+## 10 novembre 2026 — réorganisation L5/R2 Folklor–MAD
+- `parse_folklor` et `parse_mad_ticket` déplacés dans leurs modules nommés avec réexports compatibles ; orchestration MAD inchangée.
+- Quatre tests ciblés et `make check` réussissent avec 144 tests, registres et JavaScript valides.
+- Aucun appel réel, collecte, base, interface, VPS, Render ou production modifiés. Prochaine étape autonome : R2 JazzOnze+. Preuve : `docs/audits/REORGANISATION_R2_FOLKLOR_MAD_2026-11-10.md`.

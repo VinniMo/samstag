@@ -67,4 +67,4 @@ Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLA
 
 ## Réorganisation locale — 10 novembre 2026
 
-R0 et R1 sont terminés ; R2 avance par lecteur. Les adaptateurs traités jusqu'à Grange/Pulloff sont dans `samstag/collection/adapters/`, avec anciens imports compatibles. Les autres modules restent à la racine. Le dernier sous-lot conserve horaires, relâches, preuves, dédoublonnage et statuts partiels sur fixtures ; 143 tests passent. Suite : R2, Folklor/MAD. Aucun changement serveur. Voir les bilans liés depuis le [plan de réorganisation](PLAN_REORGANISATION_CODE.md).
+R0 et R1 sont terminés ; R2 avance par lecteur. Les adaptateurs traités jusqu'à Folklor/MAD sont dans `samstag/collection/adapters/`, avec anciens imports compatibles. Les autres modules restent à la racine. Le dernier sous-lot conserve dates, portes, lieux et statuts partiels sur fixtures ; 144 tests passent. Suite : R2, JazzOnze+. Aucun changement serveur. Voir les bilans liés depuis le [plan de réorganisation](PLAN_REORGANISATION_CODE.md).
