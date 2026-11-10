@@ -11,7 +11,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | L2 — Diagnostics collecte | Codex | Terminé | Maintenir le tableau lors des évolutions de lecteurs | 114 tests et contrôle MAD ciblé du 2 novembre 2026 |
 | L3 — Qualité et doublons | Codex | Terminé | Maintenir les règles et preuves lors des évolutions | Taco's contrôlé à la source et 119 tests le 2 novembre 2026 |
 | L4 — Exploitation | Codex | En cours | Préparer séparément la livraison VPS de la correction fusionnée ; autorisation requise | PR no 14 fusionnée au commit `3708ba5` le 9 novembre 2026 |
-| L5 — Architecture interne | Codex | R2 en cours localement | R2 : agrégateurs | Bars/widgets Hango extraits, 150 tests le 10 novembre 2026 |
+| L5 — Architecture interne | Codex | R2 en cours localement | R2 : La Brèche/Oblò résiduels | Agrégateurs extraits, 152 tests le 10 novembre 2026 |
 | L6 — Produit et performance | À attribuer | À faire | Livrer et mesurer la couverture diurne (`L6.1`) | Décision utilisateur du 1er novembre 2026 |
 
 ## En cours
@@ -20,7 +20,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 
 ## Prêt à démarrer
 
-- [ ] Terminer R2 avec les agrégateurs, sans réparation fonctionnelle ni appel réel.
+- [ ] Terminer R2 avec La Brèche/Oblò, sans réparation fonctionnelle ni appel réel.
 
 ## Bloqué ou soumis à décision
 
@@ -77,6 +77,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | 2026-11-10 | L5/R2 Docks–Romandie–D! : lecteurs et parcours de détails extraits | Imports identiques ; seize scénarios ciblés ; `make check` avec 147 tests | Aucun appel réel, VPS, base ou comportement modifié |
 | 2026-11-10 | L5/R2 Jumeaux–Chorus–Bellevaux : trois lecteurs extraits | Imports identiques ; treize scénarios du bloc lecteurs ; `make check` avec 148 tests | Aucun appel réel, VPS, base ou comportement modifié |
 | 2026-11-10 | L5/R2 bars–Hango : calendriers publics et widget extraits | Imports identiques ; douze scénarios ciblés ; `make check` avec 150 tests | Aucun appel réel, VPS, base ou comportement modifié |
+| 2026-11-10 | L5/R2 agrégateurs : Lausanne Tourisme et L’Agenda extraits | Imports identiques ; quatre scénarios ciblés ; `make check` avec 152 tests | Aucun appel réel, VPS, base ou comportement modifié |
 
 ## Modèle d’entrée de journal
 

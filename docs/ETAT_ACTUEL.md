@@ -67,4 +67,4 @@ Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLA
 
 ## Réorganisation locale — 10 novembre 2026
 
-R0 et R1 sont terminés ; R2 avance par lecteur. Les adaptateurs traités jusqu'aux bars/widgets Hango sont dans `samstag/collection/adapters/`, avec anciens imports compatibles. Les autres modules restent à la racine. Le dernier sous-lot conserve horaires, incertitudes, attribution, identité et pagination ; 150 tests passent. Suite : R2, agrégateurs. Aucun changement serveur. Voir les bilans liés depuis le [plan de réorganisation](PLAN_REORGANISATION_CODE.md).
+R0 et R1 sont terminés ; R2 avance par lecteur. Les adaptateurs traités jusqu'aux agrégateurs sont dans `samstag/collection/adapters/`, avec anciens imports compatibles. Les lecteurs officiels résiduels La Brèche/Oblò restent dans `expanded_adapters.py`. Le dernier sous-lot conserve adresses, occurrences, catégories, régions et pagination ; 152 tests passent. Suite : terminer R2 avec La Brèche/Oblò. Aucun changement serveur. Voir les bilans liés depuis le [plan de réorganisation](PLAN_REORGANISATION_CODE.md).

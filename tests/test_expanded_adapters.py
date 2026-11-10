@@ -4,7 +4,7 @@ from unittest.mock import Mock, patch
 
 from bs4 import BeautifulSoup
 
-from expanded_adapters import parse_folklor, parse_cityclub, parse_naftule, parse_boulimie, parse_arsenic, parse_mad_ticket, parse_pulloff, collect_grange, collect_lagenda, collect_expanded
+from expanded_adapters import parse_folklor, parse_cityclub, parse_naftule, parse_boulimie, parse_arsenic, parse_mad_ticket, parse_pulloff, collect_grange, collect_lagenda, parse_lagenda, collect_expanded
 from samstag.collection.adapters.arsenic import parse_arsenic as packaged_parse_arsenic
 from samstag.collection.adapters.boulimie import parse_boulimie as packaged_parse_boulimie
 from samstag.collection.adapters.cityclub import parse_cityclub as packaged_parse_cityclub
@@ -13,6 +13,7 @@ from samstag.collection.adapters.grange import collect_grange as packaged_collec
 from samstag.collection.adapters.pulloff import parse_pulloff as packaged_parse_pulloff
 from samstag.collection.adapters.folklor import parse_folklor as packaged_parse_folklor
 from samstag.collection.adapters.mad import parse_mad_ticket as packaged_parse_mad_ticket
+from samstag.collection.adapters.lagenda import collect_lagenda as packaged_collect_lagenda, parse_lagenda as packaged_parse_lagenda
 from collection_worker import serve
 
 
@@ -21,6 +22,10 @@ def soup(value):
 
 
 class ExpandedReadersTest(unittest.TestCase):
+    def test_lagenda_legacy_imports_are_packaged_adapters(self):
+        self.assertIs(parse_lagenda, packaged_parse_lagenda)
+        self.assertIs(collect_lagenda, packaged_collect_lagenda)
+
     def test_cityclub_legacy_import_is_the_packaged_adapter(self):
         self.assertIs(parse_cityclub, packaged_parse_cityclub)
 
@@ -101,7 +106,7 @@ class ExpandedReadersTest(unittest.TestCase):
     def test_lagenda_reports_pagination_limit(self):
         form = soup('<form class="em-search-form"><select name="category[]"><option value="1">Musique</option></select></form>')
         listing = '<div class="em-pagination"><a title="suite">5</a><a title="suite">2</a><a title="suite">3</a><a title="suite">4</a></div>'
-        with patch('expanded_adapters.parse_lagenda', return_value=[]), patch('expanded_adapters.config', MAX_AGENDA_PAGES=4, COLLECTION_HORIZON_DAYS=90):
+        with patch('samstag.collection.adapters.lagenda.parse_lagenda', return_value=[]), patch('samstag.collection.adapters.lagenda.config', MAX_AGENDA_PAGES=4, COLLECTION_HORIZON_DAYS=90):
             result = collect_lagenda(form, 'https://l-agenda.ch/', Mock(return_value=listing))
         self.assertTrue(result.partial)
 

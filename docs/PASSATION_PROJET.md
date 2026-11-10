@@ -541,3 +541,9 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Les calendriers publics des bars et le widget Hango vivent dans leurs modules nommés ; les fichiers racine ne contiennent plus que les imports compatibles.
 - Douze tests ciblés et `make check` réussissent avec 150 tests, registres et JavaScript valides.
 - Aucun appel réel, collecte, base, interface, VPS, Render ou production modifiés. Suite : R2 agrégateurs. Preuve : `docs/audits/REORGANISATION_R2_BARS_HANGO_2026-11-10.md`.
+
+
+## 10 novembre 2026 — réorganisation L5/R2 agrégateurs
+- Lausanne Tourisme et L’Agenda vivent dans leurs modules nommés ; imports historiques et dispatchs utilisent les mêmes objets.
+- Quatre tests ciblés et `make check` réussissent avec 152 tests, registres et JavaScript valides.
+- Aucun appel réel, collecte, base, interface, VPS, Render ou production modifiés. Suite : terminer R2 avec La Brèche/Oblò. Preuve : `docs/audits/REORGANISATION_R2_AGREGATEURS_2026-11-10.md`.
