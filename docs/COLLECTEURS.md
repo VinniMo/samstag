@@ -83,4 +83,4 @@ La priorité reste de fiabiliser les diagnostics, réparer les sources en panne 
 
 ## Où trouver les lecteurs déjà réorganisés ?
 
-Les lecteurs réorganisés jusqu'à Docks/Romandie/D! se trouvent dans les modules nommés de [samstag/collection/adapters/](../samstag/collection/adapters/). Les imports historiques restent compatibles pendant la migration. Les autres lecteurs restent dans les modules racine. Les bilans sont liés depuis le [plan de réorganisation](PLAN_REORGANISATION_CODE.md). Aucun changement de programme extrait ni livraison en production.
+Les lecteurs réorganisés jusqu'à Jumeaux/Chorus/Bellevaux se trouvent dans les modules nommés de [samstag/collection/adapters/](../samstag/collection/adapters/). Les imports historiques restent compatibles pendant la migration. Les autres lecteurs restent dans les modules racine. Les bilans sont liés depuis le [plan de réorganisation](PLAN_REORGANISATION_CODE.md). Aucun changement de programme extrait ni livraison en production.
