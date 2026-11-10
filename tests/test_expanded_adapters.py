@@ -11,6 +11,8 @@ from samstag.collection.adapters.cityclub import parse_cityclub as packaged_pars
 from samstag.collection.adapters.naftule import parse_naftule as packaged_parse_naftule
 from samstag.collection.adapters.grange import collect_grange as packaged_collect_grange
 from samstag.collection.adapters.pulloff import parse_pulloff as packaged_parse_pulloff
+from samstag.collection.adapters.folklor import parse_folklor as packaged_parse_folklor
+from samstag.collection.adapters.mad import parse_mad_ticket as packaged_parse_mad_ticket
 from collection_worker import serve
 
 
@@ -32,6 +34,10 @@ class ExpandedReadersTest(unittest.TestCase):
     def test_grange_and_pulloff_legacy_imports_are_packaged_adapters(self):
         self.assertIs(collect_grange, packaged_collect_grange)
         self.assertIs(parse_pulloff, packaged_parse_pulloff)
+
+    def test_folklor_and_mad_legacy_imports_are_packaged_adapters(self):
+        self.assertIs(parse_folklor, packaged_parse_folklor)
+        self.assertIs(parse_mad_ticket, packaged_parse_mad_ticket)
 
     def test_arsenic_preserves_occurrences_nohour_cancellation_and_evidence(self):
         page = '''<script>var spectacles = [{
