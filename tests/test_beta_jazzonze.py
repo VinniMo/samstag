@@ -2,9 +2,14 @@ import unittest
 from datetime import datetime,timedelta
 from bs4 import BeautifulSoup
 from expanded_adapters import parse_jazzonze,collect_jazzonze
+from samstag.collection.adapters.jazzonze import parse_jazzonze as packaged_parse_jazzonze, collect_jazzonze as packaged_collect_jazzonze
 from venue_adapters import MONTHS,TZ
 
 class JazzOnzeBetaTest(unittest.TestCase):
+    def test_legacy_imports_are_packaged_adapters(self):
+        self.assertIs(parse_jazzonze, packaged_parse_jazzonze)
+        self.assertIs(collect_jazzonze, packaged_collect_jazzonze)
+
     def listing(self):
         day=datetime.now(TZ).date()+timedelta(days=1)
         label=f'{day.day} {list(MONTHS)[day.month-1]} {day.year}'

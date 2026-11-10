@@ -517,3 +517,9 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - `parse_folklor` et `parse_mad_ticket` déplacés dans leurs modules nommés avec réexports compatibles ; orchestration MAD inchangée.
 - Quatre tests ciblés et `make check` réussissent avec 144 tests, registres et JavaScript valides.
 - Aucun appel réel, collecte, base, interface, VPS, Render ou production modifiés. Prochaine étape autonome : R2 JazzOnze+. Preuve : `docs/audits/REORGANISATION_R2_FOLKLOR_MAD_2026-11-10.md`.
+
+
+## 10 novembre 2026 — réorganisation L5/R2 JazzOnze+
+- `parse_jazzonze` et `collect_jazzonze` déplacés dans leur module nommé ; anciens imports et dispatch identiques.
+- Cinq tests ciblés et `make check` réussissent avec 145 tests, registres et JavaScript valides.
+- Aucun appel réel, collecte, base, interface, VPS, Render ou production modifiés. Suite : R2 Docks/Romandie/D!. Preuve : `docs/audits/REORGANISATION_R2_JAZZONZE_2026-11-10.md`.
