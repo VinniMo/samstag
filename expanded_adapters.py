@@ -12,7 +12,6 @@ from urllib.parse import urljoin, urlparse, urlencode
 from bs4 import BeautifulSoup
 
 from agenda import TZ, fold
-from bar_adapters import base_event
 from config import config
 from collection_result import CollectionResult
 from venue_adapters import MONTHS, clock, dotted_day, set_start, text
@@ -21,24 +20,10 @@ from venue_adapters import MONTHS, clock, dotted_day, set_start, text
 # Compatibility import during the incremental package migration. The dispatch
 # below and older callers use this name; the implementation now lives in the
 # named adapter module.
+from samstag.collection.adapters.boulimie import parse_boulimie
 from samstag.collection.adapters.cityclub import parse_cityclub
-
-
-def french_day(value):
-    match = re.search(r"\b(\d{1,2})(?:er)?\s+(\w+)\s+(\d{4})\b", fold(value))
-    if match and match[2] in MONTHS:
-        try:
-            return date(int(match[3]), MONTHS[match[2]], int(match[1]))
-        except ValueError:
-            pass
-    return None
-
-
-def event_at(title, page, evidence, venue, kind, category):
-    event = base_event(title, page, evidence)
-    event.update(location=venue, municipality="Lausanne", event_kind=kind,
-                 category=category, adapter="official-programme-v3")
-    return event
+from samstag.collection.adapters.common import event_at, french_day
+from samstag.collection.adapters.naftule import parse_naftule
 
 
 def parse_folklor(soup, url):
@@ -58,36 +43,6 @@ def parse_folklor(soup, url):
         if link:
             event["source_event_key"] = target
         events.append(event)
-    return events
-
-
-def parse_naftule(soup, url):
-    panels = soup.select("[data-day-panel][data-day]")
-    if not panels:
-        raise ValueError("Calendrier Naftule absent ou structure modifiée")
-    events = []
-    for panel in panels:
-        try:
-            day = date.fromisoformat(panel["data-day"])
-        except ValueError:
-            continue
-        for card in panel.select("li[data-show]"):
-            genres = set(card.get("data-genres", "").split())
-            kind, category = ("ComedyEvent", "Humour") if "humour" in genres else (
-                ("MusicEvent", "Musique") if "musique-et-chant" in genres else ("", "Culture"))
-            title = text(card, "h3")
-            if not title:
-                continue
-            link = card.select_one("h3 a[href]")
-            target = urljoin(url, link["href"]) if link else url
-            event = event_at(title, target, url, "Pavillon Naftule", kind, category)
-            times = [clock(n.get_text(" ", strip=True)) for n in card.select("span")]
-            hours = [t for t in times if t]
-            set_start(event, day, hours[0] if len(hours) == 1 else None)
-            # Ticket page is a series: each performance keeps its own identity.
-            image = card.select_one("img[src]")
-            event["image"] = urljoin(url, image["src"]) if image else ""
-            events.append(event)
     return events
 
 
@@ -322,56 +277,6 @@ def collect_jazzonze(soup, url, fetch):
         except Exception:
             partial = True
     return CollectionResult(events, f'jazzonze-programme-v3: {checked} fiches contrôlées', partial=partial)
-
-
-def parse_boulimie(soup, url):
-    artist, subtitle = text(soup, "h1.show-artist"), text(soup, "h2.show-title")
-    if not artist:
-        return []
-    title = " — ".join(filter(None, [artist, subtitle]))
-    schedule = text(soup, ".show-schedule")
-    description = text(soup, ".normal-text")
-    # Touring and off-site productions must not inherit the theatre address.
-    if any(w in fold(description) for w in ["n'ont pas lieu", "hors-les-murs", "hors les murs", "studios de la rts"]):
-        event = event_at(title, url, url, "", "ComedyEvent", "Humour")
-        event["description"] = description[:400]
-        return [event]
-    found = re.fullmatch(r"(\d{1,2})\s+au\s+(\d{1,2})\s+(\w+)\s+(\d{4})", fold(schedule))
-    dates = []
-    if found and found[3] in MONTHS:
-        begin = date(int(found[4]), MONTHS[found[3]], int(found[1]))
-        end = date(int(found[4]), MONTHS[found[3]], int(found[2]))
-        if timedelta(0) <= end-begin <= timedelta(days=62):
-            dates = [begin+timedelta(days=n) for n in range((end-begin).days+1)]
-    else:
-        day = french_day(schedule)
-        if day:
-            dates = [day]
-    weekday_names = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
-    hours = {}
-    for block in soup.select(".normal-text h6"):
-        for line in block.get_text("\n", strip=True).splitlines():
-            if ":" not in line:
-                continue
-            days, value = fold(line).split(":", 1)
-            hour = clock(value)
-            if hour:
-                for index, name in enumerate(weekday_names):
-                    if re.search(r"\b"+name+r"\b", days):
-                        hours[index] = hour
-    events = []
-    for day in dates:
-        if day.weekday() not in hours:
-            continue
-        event = event_at(title, url, url, "Théâtre Boulimie", "ComedyEvent", "Humour")
-        set_start(event, day, hours[day.weekday()])
-        event["description"] = description[:400]
-        events.append(event)
-    if not events:
-        event = event_at(title, url, url, "Théâtre Boulimie", "ComedyEvent", "Humour")
-        event["description"] = description[:400]
-        events.append(event)
-    return events
 
 
 def parse_pulloff(soup, url):

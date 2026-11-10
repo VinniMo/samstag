@@ -10,8 +10,8 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | L1 — Développement et CI | Codex | Terminé | Maintenir les verrous et la CI | `make check` et 85 E2E réussis le 1er novembre 2026 |
 | L2 — Diagnostics collecte | Codex | Terminé | Maintenir le tableau lors des évolutions de lecteurs | 114 tests et contrôle MAD ciblé du 2 novembre 2026 |
 | L3 — Qualité et doublons | Codex | Terminé | Maintenir les règles et preuves lors des évolutions | Taco's contrôlé à la source et 119 tests le 2 novembre 2026 |
-| L4 — Exploitation | Codex | En cours | Publier et fusionner la correction revue, sans livraison ni activation | Revue locale, 7 tests ciblés et 134 tests complets le 9 novembre 2026 |
-| L5 — Architecture interne | Codex | R2 en cours localement | R2 : Naftule/Boulimie | CityClub extrait, 136 tests le 9 novembre 2026 |
+| L4 — Exploitation | Codex | En cours | Préparer séparément la livraison VPS de la correction fusionnée ; autorisation requise | PR no 14 fusionnée au commit `3708ba5` le 9 novembre 2026 |
+| L5 — Architecture interne | Codex | R2 en cours localement | R2 : Arsenic | Naftule/Boulimie extraits, 139 tests le 10 novembre 2026 |
 | L6 — Produit et performance | À attribuer | À faire | Livrer et mesurer la couverture diurne (`L6.1`) | Décision utilisateur du 1er novembre 2026 |
 
 ## En cours
@@ -20,7 +20,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 
 ## Prêt à démarrer
 
-- [ ] Publier et fusionner la correction locale revue, sans la livrer ni activer les alertes.
+- [ ] Poursuivre R2 avec Arsenic, sans réparation fonctionnelle ni appel réel.
 
 ## Bloqué ou soumis à décision
 
@@ -69,6 +69,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | 2026-11-02 | Correction locale des alertes partielles | Vidy, Lausanne Tourisme et Château ne sont plus « jamais réussis » après accès/analyse corrects ; erreurs réelles conservées ; 134 tests | Aucun VPS, message ou activation ; livraison et alerte reçue restent à faire |
 | 2026-11-09 | Revue locale de la correction des alertes partielles | Diff contrôlé ; 7 tests ciblés et `make check` avec 134 tests, registres et JavaScript valides | Branche non publiée ; aucun VPS, message ou mécanisme d'alerte activé |
 | 2026-11-09 | L5/R2 CityClub : lecteur extrait dans le paquet | Import historique identique ; champs et erreurs sur fixtures ; `make check` avec 136 tests | Aucun site réel, VPS, base ou comportement fonctionnel modifié |
+| 2026-11-10 | L5/R2 Naftule–Boulimie : deux lecteurs et aides minimales extraits | Imports identiques ; six scénarios ciblés ; `make check` avec 139 tests | Aucun site réel, VPS, base ou comportement fonctionnel modifié |
 
 ## Modèle d’entrée de journal
 

@@ -5,7 +5,9 @@ from unittest.mock import Mock, patch
 from bs4 import BeautifulSoup
 
 from expanded_adapters import parse_folklor, parse_cityclub, parse_naftule, parse_boulimie, parse_mad_ticket, parse_pulloff, collect_grange, collect_lagenda, collect_expanded
+from samstag.collection.adapters.boulimie import parse_boulimie as packaged_parse_boulimie
 from samstag.collection.adapters.cityclub import parse_cityclub as packaged_parse_cityclub
+from samstag.collection.adapters.naftule import parse_naftule as packaged_parse_naftule
 from collection_worker import serve
 
 
@@ -16,6 +18,10 @@ def soup(value):
 class ExpandedReadersTest(unittest.TestCase):
     def test_cityclub_legacy_import_is_the_packaged_adapter(self):
         self.assertIs(parse_cityclub, packaged_parse_cityclub)
+
+    def test_naftule_and_boulimie_legacy_imports_are_packaged_adapters(self):
+        self.assertIs(parse_naftule, packaged_parse_naftule)
+        self.assertIs(parse_boulimie, packaged_parse_boulimie)
 
     def test_pulloff_cross_year_schedule_only_uses_published_weekdays(self):
         page = '<div class="siteorigin-widget-tinymce"><h1>Test</h1><h2>30.12 — 03.01.2027</h2><p>me/je: 20h30</p></div>'
@@ -81,19 +87,71 @@ class ExpandedReadersTest(unittest.TestCase):
             parse_cityclub(soup('<h1>Maintenance</h1>'), 'https://www.cityclubpully.ch/')
 
     def test_naftule_separates_performances_on_same_ticket_page(self):
-        card = '<li data-show="test" data-genres="humour"><span>20H30</span><h3><a href="https://monbillet.ch/events/test">Spectacle</a></h3></li>'
+        card = '''<li data-show="test" data-genres="humour"><span>20H30</span>
+            <h3><a href="https://monbillet.ch/events/test">Spectacle</a></h3>
+            <img src="/images/spectacle.jpg"></li>'''
         page = ''.join('<div data-day-panel data-day="'+day+'">'+card+'</div>' for day in ['2026-11-14','2026-11-15'])
         a,b = parse_naftule(soup(page), 'https://naftule.ch/programme/')
         self.assertNotEqual(a['date'],b['date'])
         self.assertNotIn('source_event_key', a)
+        self.assertEqual(
+            {key: a[key] for key in (
+                'title', 'url', 'evidence_url', 'location', 'municipality',
+                'event_kind', 'category', 'adapter', 'date', 'time',
+                'start_at', 'image',
+            )},
+            {
+                'title': 'Spectacle', 'url': 'https://monbillet.ch/events/test',
+                'evidence_url': 'https://naftule.ch/programme/',
+                'location': 'Pavillon Naftule', 'municipality': 'Lausanne',
+                'event_kind': 'ComedyEvent', 'category': 'Humour',
+                'adapter': 'official-programme-v3', 'date': '2026-11-14',
+                'time': '20:30', 'start_at': '2026-11-14T20:30:00+01:00',
+                'image': 'https://naftule.ch/images/spectacle.jpg',
+            },
+        )
+
+    def test_naftule_keeps_ambiguous_hours_unverified_and_rejects_missing_calendar(self):
+        page = '''<div data-day-panel data-day="2026-11-14"><li data-show="test" data-genres="musique-et-chant">
+            <span>18h</span><span>20h30</span><h3>Deux horaires</h3></li></div>'''
+        [row] = parse_naftule(soup(page), 'https://naftule.ch/programme/')
+        self.assertEqual((row['event_kind'], row['category'], row['time']), ('MusicEvent', 'Musique', ''))
+        self.assertNotIn('start_at', row)
+        with self.assertRaises(ValueError):
+            parse_naftule(soup('<h1>Maintenance</h1>'), 'https://naftule.ch/programme/')
 
     def test_boulimie_uses_only_explicit_weekday_schedule(self):
-        page = '<h1 class="show-artist">Test</h1><div class="show-schedule">4 au 14 novembre 2026</div><div class="normal-text"><h6>Mercredi et jeudi: 19h<br>Vendredi: 20h<br>Samedi: 17h</h6></div>'
+        page = '''<h1 class="show-artist">Artiste</h1><h2 class="show-title">Spectacle</h2>
+            <div class="show-schedule">4 au 14 novembre 2026</div><div class="normal-text">
+            <p>Présentation officielle</p><h6>Mercredi et jeudi: 19h<br>Vendredi: 20h<br>Samedi: 17h</h6></div>'''
         rows = parse_boulimie(soup(page), 'https://theatreboulimie.com/spectacle/test/')
         self.assertEqual([r['date'] for r in rows], ['2026-11-04','2026-11-05','2026-11-06','2026-11-07','2026-11-11','2026-11-12','2026-11-13','2026-11-14'])
         self.assertEqual(rows[0]['time'], '19:00')
+        self.assertEqual(
+            {key: rows[0][key] for key in (
+                'title', 'url', 'evidence_url', 'location', 'municipality',
+                'event_kind', 'category', 'adapter', 'start_at', 'description',
+            )},
+            {
+                'title': 'Artiste — Spectacle',
+                'url': 'https://theatreboulimie.com/spectacle/test/',
+                'evidence_url': 'https://theatreboulimie.com/spectacle/test/',
+                'location': 'Théâtre Boulimie', 'municipality': 'Lausanne',
+                'event_kind': 'ComedyEvent', 'category': 'Humour',
+                'adapter': 'official-programme-v3',
+                'start_at': '2026-11-04T19:00:00+01:00',
+                'description': 'Présentation officielle Mercredi et jeudi: 19h Vendredi: 20h Samedi: 17h',
+            },
+        )
         [row] = parse_boulimie(soup(page.replace('<h6>','Ces soirées n\'ont pas lieu à Boulimie<h6>')), 'https://theatreboulimie.com/spectacle/test/')
         self.assertEqual(row['location'], '')
+
+    def test_boulimie_single_date_and_missing_explicit_hour_stay_in_review(self):
+        page = '''<h1 class="show-artist">Test</h1><div class="show-schedule">14 novembre 2026</div>
+            <div class="normal-text"><p>Horaire non publié</p></div>'''
+        [row] = parse_boulimie(soup(page), 'https://theatreboulimie.com/spectacle/test/')
+        self.assertEqual((row['date'], row['time']), ('', ''))
+        self.assertNotIn('start_at', row)
 
     def test_mad_reads_product_doors_but_rejects_offsite_and_unrelated_footer_time(self):
         page = '<div class="product"><h1 class="product_title">Ticket: Test, Vendredi 16 oct 2026</h1><p>MAD Mainfloor</p><p>Ouverture des portes 23h00</p></div><footer>Autre soirée 21h</footer>'
