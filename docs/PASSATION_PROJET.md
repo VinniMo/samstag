@@ -489,3 +489,11 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - `parse_cityclub` vit dans `samstag/collection/adapters/cityclub.py`. `expanded_adapters.py` le réexporte et son dispatch utilise le même objet, afin de préserver les anciens consommateurs.
 - Fixtures renforcées : tous les champs d'une séance, passage décembre–janvier, identité de billetterie, mois non annoncé ignoré et structure invalide refusée. Trois tests ciblés puis `make check` réussis avec 136 tests, registres et JavaScript valides.
 - Aucun appel au site, aucune collecte réelle, base, interface, VPS, Render ou production modifiés. Prochaine étape autonome : R2 Naftule/Boulimie. Preuve : `docs/audits/REORGANISATION_R2_CITYCLUB_2026-11-09.md`.
+
+
+## 10 novembre 2026 — réorganisation L5/R2 Naftule–Boulimie
+- État de départ propre sur `main` au commit de fusion CityClub `8fa2510`. La correction L4 a été fusionnée auparavant au commit `3708ba5`, mais reste non livrée sur le VPS.
+- `parse_naftule` et `parse_boulimie` vivent dans leurs modules nommés sous `samstag/collection/adapters/`. Les réexports historiques et le dispatch utilisent les mêmes objets.
+- `event_at` et `french_day` sont mutualisés dans `adapters/common.py`; CityClub utilise aussi ce constructeur sans changement de champs.
+- Six tests ciblés couvrent les champs, séances distinctes, heures ambiguës, calendrier absent, plages et jours explicites, hors-les-murs et absence d'heure. `make check` réussit avec 139 tests, registres et JavaScript valides.
+- Aucun appel de source réelle, collecte, base, interface, VPS, Render ou production modifiés. Prochaine étape autonome : R2 Arsenic. Preuve : `docs/audits/REORGANISATION_R2_NAFTULE_BOULIMIE_2026-11-10.md`.

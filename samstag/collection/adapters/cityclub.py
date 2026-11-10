@@ -3,8 +3,9 @@ import re
 from datetime import date
 from urllib.parse import urljoin, urlparse
 
-from bar_adapters import base_event
 from venue_adapters import clock, set_start, text
+
+from .common import event_at
 
 
 def parse_cityclub(soup, url):
@@ -31,10 +32,8 @@ def parse_cityclub(soup, url):
             except ValueError:
                 continue
             target = urljoin(url, session["href"])
-            event = base_event(title, target, url)
-            event.update(location="Cinéma CityClub", municipality="Pully",
-                         event_kind="ScreeningEvent", category="Cinéma",
-                         adapter="official-programme-v3")
+            event = event_at(title, target, url, "Cinéma CityClub", "ScreeningEvent", "Cinéma")
+            event["municipality"] = "Pully"
             set_start(event, day, clock(found[3]))
             event["description"] = text(card, ".description")[:400]
             image = card.select_one("img.localVignette[src]")
