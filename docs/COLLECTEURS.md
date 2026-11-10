@@ -75,7 +75,7 @@ Aucune publication automatique attribuée à ces canaux dans l’instantané.
 
 ## Où modifier et vérifier ?
 
-Le [registre des sources](../data/sources.json) contient les URL et autorisations ; les [lieux](../data/venues.json) et [bars](../data/bars.json) sont des inventaires distincts. `scraper.py` répartit la lecture entre `venue_adapters.py`, `bar_adapters.py`, `hango_adapter.py`, `expanded_adapters.py` et `programme_adapters.py`, avec des lecteurs génériques en complément.
+Le [registre des sources](../data/sources.json) contient les URL et autorisations ; les [lieux](../data/venues.json) et [bars](../data/bars.json) sont des inventaires distincts. `scraper.py` répartit la lecture entre les modules nommés de `samstag/collection/adapters/` et les relais historiques `venue_adapters.py`, `bar_adapters.py`, `hango_adapter.py`, `expanded_adapters.py` et `programme_adapters.py`, avec des lecteurs génériques en complément.
 
 Pour consulter un rapport local sans contacter les sites : `make report`. Pour développer : [guide de développement](DEVELOPPEMENT.md). Pour les constats détaillés : [audit](audits/AUDIT_2026-11-01.md) et [mesures datées](audits/2026-11-01-mesures.json).
 
@@ -83,4 +83,4 @@ La priorité reste de fiabiliser les diagnostics, réparer les sources en panne 
 
 ## Où trouver les lecteurs déjà réorganisés ?
 
-Les lecteurs réorganisés jusqu'à Folklor/MAD se trouvent dans les modules nommés de [samstag/collection/adapters/](../samstag/collection/adapters/). Les imports historiques restent compatibles pendant la migration. Les autres lecteurs restent dans les modules racine. Les bilans sont liés depuis le [plan de réorganisation](PLAN_REORGANISATION_CODE.md). Aucun changement de programme extrait ni livraison en production.
+Les lecteurs réorganisés jusqu'à Docks/Romandie/D! se trouvent dans les modules nommés de [samstag/collection/adapters/](../samstag/collection/adapters/). Les imports historiques restent compatibles pendant la migration. Les autres lecteurs restent dans les modules racine. Les bilans sont liés depuis le [plan de réorganisation](PLAN_REORGANISATION_CODE.md). Aucun changement de programme extrait ni livraison en production.
