@@ -4,7 +4,8 @@ from unittest.mock import Mock, patch
 
 from bs4 import BeautifulSoup
 
-from expanded_adapters import parse_folklor, parse_cityclub, parse_naftule, parse_boulimie, parse_mad_ticket, parse_pulloff, collect_grange, collect_lagenda, collect_expanded
+from expanded_adapters import parse_folklor, parse_cityclub, parse_naftule, parse_boulimie, parse_arsenic, parse_mad_ticket, parse_pulloff, collect_grange, collect_lagenda, collect_expanded
+from samstag.collection.adapters.arsenic import parse_arsenic as packaged_parse_arsenic
 from samstag.collection.adapters.boulimie import parse_boulimie as packaged_parse_boulimie
 from samstag.collection.adapters.cityclub import parse_cityclub as packaged_parse_cityclub
 from samstag.collection.adapters.naftule import parse_naftule as packaged_parse_naftule
@@ -22,6 +23,54 @@ class ExpandedReadersTest(unittest.TestCase):
     def test_naftule_and_boulimie_legacy_imports_are_packaged_adapters(self):
         self.assertIs(parse_naftule, packaged_parse_naftule)
         self.assertIs(parse_boulimie, packaged_parse_boulimie)
+
+    def test_arsenic_legacy_import_is_the_packaged_adapter(self):
+        self.assertIs(parse_arsenic, packaged_parse_arsenic)
+
+    def test_arsenic_preserves_occurrences_nohour_cancellation_and_evidence(self):
+        page = '''<script>var spectacles = [{
+            "auteur": "DJ &amp; Test", "title": "Soirée &amp; amis",
+            "description": "DJ sets &amp; performance", "link": "https://arsenic.ch/spectacle/test",
+            "dates": ["2026-11-10 22:30", "2026-11-11 00:00"], "nohour": ["2026-11-11"],
+            "img": {"src": "https://arsenic.ch/image.jpg"}, "gratuit": 1, "canceled": true
+        }];</script>'''
+        first, second = parse_arsenic(soup(page), 'https://arsenic.ch/')
+        self.assertEqual(
+            {key: first[key] for key in (
+                'title', 'url', 'evidence_url', 'location', 'municipality',
+                'event_kind', 'category', 'adapter', 'date', 'time',
+                'start_at', 'description', 'image', 'price', 'event_status',
+            )},
+            {
+                'title': 'DJ & Test — Soirée & amis',
+                'url': 'https://arsenic.ch/spectacle/test',
+                'evidence_url': 'https://arsenic.ch/', 'location': 'Arsenic',
+                'municipality': 'Lausanne', 'event_kind': 'ClubNight',
+                'category': 'Clubbing', 'adapter': 'official-programme-v3',
+                'date': '2026-11-10', 'time': '22:30',
+                'start_at': '2026-11-10T22:30:00+01:00',
+                'description': 'DJ sets & performance',
+                'image': 'https://arsenic.ch/image.jpg', 'price': 'Gratuit',
+                'event_status': 'EventCancelled',
+            },
+        )
+        self.assertEqual((second['date'], second['time']), ('', ''))
+        self.assertNotIn('start_at', second)
+        self.assertNotIn('source_event_key', first)
+
+    def test_arsenic_classification_and_invalid_calendar(self):
+        page = '''<script>var spectacles = [
+            {"title":"Danse", "description":"Création danse", "dates":["2026-11-12 19:00"]},
+            {"title":"Scène", "description":"Performance théâtre", "dates":["date inconnue"]},
+            "entrée invalide"
+        ];</script>'''
+        dance, theatre = parse_arsenic(soup(page), 'https://arsenic.ch/')
+        self.assertEqual((dance['event_kind'], dance['category']), ('DanceEvent', 'Danse'))
+        self.assertEqual((theatre['event_kind'], theatre['category'], theatre['date']), ('TheaterEvent', 'Théâtre', ''))
+        with self.assertRaises(ValueError):
+            parse_arsenic(soup('<h1>Maintenance</h1>'), 'https://arsenic.ch/')
+        with self.assertRaises(ValueError):
+            parse_arsenic(soup('<script>var spectacles = {}</script>'), 'https://arsenic.ch/')
 
     def test_pulloff_cross_year_schedule_only_uses_published_weekdays(self):
         page = '<div class="siteorigin-widget-tinymce"><h1>Test</h1><h2>30.12 — 03.01.2027</h2><p>me/je: 20h30</p></div>'
