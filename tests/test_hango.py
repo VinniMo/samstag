@@ -5,6 +5,7 @@ from unittest.mock import patch
 from bs4 import BeautifulSoup
 
 from hango_adapter import collect_hango, parse_events
+from samstag.collection.adapters.hango import collect_hango as packaged_collect_hango, parse_events as packaged_parse_events
 from source_registry import VENUES, source_for
 
 SOURCE = source_for("https://etoileblanche.ch/")
@@ -19,6 +20,10 @@ def node(id_, type_, music=True):
 
 
 class HangoTest(unittest.TestCase):
+    def test_legacy_hango_imports_use_packaged_adapters(self):
+        self.assertIs(collect_hango, packaged_collect_hango)
+        self.assertIs(parse_events, packaged_parse_events)
+
     def test_structured_dj_theme_and_afterwork_are_distinguished(self):
         rows = parse_events({"nodes":[node("1","dj set"),node("2","afterwork"),node("3","soirée à thème"),node("4","soirée à thème",False)]}, SOURCE, VENUE, "https://example.test/widget")
         self.assertEqual(rows[0]["event_kind"], "MusicEvent")
@@ -46,7 +51,7 @@ class HangoTest(unittest.TestCase):
         self.assertEqual(len(result.events), 2)
         self.assertEqual(len(calls), 3)
         self.assertTrue(all('/external/' in u for u in calls))
-        with patch('hango_adapter.MAX_PAGES',1):
+        with patch('samstag.collection.adapters.hango.MAX_PAGES', 1):
             limited = collect_hango(SOURCE["canal"],BeautifulSoup(html,"lxml"),fetch)
         self.assertFalse(limited.complete_snapshot)
 

@@ -535,3 +535,9 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - `parse_jumeaux`, `parse_chorus` et `parse_bellevaux` vivent dans leurs modules nommés ; réexports historiques et dispatch utilisent les mêmes objets.
 - Treize scénarios du bloc lecteurs et `make check` réussissent avec 148 tests, registres et JavaScript valides.
 - Aucun appel réel, collecte, base, interface, VPS, Render ou production modifiés. Suite : R2 bars/widgets Hango. Preuve : `docs/audits/REORGANISATION_R2_JUMEAUX_CHORUS_BELLEVAUX_2026-11-10.md`.
+
+
+## 10 novembre 2026 — réorganisation L5/R2 bars–Hango
+- Les calendriers publics des bars et le widget Hango vivent dans leurs modules nommés ; les fichiers racine ne contiennent plus que les imports compatibles.
+- Douze tests ciblés et `make check` réussissent avec 150 tests, registres et JavaScript valides.
+- Aucun appel réel, collecte, base, interface, VPS, Render ou production modifiés. Suite : R2 agrégateurs. Preuve : `docs/audits/REORGANISATION_R2_BARS_HANGO_2026-11-10.md`.

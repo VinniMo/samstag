@@ -11,6 +11,7 @@ import collection_quality as quality
 import db
 import scraper
 from config import config
+from samstag.collection.adapters import bars as packaged_bars
 
 NOW = datetime.fromisoformat("2026-10-16T12:00:00+02:00")
 
@@ -71,6 +72,13 @@ class QualityTest(unittest.TestCase):
 
 
 class AdapterTest(unittest.TestCase):
+    def test_legacy_bar_imports_use_packaged_adapters(self):
+        self.assertIs(bar_adapters.base_event, packaged_bars.base_event)
+        self.assertIs(bar_adapters.tacos_array, packaged_bars.tacos_array)
+        self.assertIs(bar_adapters.parse_tacos, packaged_bars.parse_tacos)
+        self.assertIs(bar_adapters.parse_captain, packaged_bars.parse_captain)
+        self.assertIs(bar_adapters.collect_bar, packaged_bars.collect_bar)
+
     def test_tacos_preserves_explicit_atypical_source_time(self):
         raw = "window.TACOS_EVENTS=[{date:'2026-11-18',time:'20:26',title:'Test synthétique',tag:'Impro'}];"
         [row] = bar_adapters.parse_tacos(raw, "https://tacos-bar.ch/events", "https://tacos-bar.ch/events-data.js")

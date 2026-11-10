@@ -67,4 +67,4 @@ Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLA
 
 ## Réorganisation locale — 10 novembre 2026
 
-R0 et R1 sont terminés ; R2 avance par lecteur. Les adaptateurs traités jusqu'à Jumeaux/Chorus/Bellevaux sont dans `samstag/collection/adapters/`, avec anciens imports compatibles. Les autres modules restent à la racine. Le dernier sous-lot conserve visibilité, portes, années publiées et séances distinctes ; 148 tests passent. Suite : R2, bars/widgets Hango. Aucun changement serveur. Voir les bilans liés depuis le [plan de réorganisation](PLAN_REORGANISATION_CODE.md).
+R0 et R1 sont terminés ; R2 avance par lecteur. Les adaptateurs traités jusqu'aux bars/widgets Hango sont dans `samstag/collection/adapters/`, avec anciens imports compatibles. Les autres modules restent à la racine. Le dernier sous-lot conserve horaires, incertitudes, attribution, identité et pagination ; 150 tests passent. Suite : R2, agrégateurs. Aucun changement serveur. Voir les bilans liés depuis le [plan de réorganisation](PLAN_REORGANISATION_CODE.md).
