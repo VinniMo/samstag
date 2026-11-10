@@ -67,4 +67,4 @@ Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLA
 
 ## Réorganisation locale — 10 novembre 2026
 
-R0 et R1 sont terminés ; R2 avance par lecteur. Vidy, CityClub, Naftule et Boulimie sont dans `samstag/collection/adapters/`, avec anciens imports compatibles. Les autres modules restent à la racine. Le dernier sous-lot conserve les champs, horaires explicites et refus sur fixtures ; 139 tests passent. Suite : R2, Arsenic. Aucun changement serveur. Voir les bilans [R0–R1](audits/REORGANISATION_R0_R1_2026-11-02.md), [CityClub](audits/REORGANISATION_R2_CITYCLUB_2026-11-09.md) et [Naftule/Boulimie](audits/REORGANISATION_R2_NAFTULE_BOULIMIE_2026-11-10.md).
+R0 et R1 sont terminés ; R2 avance par lecteur. Vidy, CityClub, Naftule, Boulimie et Arsenic sont dans `samstag/collection/adapters/`, avec anciens imports compatibles. Les autres modules restent à la racine. Le dernier sous-lot conserve dates, `nohour`, annulations, preuves et classifications sur fixtures ; 142 tests passent. Suite : R2, Grange/Pulloff. Aucun changement serveur. Voir les bilans liés depuis le [plan de réorganisation](PLAN_REORGANISATION_CODE.md).

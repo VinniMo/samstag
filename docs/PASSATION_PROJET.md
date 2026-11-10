@@ -497,3 +497,10 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - `event_at` et `french_day` sont mutualisés dans `adapters/common.py`; CityClub utilise aussi ce constructeur sans changement de champs.
 - Six tests ciblés couvrent les champs, séances distinctes, heures ambiguës, calendrier absent, plages et jours explicites, hors-les-murs et absence d'heure. `make check` réussit avec 139 tests, registres et JavaScript valides.
 - Aucun appel de source réelle, collecte, base, interface, VPS, Render ou production modifiés. Prochaine étape autonome : R2 Arsenic. Preuve : `docs/audits/REORGANISATION_R2_NAFTULE_BOULIMIE_2026-11-10.md`.
+
+
+## 10 novembre 2026 — réorganisation L5/R2 Arsenic
+- Branche `codex/l5-r2-arsenic` créée depuis `main` après la fusion de la PR Naftule/Boulimie no 16 au commit `b9dd446`.
+- `parse_arsenic` vit dans `samstag/collection/adapters/arsenic.py`; l'ancien import et le dispatch utilisent le même objet.
+- Trois tests ciblés figent occurrence horodatée, `nohour`, annulation, gratuité, preuves, classifications et formats invalides. `make check` réussit avec 142 tests, registres et JavaScript valides.
+- Aucun site réel, collecte, base, interface, VPS, Render ou production modifiés. Prochaine étape autonome : R2 Grange/Pulloff. Preuve : `docs/audits/REORGANISATION_R2_ARSENIC_2026-11-10.md`.

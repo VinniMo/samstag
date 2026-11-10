@@ -1,12 +1,12 @@
 # Plan d’action — réorganisation du code Samstag
 
-**Préparé le 1er novembre 2026, actualisé le 10 novembre. Statut : R0, R1 et les sous-lots R2 CityClub puis Naftule/Boulimie sont terminés localement ; R2 continue par petits lots.**
+**Préparé le 1er novembre 2026, actualisé le 10 novembre. Statut : R0, R1 et les sous-lots R2 jusqu'à Arsenic sont terminés localement ; R2 continue par petits lots.**
 
 ## Objectif pour vous
 
 Pouvoir retrouver un collecteur par son nom, distinguer le site des règles de publication et comprendre où intervenir. Le [guide du dossier](SE_REPERER.md) restera l’entrée simple ; ce document décrit les travaux techniques du troisième point.
 
-Les deux premières étapes de rangement sont faites : documentation accessible et archives regroupées. La plupart du code Python reste à la racine ; les lecteurs Vidy, CityClub, Naftule et Boulimie sont maintenant dans `samstag/collection/adapters/`.
+Les deux premières étapes de rangement sont faites : documentation accessible et archives regroupées. La plupart du code Python reste à la racine ; les lecteurs Vidy, CityClub, Naftule, Boulimie et Arsenic sont maintenant dans `samstag/collection/adapters/`.
 
 ## Périmètre et ordre de départ
 
@@ -111,11 +111,11 @@ R1 à R6 ne nécessitent aucune modification du VPS. Pour R7, sauvegarder code e
 | Plan | Prêt | Document relu, liens locaux vérifiés |
 | R0 | Terminé localement | [Bilan R0–R1](audits/REORGANISATION_R0_R1_2026-11-02.md) |
 | R1 | Terminé localement | 109 tests ; équivalence Vidy avant/après |
-| R2 | En cours, par petits lots | [CityClub](audits/REORGANISATION_R2_CITYCLUB_2026-11-09.md) et [Naftule/Boulimie](audits/REORGANISATION_R2_NAFTULE_BOULIMIE_2026-11-10.md) terminés localement |
+| R2 | En cours, par petits lots | [CityClub](audits/REORGANISATION_R2_CITYCLUB_2026-11-09.md), [Naftule/Boulimie](audits/REORGANISATION_R2_NAFTULE_BOULIMIE_2026-11-10.md) et [Arsenic](audits/REORGANISATION_R2_ARSENIC_2026-11-10.md) terminés localement |
 | R3 | À faire | — |
 | R4 | À faire | — |
 | R5 | À faire | — |
 | R6 | À faire | — |
 | R7 | À faire, autorisation requise | — |
 
-**Prochaine action : R2, sous-lot Arsenic.** R0, le pilote Vidy, CityClub et Naftule/Boulimie sont terminés localement. Chaque prochaine séance reste bornée à un lecteur ou un petit lot explicite et ne mélange pas déplacement et réparation fonctionnelle.
+**Prochaine action : R2, sous-lot Grange/Pulloff.** Les sous-lots précédents jusqu'à Arsenic sont terminés localement. Chaque prochaine séance reste bornée à un lecteur ou un petit lot explicite et ne mélange pas déplacement et réparation fonctionnelle.
