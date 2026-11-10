@@ -504,3 +504,10 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - `parse_arsenic` vit dans `samstag/collection/adapters/arsenic.py`; l'ancien import et le dispatch utilisent le même objet.
 - Trois tests ciblés figent occurrence horodatée, `nohour`, annulation, gratuité, preuves, classifications et formats invalides. `make check` réussit avec 142 tests, registres et JavaScript valides.
 - Aucun site réel, collecte, base, interface, VPS, Render ou production modifiés. Prochaine étape autonome : R2 Grange/Pulloff. Preuve : `docs/audits/REORGANISATION_R2_ARSENIC_2026-11-10.md`.
+
+
+## 10 novembre 2026 — réorganisation L5/R2 Grange–Pulloff
+- Branche `codex/l5-r2-grange-pulloff` créée depuis `main` après fusion de la PR Arsenic no 17 au commit `89c6e66`.
+- `collect_grange` et `parse_pulloff` vivent dans leurs modules nommés ; anciens imports et dispatch conservent les mêmes objets. Le test de limite Grange vise désormais la configuration du module consommateur.
+- Sept scénarios ciblés puis `make check` réussissent avec 143 tests, registres et JavaScript valides.
+- Aucun appel réel, collecte, base, interface, VPS, Render ou production modifiés. Prochaine étape autonome : R2 Folklor/MAD. Preuve : `docs/audits/REORGANISATION_R2_GRANGE_PULLOFF_2026-11-10.md`.

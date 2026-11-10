@@ -9,6 +9,8 @@ from samstag.collection.adapters.arsenic import parse_arsenic as packaged_parse_
 from samstag.collection.adapters.boulimie import parse_boulimie as packaged_parse_boulimie
 from samstag.collection.adapters.cityclub import parse_cityclub as packaged_parse_cityclub
 from samstag.collection.adapters.naftule import parse_naftule as packaged_parse_naftule
+from samstag.collection.adapters.grange import collect_grange as packaged_collect_grange
+from samstag.collection.adapters.pulloff import parse_pulloff as packaged_parse_pulloff
 from collection_worker import serve
 
 
@@ -26,6 +28,10 @@ class ExpandedReadersTest(unittest.TestCase):
 
     def test_arsenic_legacy_import_is_the_packaged_adapter(self):
         self.assertIs(parse_arsenic, packaged_parse_arsenic)
+
+    def test_grange_and_pulloff_legacy_imports_are_packaged_adapters(self):
+        self.assertIs(collect_grange, packaged_collect_grange)
+        self.assertIs(parse_pulloff, packaged_parse_pulloff)
 
     def test_arsenic_preserves_occurrences_nohour_cancellation_and_evidence(self):
         page = '''<script>var spectacles = [{
@@ -80,7 +86,7 @@ class ExpandedReadersTest(unittest.TestCase):
     def test_grange_music_and_truncation(self):
         card = '<a class="card" href="/test"><div class="event-card-title">Concert</div><div class="list-inline">Musique</div><div class="card-footer">16.10.2026</div></a>'
         detail = '<div class="event-right-content"><div class="border-bottom"><p>Ve 16.10, 20h30</p></div><div class="border-bottom"><p>&gt; La Grange</p></div></div>'
-        with patch('expanded_adapters.config', MAX_DETAIL_PAGES=1):
+        with patch('samstag.collection.adapters.grange.config', MAX_DETAIL_PAGES=1):
             result = collect_grange(soup(card*2), 'https://grange-unil.ch/', Mock(return_value=detail))
         self.assertTrue(result.partial)
         self.assertEqual(result.events[0]['category'], 'Musique')
