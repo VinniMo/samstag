@@ -2,9 +2,7 @@
 import json
 import re
 from datetime import date, datetime, time, timedelta, timezone
-from urllib.parse import urljoin, urlparse
-
-from bs4 import BeautifulSoup
+from urllib.parse import urlparse
 
 from agenda import TZ, fold
 from bar_adapters import base_event
@@ -53,54 +51,9 @@ def metadata(soup, name):
 from samstag.collection.adapters.docks import parse_docks
 from samstag.collection.adapters.dclub import collect_dclub, parse_dclub
 from samstag.collection.adapters.docks_romandie import collect_docks_romandie
-
-
-def parse_jumeaux(soup, url):
-    events = []
-    for original in soup.select(".nextevent"):
-        card = BeautifulSoup(str(original), "lxml")
-        for node in card.select(".w-condition-invisible, .w-dyn-bind-empty, [hidden]"):
-            node.decompose()
-        title = text(card, ".event__title")
-        if not title:
-            continue
-        link = card.select_one('a[href*="/evenements/"]')
-        detail_url = urljoin(url, link["href"]) if link else url
-        event = base_event(title, detail_url, url)
-        event.update(location="Jumeaux Jazz Club", municipality="Lausanne", event_kind="MusicEvent",
-                     category="Musique", adapter="jumeaux-v1")
-        if link:
-            event["source_event_key"] = detail_url
-        day = dotted_day(text(card, ".concert__date"))
-        if day:
-            event["date"] = day.isoformat()
-        for detail in card.select(".concert__detail"):
-            content = detail.get_text(" ", strip=True)
-            if content.startswith("Portes"):
-                match = re.search(r"Concert\s+(\d{1,2}[hH:]\d{0,2})\b", content)
-                set_start(event, day, clock(match[1]) if match else None)
-                opening = re.search(r"Portes\s+(\d{1,2}[hH:]\d{0,2})\b", content)
-                if opening:
-                    hour = clock(opening[1]); event["doors_time"] = hour.strftime("%H:%M") if hour else ""
-            elif content.startswith("Tarif normal"):
-                match = re.search(r"Tarif normal\s+(\d+(?:[.,]\d+)?)\s+CHF", content)
-                if match:
-                    event["price"] = "CHF " + match[1]
-        visible = card.get_text(" ", strip=True)
-        alerts = " ".join(n.get_text(" ", strip=True) for n in card.select(".nextevent__alert"))
-        if "annule" in fold(alerts):
-            event["event_status"] = "EventCancelled"
-        if "complet" in fold(alerts):
-            event["availability"] = "sold_out"
-        if any(n.get_text(" ", strip=True) == "Entrée Libre" for n in card.select(".event__number")):
-            event["price"] = "Gratuit"
-        event["description"] = " ".join(filter(None, [text(card, ".concert__desc"), text(card, ".concert__desc--rich"), text(card, ".event__band__style")]))[:400]
-        if "stand up" in fold(visible):
-            event.update(event_kind="ComedyEvent", category="Humour")
-        image = card.select_one("img[src]")
-        event["image"] = urljoin(url, image["src"]) if image else ""
-        events.append(event)
-    return events
+from samstag.collection.adapters.jumeaux import parse_jumeaux
+from samstag.collection.adapters.chorus import parse_chorus
+from samstag.collection.adapters.bellevaux import parse_bellevaux
 
 
 def parse_tourisme(soup, url):
@@ -150,88 +103,6 @@ def parse_tourisme(soup, url):
                                 end = datetime.combine(day+timedelta(days=1), time(int(value[:2]), int(value[2:])), TZ)
                         event.update(end_at=end.isoformat(), end_date=end.date().isoformat())
     return event
-
-
-def parse_chorus(soup, url):
-    events = []
-    for section in soup.select("section.menu_page"):
-        period = re.search(r"PROGRAMME\s+(\w+)\s+(\d{4})", fold(text(section, ".section_title")), re.I)
-        if not period or period[1] not in MONTHS:
-            continue
-        month, year = MONTHS[period[1]], int(period[2])
-        for card in section.select(".our_event_list"):
-            link = card.select_one(".eventtexttitle a[href]")
-            if not link:
-                continue
-            event = base_event(link.get_text(" ", strip=True), urljoin(url, link["href"]), url)
-            event.update(location="Chorus Jazz Club", municipality="Lausanne", event_kind="MusicEvent",
-                         category="Musique", adapter="chorus-v1", source_event_key=event["url"])
-            match = re.match(r"(\d{1,2})\s+(\w+)", fold(text(card, ".day_month")))
-            # Year and month are explicitly attached to this programme section.
-            if match and period[1].startswith(match[2]):
-                try:
-                    set_start(event, date(year,month,int(match[1])), clock(text(card,".event_time")))
-                except ValueError:
-                    pass
-            event["description"] = text(card, ".event_descbx")[:400]
-            price = text(card, ".event_location")
-            if "entree libre" in fold(price):
-                event["price"] = "Entrée libre"
-            else:
-                amount = re.search(r"\d+(?:[.,]\d+)?\.-", price)
-                if amount:
-                    event["price"] = amount[0]
-            if fold(text(card, ".event_buyticket")) == "complet":
-                event["availability"] = "sold_out"
-            image = card.select_one(".eventthumb img[src]")
-            event["image"] = urljoin(url, image["src"]) if image else ""
-            events.append(event)
-    return events
-
-
-def parse_bellevaux(soup, url):
-    events = []
-    for card in soup.select(".block-default"):
-        link = card.select_one(".block-default-header a[href]")
-        if not link:
-            continue
-        detail = urljoin(url, link["href"])
-        if urlparse(detail).hostname != urlparse(url).hostname:
-            continue
-        period = re.match(r"^/(\d{2})-(\d{2})-(\d{2})-(\d{2})-(\d{4})/", urlparse(detail).path)
-        if not period:
-            continue
-        try:
-            first = date(int(period[5]), int(period[2]), int(period[1]))
-            last = date(int(period[5]), int(period[4]), int(period[3]))
-            if not timedelta(0) <= last-first <= timedelta(days=7):
-                continue  # ambiguous year boundary, not normalized by guessing
-        except ValueError:
-            continue
-        schedule = fold(text(card, ".block-default-overtitle"))
-        sessions = [(int(m[1]),int(m[2]),m[3]) for m in re.finditer(r"(\d{1,2})\.(\d{1,2})\s+a\s+(\d{1,2}:\d{2})",schedule)]
-        for match in re.finditer(r"(\d{1,2})\s+(\w+)\s+a\s+(\d{1,2}:\d{2})",schedule):
-            if match[2] in MONTHS:
-                sessions.append((int(match[1]),MONTHS[match[2]],match[3]))
-        for day_number, month, hour in sessions:
-            try:
-                day = date(first.year, month, day_number)
-            except ValueError:
-                continue
-            if not first <= day <= last:
-                continue
-            event = base_event(text(card, "h3"), detail, url)
-            if not event["title"]:
-                continue
-            event.update(location="Cinéma Bellevaux", municipality="Lausanne", event_kind="ScreeningEvent",
-                         category="Cinéma", adapter="bellevaux-v1", series_id=detail,
-                         date_basis="explicit programme-week URL + published session day/month")
-            set_start(event, day, clock(hour))
-            event["description"] = text(card, ".visible-xs")[:400]
-            image = card.select_one(".block-default-img img[src]")
-            event["image"] = urljoin(url, image["src"]) if image else ""
-            events.append(event)
-    return events
 
 
 def collect_venue(url, soup, fetch):

@@ -529,3 +529,9 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Les lecteurs Docks et D!, ainsi que le parcours de détails Docks/Romandie, vivent dans leurs modules nommés ; réexports historiques et dispatch utilisent les mêmes objets.
 - Seize scénarios ciblés et `make check` réussissent avec 147 tests, registres et JavaScript valides.
 - Aucun appel réel, collecte, base, interface, VPS, Render ou production modifiés. Suite : R2 Jumeaux/Chorus/Bellevaux. Preuve : `docs/audits/REORGANISATION_R2_DOCKS_ROMANDIE_DCLUB_2026-11-10.md`.
+
+
+## 10 novembre 2026 — réorganisation L5/R2 Jumeaux–Chorus–Bellevaux
+- `parse_jumeaux`, `parse_chorus` et `parse_bellevaux` vivent dans leurs modules nommés ; réexports historiques et dispatch utilisent les mêmes objets.
+- Treize scénarios du bloc lecteurs et `make check` réussissent avec 148 tests, registres et JavaScript valides.
+- Aucun appel réel, collecte, base, interface, VPS, Render ou production modifiés. Suite : R2 bars/widgets Hango. Preuve : `docs/audits/REORGANISATION_R2_JUMEAUX_CHORUS_BELLEVAUX_2026-11-10.md`.
