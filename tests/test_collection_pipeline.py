@@ -19,6 +19,7 @@ from samstag.collection.adapters.docks_romandie import collect_docks_romandie
 from samstag.collection.adapters.bellevaux import parse_bellevaux as packaged_parse_bellevaux
 from samstag.collection.adapters.chorus import parse_chorus as packaged_parse_chorus
 from samstag.collection.adapters.jumeaux import parse_jumeaux as packaged_parse_jumeaux
+from samstag.collection.adapters.tourisme import parse_tourisme as packaged_parse_tourisme
 from tests.test_bar_collection import event, NOW
 
 
@@ -27,6 +28,9 @@ def soup(html):
 
 
 class ReaderTest(unittest.TestCase):
+    def test_tourisme_legacy_import_uses_packaged_adapter(self):
+        self.assertIs(parse_tourisme, packaged_parse_tourisme)
+
     def test_jumeaux_chorus_bellevaux_legacy_imports_use_packaged_adapters(self):
         self.assertIs(parse_jumeaux, packaged_parse_jumeaux)
         self.assertIs(parse_chorus, packaged_parse_chorus)

@@ -1,6 +1,6 @@
 # Plan d’action — réorganisation du code Samstag
 
-**Préparé le 1er novembre 2026, actualisé le 10 novembre. Statut : R0, R1 et les sous-lots R2 jusqu'aux bars/widgets Hango sont terminés localement ; R2 continue avec les agrégateurs.**
+**Préparé le 1er novembre 2026, actualisé le 10 novembre. Statut : R0, R1 et les sous-lots R2 jusqu'aux agrégateurs sont terminés localement ; R2 finit les lecteurs officiels résiduels La Brèche/Oblò.**
 
 ## Objectif pour vous
 
@@ -111,11 +111,11 @@ R1 à R6 ne nécessitent aucune modification du VPS. Pour R7, sauvegarder code e
 | Plan | Prêt | Document relu, liens locaux vérifiés |
 | R0 | Terminé localement | [Bilan R0–R1](audits/REORGANISATION_R0_R1_2026-11-02.md) |
 | R1 | Terminé localement | 109 tests ; équivalence Vidy avant/après |
-| R2 | En cours, par petits lots | Sous-lots jusqu'aux [bars/widgets Hango](audits/REORGANISATION_R2_BARS_HANGO_2026-11-10.md) terminés localement |
+| R2 | En cours, par petits lots | Sous-lots jusqu'aux [agrégateurs](audits/REORGANISATION_R2_AGREGATEURS_2026-11-10.md) terminés localement ; La Brèche/Oblò restent à extraire |
 | R3 | À faire | — |
 | R4 | À faire | — |
 | R5 | À faire | — |
 | R6 | À faire | — |
 | R7 | À faire, autorisation requise | — |
 
-**Prochaine action : R2, sous-lot agrégateurs.** Les sous-lots précédents jusqu'aux bars/widgets Hango sont terminés localement. Chaque prochaine séance reste bornée à un lecteur ou un petit lot explicite et ne mélange pas déplacement et réparation fonctionnelle.
+**Prochaine action : R2, lecteurs officiels résiduels La Brèche/Oblò.** Les sous-lots prévus jusqu'aux agrégateurs sont terminés localement. Ce dernier déplacement explicite clôt R2 avant R3, sans réparation fonctionnelle.
