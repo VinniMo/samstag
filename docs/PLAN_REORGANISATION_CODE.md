@@ -1,12 +1,12 @@
 # Plan d’action — réorganisation du code Samstag
 
-**Préparé le 1er novembre 2026, actualisé le 10 novembre. Statut : R0, R1 et les sous-lots R2 jusqu'aux agrégateurs sont terminés localement ; R2 finit les lecteurs officiels résiduels La Brèche/Oblò.**
+**Préparé le 1er novembre 2026, actualisé le 16 novembre. Statut : R0 à R2 fusionnés ; R3 validé localement.**
 
 ## Objectif pour vous
 
 Pouvoir retrouver un collecteur par son nom, distinguer le site des règles de publication et comprendre où intervenir. Le [guide du dossier](SE_REPERER.md) restera l’entrée simple ; ce document décrit les travaux techniques du troisième point.
 
-Les deux premières étapes de rangement sont faites : documentation accessible et archives regroupées. La plupart du code Python reste à la racine ; les lecteurs traités jusqu'à Grange/Pulloff sont maintenant dans `samstag/collection/adapters/`.
+Les deux premières étapes de rangement sont faites : documentation accessible et archives regroupées. La plupart du code Python reste à la racine ; les lecteurs réorganisés de R1 et R2 sont maintenant dans `samstag/collection/adapters/`.
 
 ## Périmètre et ordre de départ
 
@@ -111,11 +111,11 @@ R1 à R6 ne nécessitent aucune modification du VPS. Pour R7, sauvegarder code e
 | Plan | Prêt | Document relu, liens locaux vérifiés |
 | R0 | Terminé localement | [Bilan R0–R1](audits/REORGANISATION_R0_R1_2026-11-02.md) |
 | R1 | Terminé localement | 109 tests ; équivalence Vidy avant/après |
-| R2 | En cours, par petits lots | Sous-lots jusqu'aux [agrégateurs](audits/REORGANISATION_R2_AGREGATEURS_2026-11-10.md) terminés localement ; La Brèche/Oblò restent à extraire |
-| R3 | À faire | — |
+| R2 | Fusionné | La Brèche et Oblò extraits après les [agrégateurs](audits/REORGANISATION_R2_AGREGATEURS_2026-11-10.md) ; PR no 25, 156 tests |
+| R3 | Validé localement | [Lecteurs génériques et outils](audits/REORGANISATION_R3_OUTILS_COLLECTE_2026-11-16.md) extraits ; 158 tests et commandes vérifiées |
 | R4 | À faire | — |
 | R5 | À faire | — |
 | R6 | À faire | — |
 | R7 | À faire, autorisation requise | — |
 
-**Prochaine action : R2, lecteurs officiels résiduels La Brèche/Oblò.** Les sous-lots prévus jusqu'aux agrégateurs sont terminés localement. Ce dernier déplacement explicite clôt R2 avant R3, sans réparation fonctionnelle.
+**Prochaine étape du plan : R4, règles et stockage.**

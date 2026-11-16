@@ -547,3 +547,17 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Lausanne Tourisme et L’Agenda vivent dans leurs modules nommés ; imports historiques et dispatchs utilisent les mêmes objets.
 - Quatre tests ciblés et `make check` réussissent avec 152 tests, registres et JavaScript valides.
 - Aucun appel réel, collecte, base, interface, VPS, Render ou production modifiés. Suite : terminer R2 avec La Brèche/Oblò. Preuve : `docs/audits/REORGANISATION_R2_AGREGATEURS_2026-11-10.md`.
+
+## 16 novembre 2026 — clôture fusionnée L5/R2 La Brèche et Oblò
+
+- `parse_breche` et `parse_oblo` vivent dans `samstag/collection/adapters/`. Les anciens imports et le dispatch utilisent les mêmes fonctions.
+- Quatre tests ciblés vérifient la compatibilité des imports, les horaires de portes et de début, les preuves et la cohérence des horaires Oblò. `make check` réussit avec 156 tests, registres et JavaScript valides.
+- Le commit isolé passe `make check` avec 156 tests. La PR no 25 est fusionnée dans `main` au commit `52efc10`, après `checks` et `e2e` verts. Aucun appel aux sources réelles ni intervention sur le VPS.
+- Suite : publier séparément R3, déjà préparé localement.
+
+## 16 novembre 2026 — R3, outils de collecte
+
+- Lecteurs JSON-LD, iCalendar et HTML dans `samstag/collection/parsers/`. Client HTTP, registre, résultat, orchestration et worker dans `samstag/collection/`.
+- Les relais historiques utilisent les mêmes modules Python et conservent leurs points d’entrée. Les noms de journalisation et la résolution des registres sont préservés.
+- Corps des fonctions et classes comparés à la référence Git et identiques. Deux tests de compatibilité dédiés s'ajoutent aux 156 tests existants ; registres, JavaScript et aides des deux commandes worker sont contrôlés. Aucun appel aux sources réelles ou changement de production.
+- Preuve : `docs/audits/REORGANISATION_R3_OUTILS_COLLECTE_2026-11-16.md`. Le prochain lot de réorganisation est R4.

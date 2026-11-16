@@ -22,10 +22,10 @@ Commencez par le [README principal](../README.md). Pour suivre le projet au quot
 ## Les fichiers techniques, en langage simple
 
 - `app.py` reçoit les demandes du navigateur ; `agenda.py` classe les sorties par période.
-- `scraper.py` organise la collecte ; les fichiers `*_adapters.py` lisent les différents sites.
+- `samstag/collection/runner.py` organise la collecte. Le dossier `adapters/` contient les lecteurs nommés et `parsers/` les lecteurs génériques JSON-LD, iCalendar et HTML.
 - `collection_quality.py` vérifie si une sortie peut être publiée.
-- `db.py` conserve les données ; `source_registry.py` lit les registres de `data/`.
-- `collection_worker.py` répète la collecte ; `run_service.py` supervise le site et ce collecteur.
+- `db.py` conserve les données ; `samstag/collection/registry.py` lit les registres de `data/`.
+- `samstag/collection/worker.py` répète la collecte. La commande `collection_worker.py` reste disponible et `run_service.py` supervise le site et le worker.
 - `feedback.py` et `feedback_cli.py` gèrent les retours des utilisateurs.
 - `PRODUCT.md` décrit le produit ; `DESIGN.md` documente son apparence ; `AGENTS.md` donne les consignes de travail.
 
@@ -79,6 +79,6 @@ Samstag/
 └── .artifacts/           ← résultats temporaires, ignorés par Git
 ```
 
-Les trois étapes conseillées : rendre la documentation lisible, nettoyer seulement ce qui est confirmé inutile, puis réorganiser progressivement le code avec des tests à chaque déplacement. Les deux premières sont le périmètre de cette session ; la troisième reste un chantier distinct.
+Les trois étapes conseillées : rendre la documentation lisible, nettoyer seulement ce qui est confirmé inutile, puis réorganiser progressivement le code avec des tests à chaque déplacement. La réorganisation a atteint R3.
 
-Le [plan d’action de réorganisation du code](PLAN_REORGANISATION_CODE.md) détaille le troisième point : étapes R0 à R7, fichiers à déplacer, tests et livraison séparée. Les groupes prévus jusqu'aux agrégateurs sont déplacés ; R2 se termine avec les deux lecteurs officiels résiduels La Brèche/Oblò.
+Le [plan d’action de réorganisation du code](PLAN_REORGANISATION_CODE.md) détaille le troisième point : étapes R0 à R7, fichiers à déplacer, tests et livraison séparée. R2 s’est terminé avec La Brèche et Oblò. R3 a regroupé les outils de collecte dans le paquet.

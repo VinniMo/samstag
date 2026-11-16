@@ -25,7 +25,7 @@ Au 1er novembre 2026, l’instantané public contrôlé contient 322 événement
 | Couche | Éléments principaux |
 |---|---|
 | Web | Flask, `app.py`, `templates/`, `static/` |
-| Collecte | `samstag/collection/adapters/vidy.py` (premier lecteur réorganisé), `scraper.py`, autres modules `*_adapters.py`, worker et CLI |
+| Collecte | `samstag/collection/adapters/` (lecteurs par source ou format), `scraper.py`, autres modules `*_adapters.py`, worker et CLI |
 | Données | SQLite via `db.py`; registres dans `data/` |
 | Exploitation | VPS Infomaniak, Gunicorn, Nginx, unités systemd documentées dans `deploy/infomaniak/` |
 

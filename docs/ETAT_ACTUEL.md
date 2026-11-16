@@ -65,6 +65,6 @@ L4 a livré son sous-lot applicatif le 2 novembre après sauvegarde et restaurat
 
 Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLAN_IMPLEMENTATION.md). Le statut court se trouve dans [SUIVI_IMPLEMENTATION.md](SUIVI_IMPLEMENTATION.md).
 
-## Réorganisation locale — 10 novembre 2026
+## Réorganisation locale — 16 novembre 2026
 
-R0 et R1 sont terminés ; R2 avance par lecteur. Les adaptateurs traités jusqu'aux agrégateurs sont dans `samstag/collection/adapters/`, avec anciens imports compatibles. Les lecteurs officiels résiduels La Brèche/Oblò restent dans `expanded_adapters.py`. Le dernier sous-lot conserve adresses, occurrences, catégories, régions et pagination ; 152 tests passent. Suite : terminer R2 avec La Brèche/Oblò. Aucun changement serveur. Voir les bilans liés depuis le [plan de réorganisation](PLAN_REORGANISATION_CODE.md).
+R2 est fusionné jusqu'à La Brèche et Oblò par la PR no 25. R3 est validé localement : lecteurs génériques dans `samstag/collection/parsers/`, outils dans `samstag/collection/`, imports et commandes historiques compatibles. `make check` réussit avec 158 tests, registres et JavaScript valides. R4 est la prochaine étape du [plan de réorganisation](PLAN_REORGANISATION_CODE.md).
