@@ -11,7 +11,7 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 | L2 — Diagnostics collecte | Codex | Terminé | Maintenir le tableau lors des évolutions de lecteurs | 114 tests et contrôle MAD ciblé du 2 novembre 2026 |
 | L3 — Qualité et doublons | Codex | Terminé | Maintenir les règles et preuves lors des évolutions | Taco's contrôlé à la source et 119 tests le 2 novembre 2026 |
 | L4 — Exploitation | Codex | En cours | Préparer séparément la livraison VPS de la correction fusionnée ; autorisation requise | PR no 14 fusionnée au commit `3708ba5` le 9 novembre 2026 |
-| L5 — Architecture interne | Codex | R2 en cours localement | R2 : La Brèche/Oblò résiduels | Agrégateurs extraits, 152 tests le 10 novembre 2026 |
+| L5 — Architecture interne | Codex | R2 fusionné, R3 validé localement | Publier R3, puis R4 : règles et stockage | 158 tests le 16 novembre 2026 |
 | L6 — Produit et performance | À attribuer | À faire | Livrer et mesurer la couverture diurne (`L6.1`) | Décision utilisateur du 1er novembre 2026 |
 
 ## En cours
@@ -20,7 +20,8 @@ Ce fichier est le tableau de bord humain du [plan d’implémentation](PLAN_IMPL
 
 ## Prêt à démarrer
 
-- [ ] Terminer R2 avec La Brèche/Oblò, sans réparation fonctionnelle ni appel réel.
+- [x] Terminer R2 avec La Brèche et Oblò sur fixtures.
+- [x] Extraire les lecteurs génériques et les outils de collecte R3.
 
 ## Bloqué ou soumis à décision
 
