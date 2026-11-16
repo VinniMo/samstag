@@ -6,6 +6,7 @@ import unittest
 from datetime import date, datetime
 
 import agenda
+from samstag.domain import agenda as domain_agenda
 from seed_data import build_demo_events
 
 MONDAY = date(2026, 10, 12)
@@ -22,6 +23,9 @@ def ids(programme, key):
 
 
 class ProgrammeTest(unittest.TestCase):
+    def test_legacy_import_shares_the_domain_module_state(self):
+        self.assertIs(agenda, domain_agenda)
+
     def test_past_events_are_dropped_using_end_date(self):
         p = agenda.build_programme([
             evt("past", "2026-10-11"),

@@ -1,6 +1,6 @@
 # Plan d’action — réorganisation du code Samstag
 
-**Préparé le 1er novembre 2026, actualisé le 16 novembre. Statut : R0 à R2 fusionnés ; R3 validé localement.**
+**Préparé le 1er novembre 2026, actualisé le 16 novembre. Statut : R0 à R3 fusionnés ; R4 commence par les règles de programme.**
 
 ## Objectif pour vous
 
@@ -112,10 +112,10 @@ R1 à R6 ne nécessitent aucune modification du VPS. Pour R7, sauvegarder code e
 | R0 | Terminé localement | [Bilan R0–R1](audits/REORGANISATION_R0_R1_2026-11-02.md) |
 | R1 | Terminé localement | 109 tests ; équivalence Vidy avant/après |
 | R2 | Fusionné | La Brèche et Oblò extraits après les [agrégateurs](audits/REORGANISATION_R2_AGREGATEURS_2026-11-10.md) ; PR no 25, 156 tests |
-| R3 | Validé localement | [Lecteurs génériques et outils](audits/REORGANISATION_R3_OUTILS_COLLECTE_2026-11-16.md) extraits ; 158 tests et commandes vérifiées |
-| R4 | À faire | — |
+| R3 | Fusionné | [Lecteurs génériques et outils](audits/REORGANISATION_R3_OUTILS_COLLECTE_2026-11-16.md) extraits ; PR no 26 |
+| R4 | En cours localement | [Règles de programme](audits/REORGANISATION_R4_AGENDA_2026-11-16.md) extraites ; 159 tests |
 | R5 | À faire | — |
 | R6 | À faire | — |
 | R7 | À faire, autorisation requise | — |
 
-**Prochaine étape du plan : R4, règles et stockage.**
+**Prochaine étape du plan : terminer R4 avec les règles de qualité puis le stockage SQLite, en lots séparés.**

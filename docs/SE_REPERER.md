@@ -21,7 +21,7 @@ Commencez par le [README principal](../README.md). Pour suivre le projet au quot
 
 ## Les fichiers techniques, en langage simple
 
-- `app.py` reçoit les demandes du navigateur ; `agenda.py` classe les sorties par période.
+- `app.py` reçoit les demandes du navigateur ; `samstag/domain/agenda.py` classe les sorties par période, avec `agenda.py` comme import historique compatible.
 - `samstag/collection/runner.py` organise la collecte. Le dossier `adapters/` contient les lecteurs nommés et `parsers/` les lecteurs génériques JSON-LD, iCalendar et HTML.
 - `collection_quality.py` vérifie si une sortie peut être publiée.
 - `db.py` conserve les données ; `samstag/collection/registry.py` lit les registres de `data/`.

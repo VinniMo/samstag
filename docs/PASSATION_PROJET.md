@@ -561,3 +561,9 @@ Choix transmis depuis la checklist interactive, sans remarque libre :
 - Les relais historiques utilisent les mêmes modules Python et conservent leurs points d’entrée. Les noms de journalisation et la résolution des registres sont préservés.
 - Corps des fonctions et classes comparés à la référence Git et identiques. Deux tests de compatibilité dédiés s'ajoutent aux 156 tests existants ; registres, JavaScript et aides des deux commandes worker sont contrôlés. Aucun appel aux sources réelles ou changement de production.
 - Preuve : `docs/audits/REORGANISATION_R3_OUTILS_COLLECTE_2026-11-16.md`. Le prochain lot de réorganisation est R4.
+
+## 16 novembre 2026 — R4, règles de programme
+
+- `agenda.py` déplacé dans `samstag/domain/agenda.py` ; le relais historique partage le même état de module et conserve les remplacements d'horloge.
+- Onze tests ciblés, comparaison AST et `make check` réussissent avec 159 tests, registres et JavaScript valides.
+- Aucun appel réel, base, interface, VPS, Render ou production modifiés. Suite : R4 règles de qualité, puis stockage. Preuve : `docs/audits/REORGANISATION_R4_AGENDA_2026-11-16.md`.
