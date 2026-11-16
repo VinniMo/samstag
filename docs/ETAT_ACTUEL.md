@@ -67,4 +67,4 @@ Le détail et les critères de fin se trouvent dans [PLAN_IMPLEMENTATION.md](PLA
 
 ## Réorganisation locale — 16 novembre 2026
 
-R2 est fusionné jusqu'à La Brèche et Oblò par la PR no 25. R3 est validé localement : lecteurs génériques dans `samstag/collection/parsers/`, outils dans `samstag/collection/`, imports et commandes historiques compatibles. `make check` réussit avec 158 tests, registres et JavaScript valides. R4 est la prochaine étape du [plan de réorganisation](PLAN_REORGANISATION_CODE.md).
+R2 et R3 sont fusionnés par les PR no 25 et 26. R4 a commencé localement : les règles de programme vivent dans `samstag/domain/agenda.py` avec import historique compatible. `make check` réussit avec 159 tests, registres et JavaScript valides. Suite : règles de qualité puis stockage SQLite, selon le [plan de réorganisation](PLAN_REORGANISATION_CODE.md).
